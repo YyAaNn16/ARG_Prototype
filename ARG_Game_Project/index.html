@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ARG Prototype</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Inter:wght@400;500;600&family=Courier+Prime&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="top-bar">
+        <span style="font-weight:700; margin-right:20px;"> Finder</span>
+        <span>File</span> <span style="margin-left:15px">Edit</span> <span style="margin-left:auto" id="clock">10:42
+            AM</span>
+    </div>
+
+    <div id="digital-sticky">
+        <div class="sticky-header"></div>
+        <div class="sticky-body">
+            I think<br>I found you.
+        </div>
+    </div>
+
+    <div id="win-chat" class="window" style="width: 340px; height: 550px; top: 50px; left: 50px;">
+        <div class="title-bar">
+            <div class="traffic-lights">
+                <div class="dot close" onclick="closeWindow('win-chat')"></div>
+                <div class="dot min"></div>
+                <div class="dot max"></div>
+            </div>
+            <div class="win-title">WeChat</div>
+        </div>
+        <div class="chat-layout">
+            <div id="chat-list-view" class="contact-list"></div>
+            <div id="chat-detail-view" class="chat-view">
+                <div class="chat-header-bar">
+                    <div class="back-btn" onclick="showChatList()">Chats</div>
+                    <div class="chat-title" id="active-chat-name"
+                        style="flex:1; text-align:center; padding-right:50px;">User</div>
+                </div>
+                <div class="message-container" id="chat-messages"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="win-files" class="window" style="width: 480px; height: 350px; top: 100px; left: 450px;">
+        <div class="title-bar">
+            <div class="traffic-lights">
+                <div class="dot close" onclick="closeWindow('win-files')"></div>
+                <div class="dot min"></div>
+                <div class="dot max"></div>
+            </div>
+            <div class="win-title">My Documents</div>
+        </div>
+        <div class="file-grid">
+            <div class="icon-item"><span class="file-visual">📁</span>
+                <div class="icon-name">Work</div>
+            </div>
+            <div class="icon-item"><span class="file-visual">📁</span>
+                <div class="icon-name">Photos</div>
+            </div>
+            <div class="icon-item"><span class="file-visual">📁</span>
+                <div class="icon-name">Games</div>
+            </div>
+            <div style="width:100%; text-align:center; color:#999; margin-top:50px; width:100%;">(Folder empty...)</div>
+        </div>
+    </div>
+
+    <div id="win-trash" class="window" style="width: 400px; height: 300px; top: 180px; left: 500px;">
+        <div class="title-bar">
+            <div class="traffic-lights">
+                <div class="dot close" onclick="closeWindow('win-trash')"></div>
+                <div class="dot min"></div>
+                <div class="dot max"></div>
+            </div>
+            <div class="win-title">Trash Bin</div>
+        </div>
+        <div style="flex:1; background:#f0f0f0;" class="file-grid">
+            <div style="width:100%; color:#888; font-size:12px;">Items deleted recently:</div>
+            <div class="icon-item" onclick="openWindow('win-preview')">
+                <span class="file-visual">📄</span>
+                <div class="icon-name">Receipt_8823.pdf</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="win-preview" class="window" style="width: 340px; height: 480px; top: 60px; left: 600px; z-index: 200;">
+        <div class="title-bar">
+            <div class="traffic-lights">
+                <div class="dot close" onclick="closeWindow('win-preview')"></div>
+                <div class="dot min"></div>
+                <div class="dot max"></div>
+            </div>
+            <div class="win-title">Preview</div>
+        </div>
+        <div style="background:#333; flex:1; overflow:auto; display:flex; justify-content:center; padding-top:20px;">
+            <div class="receipt-paper">
+                <div style="text-align:center; border-bottom:2px dashed #333; padding-bottom:10px; margin-bottom:10px;">
+                    <h3>RECEIPT</h3>
+                    <p style="font-size:10px">Guangzhou Logistics Center</p>
+                </div>
+                <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:5px;">
+                    <span>Date: 2023-10-01</span>
+                </div>
+                <div
+                    style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:5px; background: yellow; color:black; font-weight:bold;">
+                    <span>TRACKING NO:</span><span>SF-8823</span>
+                </div>
+                <hr style="border-top:1px dashed #ccc; margin:10px 0;">
+                <div style="font-weight:bold; font-size:12px; margin-bottom:5px;">ITEM DESCRIPTION</div>
+                <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:10px;">
+                    <span style="width:70%">Fashion Handbag<br><span style="color:#666; font-size:10px;">(Luxury Style /
+                            Orange)</span></span>
+                    <span>¥800,000.00</span>
+                </div>
+                <div
+                    style="border-top:2px dashed #333; margin-top:20px; padding-top:10px; font-weight:bold; display:flex; justify-content:space-between; font-size:14px;">
+                    <span>TOTAL:</span><span>¥800,000.00</span>
+                </div>
+                <div class="stamp">PAID</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="win-track" class="window" style="width: 360px; height: 500px; top: 90px; left: 150px;">
+        <div class="title-bar">
+            <div class="traffic-lights">
+                <div class="dot close" onclick="closeWindow('win-track')"></div>
+                <div class="dot min"></div>
+                <div class="dot max"></div>
+            </div>
+            <div class="win-title">Global Express</div>
+        </div>
+        <div style="flex:1; background:#f5f7fa; display:flex; flex-direction:column; padding:20px;">
+            <div style="text-align:center; margin-bottom:20px;">
+                <div style="font-size:40px; margin-bottom:5px;">📦</div>
+                <div style="font-weight:800; color:#2c3e50; font-size:18px;">GLOBAL TRACK</div>
+            </div>
+            <div class="tracking-input-box">
+                <label style="font-size:11px; font-weight:bold; color:#555; display:block; margin-bottom:8px;">ENTER
+                    TRACKING NUMBER</label>
+                <div style="display:flex; gap:10px;">
+                    <input type="text" id="tracking-input" placeholder="e.g. SF-1001"
+                        style="flex:1; padding:8px; border:1px solid #ddd; border-radius:4px; outline:none; font-family:monospace; text-transform:uppercase;">
+                    <button onclick="trackPackage()"
+                        style="background:#2c3e50; color:white; border:none; padding:0 15px; border-radius:4px; cursor:pointer; font-weight:bold;">GO</button>
+                </div>
+                <p id="track-error" style="color:#d93025; font-size:10px; margin-top:5px; min-height:12px;"></p>
+            </div>
+
+            <div id="track-result" style="margin-top:20px; flex:1; overflow-y:auto; display:none;">
+                <div
+                    style="background:white; border-left:4px solid #d93025; padding:15px; border-radius:4px; margin-bottom:15px;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                        <span style="font-size:12px; color:#999;">Status:</span>
+                        <span style="font-size:12px; font-weight:bold; color:#27c93f;">DELIVERED</span>
+                    </div>
+                    <div style="font-weight:bold; font-size:16px; margin-bottom:5px;">To: Luna (Bangkok)</div>
+                    <div style="font-size:12px; color:#555;">Item: <span
+                            style="background:#eee; padding:2px 4px; border-radius:2px;">Synthetic Leather Bag</span>
+                    </div>
+                    <div style="font-size:12px; color:#555; margin-top:2px;">Declared Value: <span
+                            style="color:#d93025; font-weight:bold;">¥ 250.00</span></div>
+                </div>
+                <div style="position:relative; padding-left:20px; border-left:2px solid #ddd; margin-left:10px;">
+                    <div class="track-node">
+                        <div style="font-size:11px; color:#999;">Oct 05, 10:00</div>
+                        <div style="font-size:13px;">Delivered to Concierge</div>
+                    </div>
+                    <div class="track-node">
+                        <div style="font-size:11px; color:#999;">Oct 01, 09:30</div>
+                        <div style="font-size:13px; font-weight:bold;">Picked up from Sender</div>
+                        <div style="font-size:11px; color:#d93025;">Origin: Baiyun Wholesale Market, Stall 402</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="win-xhs" class="window" style="width: 380px; height: 550px; top: 80px; left: 400px;">
+        <div class="title-bar">
+            <div class="traffic-lights">
+                <div class="dot close" onclick="closeWindow('win-xhs')"></div>
+                <div class="dot min"></div>
+                <div class="dot max"></div>
+            </div>
+            <div class="win-title">Xiaohongshu</div>
+        </div>
+
+        <div class="xhs-content">
+            <div id="xhs-home" class="xhs-page active">
+                <div class="xhs-header">Explore</div>
+                <div class="xhs-feed">
+                    <div class="xhs-post" onclick="openXhsDetail('luna_post_1')">
+                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=500" alt="food">
+                        <div class="xhs-post-title">Best street food in BKK! 🍜 Found a hidden gem...</div>
+                    </div>
+                    <div class="xhs-post">
+                        <img src="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?q=80&w=500" alt="luxury">
+                        <div class="xhs-post-title">A perfect gift for a perfect soul. #Hermes #Love</div>
+                    </div>
+                    <div class="xhs-post">
+                        <img src="https://images.unsplash.com/photo-1528101702087-0b1798055d75?q=80&w=500" alt="temple">
+                        <div class="xhs-post-title">Praying for our future at the temple today 🙏</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="xhs-msgs" class="xhs-page">
+                <div class="xhs-header">Messages</div>
+                <div class="xhs-msg-list">
+                    <div class="xhs-msg-item">
+                        <div class="xhs-msg-avatar" style="background: #ff9800;"></div>
+                        <div class="xhs-msg-info">
+                            <div class="xhs-msg-top"><span class="xhs-msg-name">Adam</span><span
+                                    class="xhs-msg-time">2:15 PM</span></div>
+                            <div class="xhs-msg-text">Where are you? I'm waiting downstairs.</div>
+                        </div>
+                    </div>
+                    <div class="xhs-msg-item">
+                        <div class="xhs-msg-avatar" style="background: #9c27b0;"></div>
+                        <div class="xhs-msg-info">
+                            <div class="xhs-msg-top"><span class="xhs-msg-name">Travel_Master</span><span
+                                    class="xhs-msg-time">Yesterday</span></div>
+                            <div class="xhs-msg-text">Thanks for following! Hope you enjoy BKK.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="xhs-profile" class="xhs-page">
+                <div class="xhs-header">Me</div>
+                <div class="xhs-profile-header">
+                    <div class="xhs-p-avatar"
+                        style="background: url('https://randomuser.me/api/portraits/women/44.jpg') center/cover;"></div>
+                    <div class="xhs-p-info">
+                        <h3>Luna_In_BKK</h3>
+                        <p>ID: 8832910</p>
+                    </div>
+                </div>
+                <div class="xhs-p-stats">
+                    <div class="xhs-stat"><b>12</b>Posts</div>
+                    <div class="xhs-stat"><b>1.2k</b>Followers</div>
+                    <div class="xhs-stat"><b>892</b>Following</div>
+                </div>
+                <div style="padding: 15px; font-size: 13px; color: #444;">
+                    Exploring the world one spicy dish at a time 🌶️🇹🇭
+                </div>
+            </div>
+
+            <div id="xhs-detail" class="xhs-detail-view">
+                <div class="xhs-detail-close" onclick="closeXhsDetail()">✕</div>
+                <div class="xhs-detail-left">
+                    <img id="xhs-detail-img" src="" alt="Post content">
+                </div>
+                <div class="xhs-detail-right">
+                    <div class="xhs-detail-scroll">
+                        <div class="xhs-author-row">
+                            <div class="xhs-msg-avatar" id="xhs-detail-avatar"
+                                style="width:35px; height:35px; margin-right:0;">
+                            </div>
+                            <div class="xhs-author-info">
+                                <div class="xhs-author-name" id="xhs-detail-author">Author</div>
+                            </div>
+                            <div class="xhs-follow-btn">Follow</div>
+                        </div>
+                        <div class="xhs-detail-content" id="xhs-detail-text">Post text content...</div>
+                        <div class="xhs-detail-date" id="xhs-detail-date">02-28 Germany</div>
+
+                        <div class="xhs-comments-sec">
+                            <div style="font-weight:bold; margin-bottom:15px;" id="xhs-comment-count">18 Comments</div>
+                            <div class="xhs-comment-item">
+                                <div class="xhs-msg-avatar"
+                                    style="width:28px; height:28px; margin-right:0; background:#607d8b;">
+                                </div>
+                                <div class="xhs-comment-right">
+                                    <div class="xhs-comment-user" id="xhs-comment-user-name">Chris</div>
+                                    <div class="xhs-comment-text" id="xhs-comment-content">Check your private messages.
+                                    </div>
+                                    <div class="xhs-comment-meta"><span>03-02 Austria</span><span>Reply</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="xhs-detail-footer">
+                        <div class="xhs-input-fake">Say something...</div>
+                        <div class="xhs-action-icons"><span>❤️</span><span>⭐</span><span>💬</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="xhs-nav">
+                <div class="xhs-nav-item active" onclick="switchXhsTab('xhs-home', this)">
+                    <span class="xhs-nav-icon">🏠</span><span>Home</span>
+                </div>
+                <div class="xhs-nav-item" onclick="switchXhsTab('xhs-msgs', this)">
+                    <span class="xhs-nav-icon">✉️</span><span>Messages</span>
+                </div>
+                <div class="xhs-nav-item" onclick="switchXhsTab('xhs-profile', this)">
+                    <span class="xhs-nav-icon">👤</span><span>Me</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="win-notes" class="window" style="width: 300px; height: 400px; top: 50px; left: 800px;">
+        <div class="title-bar">
+            <div class="traffic-lights">
+                <div class="dot close" onclick="closeWindow('win-notes')"></div>
+                <div class="dot min"></div>
+                <div class="dot max"></div>
+            </div>
+            <div class="win-title">My Notes</div>
+        </div>
+        <div class="window-content">
+            <textarea class="notes-textarea"
+                placeholder="Type your clues here...&#10;- Tracking Numbers?&#10;- Passwords?&#10;- Suspects?"></textarea>
+        </div>
+    </div>
+
+
+    <div id="win-browser" class="window" style="width: 800px; height: 600px; top: 60px; left: 200px;">
+        <div class="title-bar">
+            <div class="traffic-lights">
+                <div class="dot close" onclick="closeWindow('win-browser')"></div>
+                <div class="dot min"></div>
+                <div class="dot max"></div>
+            </div>
+            <div class="browser-tabs">
+                <div class="browser-tab active">New Tab</div>
+            </div>
+        </div>
+    
+        <div class="browser-toolbar">
+            <div class="browser-nav-btn" onclick="navBrowser('home')">🏠</div>
+            <div class="browser-nav-btn">⟳</div>
+            <input type="text" id="browser-url" class="browser-omnibox" value="Search Google or type a URL" readonly>
+            <div class="browser-nav-btn" onclick="navBrowser('history')">⋮</div>
+        </div>
+
+        <div class="browser-bookmarks-bar" id="bookmarks-bar"></div>
+    
+        <div class="browser-content">
+            <div id="browser-home" class="browser-page active">
+                <div class="search-engine-container">
+                    <div class="search-logo">Google</div>
+                    <div class="search-box-wrapper">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="main-search-input" placeholder="Search Google or type a URL"
+                            onkeypress="handleSearchEnter(event)">
+                    </div>
+                    <div class="search-buttons">
+                        <button onclick="executeSearch()">Google Search</button>
+                        <button>I'm Feeling Lucky</button>
+                    </div>
+                </div>
+            </div>
+    
+            <div id="browser-results" class="browser-page">
+                <div class="results-header">
+                    <div class="search-box-wrapper mini">
+                        <input type="text" id="result-search-input" onkeypress="handleSearchEnter(event)">
+                        <span class="search-icon" onclick="executeSearch(true)">🔍</span>
+                    </div>
+                </div>
+                <div class="results-stats" id="results-stats">About 0 results (0.33 seconds)</div>
+                <div id="search-results-list" class="results-list">
+                </div>
+            </div>
+    
+            <div id="browser-history" class="browser-page">
+                <div class="browser-internal-header">History</div>
+                <div class="history-list" id="history-container">
+                </div>
+            </div>
+    
+            <div id="browser-tracking" class="browser-page">
+                <div
+                    style="max-width: 600px; margin: 40px auto; background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e0e0e0;">
+                    <div style="text-align:center; margin-bottom:30px;">
+                        <div style="font-size:48px; margin-bottom:10px;">📦</div>
+                        <div style="font-weight:800; color:#2c3e50; font-size:24px;">GLOBAL EXPRESS TRACKING</div>
+                    </div>
+                    <div class="tracking-input-box" style="box-shadow: none; border: 1px solid #ddd; padding: 20px;">
+                        <label style="font-size:12px; font-weight:bold; color:#555; display:block; margin-bottom:10px;">ENTER
+                            TRACKING NUMBER</label>
+                        <div style="display:flex; gap:10px;">
+                            <input type="text" id="tracking-input-web" placeholder="e.g. SF-1001"
+                                style="flex:1; padding:12px; border:1px solid #ddd; border-radius:4px; outline:none; font-family:monospace; text-transform:uppercase; font-size: 14px;">
+                            <button onclick="trackPackageWeb()"
+                                style="background:#2c3e50; color:white; border:none; padding:0 25px; border-radius:4px; cursor:pointer; font-weight:bold; font-size: 14px;">TRACK</button>
+                        </div>
+                        <p id="track-error-web" style="color:#d93025; font-size:12px; margin-top:8px; min-height:14px;"></p>
+                    </div>
+            
+                    <div id="track-result-web" style="margin-top:30px; display:none;">
+                        <div
+                            style="background:#f8f9fa; border-left:4px solid #d93025; padding:20px; border-radius:4px; margin-bottom:20px;">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                                <span style="font-size:13px; color:#666;">Status:</span>
+                                <span style="font-size:13px; font-weight:bold; color:#27c93f;">DELIVERED</span>
+                            </div>
+                            <div style="font-weight:bold; font-size:18px; margin-bottom:8px;">To: Luna (Bangkok)</div>
+                            <div style="font-size:14px; color:#444;">Item: <span
+                                    style="background:#eee; padding:2px 6px; border-radius:4px;">Synthetic Leather Bag</span></div>
+                            <div style="font-size:14px; color:#444; margin-top:4px;">Declared Value: <span
+                                    style="color:#d93025; font-weight:bold;">¥ 250.00</span></div>
+                        </div>
+                        <div style="position:relative; padding-left:25px; border-left:2px solid #ddd; margin-left:15px;">
+                            <div class="track-node">
+                                <div style="font-size:12px; color:#888;">Oct 05, 10:00</div>
+                                <div style="font-size:14px; font-weight:500;">Delivered to Concierge</div>
+                            </div>
+                            <div class="track-node">
+                                <div style="font-size:12px; color:#888;">Oct 01, 09:30</div>
+                                <div style="font-size:14px; font-weight:bold;">Picked up from Sender</div>
+                                <div style="font-size:12px; color:#d93025; margin-top:2px;">Origin: Baiyun Wholesale Market, Stall
+                                    402</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="dock">
+        <div class="dock-icon icon-chat" data-title="WeChat" onclick="openWindow('win-chat')">💬</div>
+        <div class="dock-icon icon-xhs" data-title="Xiaohongshu" onclick="openWindow('win-xhs')">📕</div>
+        <div class="dock-icon icon-browser" data-title="Browser" onclick="openWindow('win-browser')">🌐</div>
+        <div class="dock-icon icon-files" data-title="Files" onclick="openWindow('win-files')">📂</div>
+        <!-- <div class="dock-icon icon-track" data-title="Tracking" onclick="openWindow('win-track')">📦</div> -->
+        <div class="dock-icon icon-notes" data-title="Notes" onclick="openWindow('win-notes')">📝</div>
+        <div class="dock-icon icon-trash" data-title="Trash" onclick="openWindow('win-trash')">🗑️</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
