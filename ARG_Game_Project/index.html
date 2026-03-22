@@ -11,10 +11,23 @@
 </head>
 
 <body>
+    <div id="intro-screen">
+        <div class="intro-content">
+            <p>You are Adam's cousin.</p>
+            <p>A few days ago, Adam passed away suddenly in Thailand.</p>
+            <p>The police ruled his death an accident, but his family isn't convinced.</p>
+            <p>His mother has given you his laptop, hoping you can find some clues related to the case.</p>
+            <p class="intro-hint">Hint: Try searching his name in the browser to gather information.</p>
+    
+            <button class="start-btn" onclick="startGame()">Start Game</button>
+        </div>
+    </div>
 
     <div id="top-bar">
         <span style="font-weight:700; margin-right:20px;"> Finder</span>
-        <span>File</span> <span style="margin-left:15px">Edit</span> <span style="margin-left:auto" id="clock">10:42
+        <span>File</span> <span style="margin-left:15px">Edit</span> 
+        <span style="margin-left:20px; color:#ff5f56; cursor:pointer; font-size:11px;" onclick="clearSave()">[Reset Save]</span>
+        <span style="margin-left:auto" id="clock">10:42
             AM</span>
     </div>
 
@@ -25,7 +38,7 @@
         </div>
     </div>
 
-    <div id="win-chat" class="window" style="width: 340px; height: 550px; top: 50px; left: 50px;">
+    <div id="win-chat" class="window" style="width: 750px; height: 550px; top: 50px; left: 50px;">
         <div class="title-bar">
             <div class="traffic-lights">
                 <div class="dot close" onclick="closeWindow('win-chat')"></div>
@@ -38,9 +51,8 @@
             <div id="chat-list-view" class="contact-list"></div>
             <div id="chat-detail-view" class="chat-view">
                 <div class="chat-header-bar">
-                    <div class="back-btn" onclick="showChatList()">Chats</div>
                     <div class="chat-title" id="active-chat-name"
-                        style="flex:1; text-align:center; padding-right:50px;">User</div>
+                        style="font-weight:600; font-size:16px; margin-left:15px;">User</div>
                 </div>
                 <div class="message-container" id="chat-messages"></div>
             </div>
@@ -203,9 +215,25 @@
                         <img src="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?q=80&w=500" alt="luxury">
                         <div class="xhs-post-title">A perfect gift for a perfect soul. #Hermes #Love</div>
                     </div>
-                    <div class="xhs-post">
-                        <img src="https://images.unsplash.com/photo-1528101702087-0b1798055d75?q=80&w=500" alt="temple">
-                        <div class="xhs-post-title">Praying for our future at the temple today 🙏</div>
+                    <div class="xhs-post" onclick="openXhsDetail('mock_post_1')">
+                        <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=500" alt="coffee">
+                        <div class="xhs-post-title">Quiet afternoon with a good cup of coffee ☕️</div>
+                    </div>
+                    <div class="xhs-post" onclick="openXhsDetail('mock_post_2')">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=500" alt="beach">
+                        <div class="xhs-post-title">Missing the ocean breeze 🌊 Take me back!</div>
+                    </div>
+                    <div class="xhs-post" onclick="openXhsDetail('mock_post_3')">
+                        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=500" alt="ootd">
+                        <div class="xhs-post-title">OOTD 🖤 Simple but elegant for the weekend.</div>
+                    </div>
+                    <div class="xhs-post" onclick="openXhsDetail('mock_post_4')">
+                        <img src="https://images.unsplash.com/photo-1518998053901-5348d3961a04?q=80&w=500" alt="art">
+                        <div class="xhs-post-title">Amazing exhibition at the modern art gallery ✨</div>
+                    </div>
+                    <div class="xhs-post" onclick="openXhsDetail('mock_post_5')">
+                        <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=500" alt="cat">
+                        <div class="xhs-post-title">My lazy baby sleeping all day 🐱💤 So cute!</div>
                     </div>
                 </div>
             </div>
@@ -213,20 +241,21 @@
             <div id="xhs-msgs" class="xhs-page">
                 <div class="xhs-header">Messages</div>
                 <div class="xhs-msg-list">
-                    <div class="xhs-msg-item">
-                        <div class="xhs-msg-avatar" style="background: #ff9800;"></div>
+                    <div class="xhs-msg-item" onclick="openXhsDm('luna')">
+                        <div class="xhs-msg-avatar"
+                            style="background: url('https://randomuser.me/api/portraits/women/44.jpg') center/cover;"></div>
                         <div class="xhs-msg-info">
-                            <div class="xhs-msg-top"><span class="xhs-msg-name">Adam</span><span
-                                    class="xhs-msg-time">2:15 PM</span></div>
-                            <div class="xhs-msg-text">Where are you? I'm waiting downstairs.</div>
+                            <div class="xhs-msg-top"><span class="xhs-msg-name">Luna_In_BKK</span><span class="xhs-msg-time">10:05
+                                    AM</span></div>
+                            <div class="xhs-msg-text">Did you see my new post? 🥰</div>
                         </div>
                     </div>
-                    <div class="xhs-msg-item">
-                        <div class="xhs-msg-avatar" style="background: #9c27b0;"></div>
+                    <div class="xhs-msg-item" onclick="openXhsDm('ryan')">
+                        <div class="xhs-msg-avatar" style="background: #ccc;"></div>
                         <div class="xhs-msg-info">
-                            <div class="xhs-msg-top"><span class="xhs-msg-name">Travel_Master</span><span
-                                    class="xhs-msg-time">Yesterday</span></div>
-                            <div class="xhs-msg-text">Thanks for following! Hope you enjoy BKK.</div>
+                            <div class="xhs-msg-top"><span class="xhs-msg-name" style="color:#999;">Deactivated Account</span><span
+                                    class="xhs-msg-time">3 years ago</span></div>
+                            <div class="xhs-msg-text">I will never forgive you.</div>
                         </div>
                     </div>
                 </div>
@@ -236,19 +265,19 @@
                 <div class="xhs-header">Me</div>
                 <div class="xhs-profile-header">
                     <div class="xhs-p-avatar"
-                        style="background: url('https://randomuser.me/api/portraits/women/44.jpg') center/cover;"></div>
+                        style="background: url('https://randomuser.me/api/portraits/men/32.jpg') center/cover;"></div>
                     <div class="xhs-p-info">
-                        <h3>Luna_In_BKK</h3>
+                        <h3>Adam.TheOne</h3>
                         <p>ID: 8832910</p>
                     </div>
                 </div>
                 <div class="xhs-p-stats">
-                    <div class="xhs-stat"><b>12</b>Posts</div>
-                    <div class="xhs-stat"><b>1.2k</b>Followers</div>
-                    <div class="xhs-stat"><b>892</b>Following</div>
+                    <div class="xhs-stat"><b>2</b>Posts</div>
+                    <div class="xhs-stat"><b>45</b>Followers</div>
+                    <div class="xhs-stat"><b>128</b>Following</div>
                 </div>
-                <div style="padding: 15px; font-size: 13px; color: #444;">
-                    Exploring the world one spicy dish at a time 🌶️🇹🇭
+                <div style="padding: 15px; font-size: 13px; color: #444; line-height: 1.6;">
+                    Success is a mindset. 🍷✈️<br>Airport Operations @ BKK<br>Life is a journey.
                 </div>
             </div>
 
@@ -270,26 +299,28 @@
                         </div>
                         <div class="xhs-detail-content" id="xhs-detail-text">Post text content...</div>
                         <div class="xhs-detail-date" id="xhs-detail-date">02-28 Germany</div>
-
+                        
                         <div class="xhs-comments-sec">
-                            <div style="font-weight:bold; margin-bottom:15px;" id="xhs-comment-count">18 Comments</div>
-                            <div class="xhs-comment-item">
-                                <div class="xhs-msg-avatar"
-                                    style="width:28px; height:28px; margin-right:0; background:#607d8b;">
-                                </div>
-                                <div class="xhs-comment-right">
-                                    <div class="xhs-comment-user" id="xhs-comment-user-name">Chris</div>
-                                    <div class="xhs-comment-text" id="xhs-comment-content">Check your private messages.
-                                    </div>
-                                    <div class="xhs-comment-meta"><span>03-02 Austria</span><span>Reply</span></div>
-                                </div>
-                            </div>
+                            <div style="font-weight:bold; margin-bottom:15px;" id="xhs-comment-count">0 Comments</div>
+                            <div id="xhs-comments-list"></div>
                         </div>
                     </div>
                     <div class="xhs-detail-footer">
                         <div class="xhs-input-fake">Say something...</div>
                         <div class="xhs-action-icons"><span>❤️</span><span>⭐</span><span>💬</span></div>
                     </div>
+                </div>
+            </div>
+
+            <div id="xhs-dm-view" class="xhs-detail-view" style="flex-direction:column; z-index:20;">
+                <div class="xhs-header" style="text-align: left; padding: 0 15px; display: flex; align-items: center;">
+                    <span style="font-size: 24px; cursor:pointer; margin-right: 15px;"
+                        onclick="document.getElementById('xhs-dm-view').style.display='none'">‹</span>
+                    <span id="xhs-dm-name"
+                        style="flex:1; text-align:center; padding-right: 30px; font-weight: bold; color: #333;">User</span>
+                </div>
+                <div class="message-container" id="xhs-dm-messages"
+                    style="flex:1; overflow-y:auto; padding:15px; background:#f5f5f5;">
                 </div>
             </div>
 
@@ -347,7 +378,7 @@
         <div class="browser-content">
             <div id="browser-home" class="browser-page active">
                 <div class="search-engine-container">
-                    <div class="search-logo">Google</div>
+                    <div class="search-logo">Co</div>
                     <div class="search-box-wrapper">
                         <span class="search-icon">🔍</span>
                         <input type="text" id="main-search-input" placeholder="Search Google or type a URL"
@@ -422,6 +453,39 @@
                                     402</div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="browser-news-adam" class="browser-page">
+                <div class="news-container">
+                    <h1 class="news-title">Tragic Incident: Foreign Guest Found Dead at Wedding Venue</h1>
+                    <div class="news-meta">
+                        <span>Published: Oct 24</span> | <span>Source: Bangkok Daily News</span>
+                    </div>
+
+                    <div class="news-image-placeholder">
+                        [ Image Placeholder ]
+                    </div>
+
+                    <div class="news-content">
+                        <p><strong>BANGKOK</strong> — Local authorities are investigating the sudden and tragic death of a foreign
+                            national early Sunday morning. The deceased, identified as 32-year-old Adam, was found unresponsive at a
+                            local wedding venue.</p>
+
+                        <p>Preliminary reports from the police suggest that the cause of death may be linked to a sudden medical
+                            emergency or a suspected drug overdose. However, investigations are still ongoing as the exact
+                            circumstances remain vague.</p>
+
+                        <p>Sources confirm that Adam had traveled to Thailand accompanied by his girlfriend, <strong>Luna</strong>.
+                            The couple was attending a close friend's wedding when the tragedy occurred.</p>
+
+                        <p>Friends and family are in deep shock. "He was so full of life," a close associate recalled. "Adam always
+                            joked that being born in the <strong>Year of the Monkey</strong> gave him endless energy. We simply
+                            cannot believe he is gone."</p>
+
+                        <p>The authorities have secured the scene and are currently awaiting final toxicology reports to determine
+                            the exact cause of death. The embassy has been notified and is providing assistance to his family.</p>
                     </div>
                 </div>
             </div>
