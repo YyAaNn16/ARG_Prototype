@@ -219,6 +219,24 @@ function switchXhsTab(pageId, navElement) {
     navElement.classList.add('active');
 }
 
+// --- 小红书用户数据库 ---
+const xhsUsers = {
+    "luna": {
+        name: "Luna_99", id: "994021",
+        avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+        bio: "Exploring the world one spicy dish at a time 🌶️",
+        stats: { posts: 12, followers: "1.2k", following: 892 },
+        posts: ["luna_post_1", "luna_post_unboxing"] // 绑定她的帖子
+    },
+    "ryan": {
+        name: "Deactivated Account", id: "Account Disabled",
+        avatar: "", // 留空则显示灰色
+        bio: "This account has been deactivated by the user.",
+        stats: { posts: 4, followers: 128, following: 150 }, // 更新帖子数量为 3
+        posts: ["ryan_post_eng1", "ryan_post_video_clue", "ryan_post_eng2", "ryan_post_1"] // 绑定新设计的工科帖子和视频线索
+    }
+};
+
 // --- 小红书帖子详情数据 (后续可移入 JSON) ---
 const xhsPostData = {
     "luna_post_1": {
@@ -228,7 +246,7 @@ const xhsPostData = {
         date: "10-05 Thailand", comments: "2 Comments",
         commentsList: [
             { user: "Travel_Master", avatar: "https://randomuser.me/api/portraits/men/22.jpg", text: "Looks amazing! Where is this?", time: "10-05" },
-            { user: "Chris", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "Check your private messages.", time: "10-06" } // 关键线索
+            { user: "Chris", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "Check your private messages.", time: "10-06" }
         ]
     },
     "luna_post_unboxing": {
@@ -238,8 +256,40 @@ const xhsPostData = {
         date: "10-01 Thailand", comments: "2 Comments",
         commentsList: [
             { user: "FashionGuru", avatar: "https://randomuser.me/api/portraits/women/12.jpg", text: "Omg so jealous! 😍", time: "10-01" },
-            { user: "Adam.TheOne", avatar: "https://randomuser.me/api/portraits/men/32.jpg", text: "Only the best for my queen. ❤️", time: "10-01" }
+            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Only the best for you. ❤️", time: "10-01" }
         ]
+    },
+
+    // === Ryan 的旧账帖子 (核心剧情线索) ===
+    "ryan_post_1": {
+        img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=500", // 耳机图
+        author: "Deactivated Account", avatar: "",
+        text: "Thanks to my awesome roommate Adam for the early birthday gift! These headphones are sick. He even helped me fix my laptop today. 🙏🎧 \n\n#BestRoommate #CollegeLife",
+        date: "2015-09-12", comments: "1 Comments",
+        commentsList: [{ user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Happy early birthday bro! Enjoy.", time: "2015-09-12" }]
+    },
+    "ryan_post_2": {
+        img: "https://images.unsplash.com/photo-1470229722913-7c090be5f524?q=80&w=500", // 演唱会图
+        author: "Deactivated Account", avatar: "",
+        text: "Finally got the tickets for Jay Chou's concert!! Been waiting for this for years. So hyped! 🎶🎤 \n\n#JayChou #Concert #Music",
+        date: "2015-10-05", comments: "0 Comments", commentsList: []
+    },
+    "ryan_post_3": {
+        img: "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?q=80&w=500", // 桌面图 (用CSS加上了药瓶提示)
+        customImgOverlay: "<div style='position:absolute; top:10px; right:10px; background:rgba(217,48,37,0.9); color:white; padding:4px 8px; font-size:10px; border-radius:4px; font-weight:bold;'>[Clue: A small white pill bottle is visible on the desk corner]</div>",
+        author: "Deactivated Account", avatar: "",
+        text: "Been feeling so tired and dizzy lately... sleeping 12 hours a day and still waking up exhausted. My brain is all foggy. Finals week is getting to me. 😵‍💫📚 Need more coffee.",
+        date: "2015-11-20", comments: "2 Comments",
+        commentsList: [
+            { user: "Chris", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "You should go see a doctor man, that doesn't sound normal.", time: "2015-11-21" },
+            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Take it easy, I'll bring you some hot soup later.", time: "2015-11-21" }
+        ]
+    },
+    "ryan_post_4": {
+        img: "https://images.unsplash.com/photo-1550534731-2e673f4e2f4a?q=80&w=500", // 随便一张电脑打码图
+        author: "Deactivated Account", avatar: "",
+        text: "Late night coding sessions... 💻☕️",
+        date: "2015-12-02", comments: "0 Comments", commentsList: []
     },
     "mock_post_1": {
         img: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=500",
@@ -283,8 +333,63 @@ const xhsPostData = {
         text: "It’s raining outside, but it’s cozy in here. Look at this little fluffball sleeping on my laptop. Guess I'm not working today! 😂🐱💤\n\n#CatLife #PetLover #Cozy",
         date: "10-21 Local",
         commentsList: []
-    }
+    },
+    "ryan_post_eng1": {
+        img: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=500", // 实验室/电路板图片
+        author: "Deactivated Account", avatar: "",
+        text: "AutoCAD just crashed, and I didn't save. Three hours of gear reducer modeling just vanished into thin air. I need a moment. ⚙️📐 \n\n#MechanicalEngineering #FinalsWeek #EngineeringStruggles",
+        date: "2015-11-10", comments: "1 Comments",
+        commentsList: [
+            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Bro, always remember to Ctrl+S. Let's go, I'll buy you a drink.", time: "2015-11-10" }
+        ]
+    },
+    "ryan_post_video_clue": {
+        isVideo: true, // 标记这是一个视频帖子
+        videoSrc: "assets/ryan_desk_pan.mp4", // 这里填入你实际的视频文件路径
+        img: "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?q=80&w=500", // 视频加载失败或在首页列表显示的封面图
+        author: "Deactivated Account", avatar: "",
+        text: "Been feeling so dizzy lately, my brain feels like mush. Sleeping 12 hours a day and still feeling exhausted. Finals week is killing me. 😵‍💫📚 Need more coffee. \n\n#StudyGrind #AllNighter",
+        date: "2015-11-20", comments: "2 Comments",
+        commentsList: [
+            { user: "Chris", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "You should go see a doctor man, that doesn't sound normal.", time: "2015-11-21" },
+            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Take it easy, I'll bring you some hot soup later.", time: "2015-11-21" }
+        ]
+    },
+    "ryan_post_eng2": {
+        img: "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?q=80&w=500", // 熬夜写代码/复习图片
+        author: "Deactivated Account", avatar: "",
+        text: "Who even invented 'Microcomputer Principles and Interface Technology'? Going blind staring at assembly language. 💻🔌 \n\n#EngineeringStudent #EE",
+        date: "2015-12-02", comments: "0 Comments", commentsList: []
+    },
 };
+
+function renderXhsHomeFeed() {
+    const feedContainer = document.querySelector('#xhs-home .xhs-feed');
+    feedContainer.innerHTML = ''; // 清空原本写死的HTML结构
+
+    // 定义你想在首页展示的帖子 ID 数组（可以随意调整顺序或增减）
+    const homePosts = [
+        'luna_post_1', 
+        'luna_post_unboxing', 
+        'mock_post_1', 
+        'mock_post_2', 
+        'mock_post_3', 
+        'mock_post_4', 
+        'mock_post_5'
+    ];
+
+    homePosts.forEach(postId => {
+        const post = xhsPostData[postId];
+        if (post) {
+            feedContainer.innerHTML += `
+                <div class="xhs-post" onclick="openXhsDetail('${postId}')">
+                    <img src="${post.img}" alt="post">
+                    <div class="xhs-post-title">${post.text.substring(0, 35)}...</div>
+                </div>
+            `;
+        }
+    });
+}
 
 // --- 小红书私信对话数据 ---
 const xhsDMs = {
@@ -311,21 +416,37 @@ function openXhsDetail(postId) {
     const data = xhsPostData[postId];
     if (!data) return;
 
+    // 获取图片和视频的 DOM 元素
+    const imgEl = document.getElementById('xhs-detail-img');
+    const vidEl = document.getElementById('xhs-detail-video');
+
+    // === 核心逻辑：判断并切换媒体类型 ===
+    if (data.isVideo) {
+        imgEl.style.display = 'none';
+        vidEl.style.display = 'block';
+        vidEl.src = data.videoSrc; // 加载视频源
+    } else {
+        vidEl.style.display = 'none';
+        vidEl.pause(); // 如果之前在放视频，切换到图片时将其暂停
+        imgEl.style.display = 'block';
+        imgEl.src = data.img; // 加载图片源
+    }
+
     document.getElementById('xhs-detail-img').src = data.img;
     document.getElementById('xhs-detail-author').innerText = data.author;
-    document.getElementById('xhs-detail-avatar').style.background = `url('${data.avatar}') center/cover`;
+    document.getElementById('xhs-detail-avatar').style.background = data.avatar ? `url('${data.avatar}') center/cover` : '#ccc';
     document.getElementById('xhs-detail-text').innerText = data.text;
     document.getElementById('xhs-detail-date').innerText = data.date;
     document.getElementById('xhs-comment-count').innerText = data.comments;
 
-    // 动态渲染评论列表
     const commentsContainer = document.getElementById('xhs-comments-list');
     commentsContainer.innerHTML = '';
     if (data.commentsList && data.commentsList.length > 0) {
         data.commentsList.forEach(c => {
+            const cAvatar = c.avatar ? `url('${c.avatar}') center/cover` : '#ccc';
             commentsContainer.innerHTML += `
                 <div class="xhs-comment-item">
-                    <div class="xhs-msg-avatar" style="width:28px; height:28px; margin-right:0; background:url('${c.avatar}') center/cover;"></div>
+                    <div class="xhs-msg-avatar" style="width:28px; height:28px; margin-right:0; background:${cAvatar};"></div>
                     <div class="xhs-comment-right">
                         <div class="xhs-comment-user">${c.user}</div>
                         <div class="xhs-comment-text">${c.text}</div>
@@ -353,12 +474,13 @@ function openXhsDm(userId) {
     const data = xhsDMs[userId];
     if (!data) return;
 
-    document.getElementById('xhs-dm-name').innerText = data.name;
+    // 点击顶部的对方名字也可以进入主页
+    document.getElementById('xhs-dm-name').innerHTML = `<span style="cursor:pointer;" onclick="openXhsUser('${userId}')">${data.name}</span>`;
+    
     const container = document.getElementById('xhs-dm-messages');
     container.innerHTML = '';
 
-    // Adam 的小红书头像
-    const adamXhsAvatar = `background-image: url('https://randomuser.me/api/portraits/men/32.jpg')`;
+    const adamXhsAvatar = `background-image: url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150')`;
     const targetXhsAvatar = data.avatar ? `background-image: url('${data.avatar}')` : `background-color: #ccc;`;
 
     data.messages.forEach(msg => {
@@ -369,7 +491,10 @@ function openXhsDm(userId) {
 
         const isLeft = msg.type === 'left';
         const avatarStyle = isLeft ? targetXhsAvatar : adamXhsAvatar;
-        const avatarHTML = `<div class="xhs-dm-avatar" style="${avatarStyle}"></div>`;
+        
+        // 关键：给左侧对方的头像加上 onclick 事件，点击跳转主页
+        const clickAction = isLeft ? `onclick="openXhsUser('${userId}')" style="${avatarStyle}; cursor:pointer;"` : `style="${avatarStyle}"`;
+        const avatarHTML = `<div class="xhs-dm-avatar" ${clickAction}></div>`;
         
         container.innerHTML += `
             <div class="xhs-dm-row ${isLeft ? 'left' : 'right'}">
@@ -384,6 +509,40 @@ function openXhsDm(userId) {
 
     document.getElementById('xhs-dm-view').style.display = 'flex';
     container.scrollTop = container.scrollHeight;
+}
+
+// 新增：渲染并打开他人主页
+function openXhsUser(userId) {
+    const user = xhsUsers[userId];
+    if (!user) return;
+
+    document.getElementById('xhs-up-name').innerText = user.name;
+    document.getElementById('xhs-up-id').innerText = `ID: ${user.id}`;
+    document.getElementById('xhs-up-avatar').style.background = user.avatar ? `url('${user.avatar}') center/cover` : '#ccc';
+    document.getElementById('xhs-up-posts').innerText = user.stats.posts;
+    document.getElementById('xhs-up-followers').innerText = user.stats.followers;
+    document.getElementById('xhs-up-following').innerText = user.stats.following;
+    document.getElementById('xhs-up-bio').innerHTML = user.bio;
+
+    // 渲染该用户的帖子
+    const feedContainer = document.getElementById('xhs-up-feed');
+    feedContainer.innerHTML = '';
+    user.posts.forEach(postId => {
+        const post = xhsPostData[postId];
+        if (post) {
+            feedContainer.innerHTML += `
+                <div class="xhs-post" onclick="openXhsDetail('${postId}')">
+                    <img src="${post.img}" alt="post">
+                    <div class="xhs-post-title">${post.text.substring(0, 30)}...</div>
+                </div>`;
+        }
+    });
+
+    document.getElementById('xhs-external-user').style.display = 'flex';
+}
+
+function closeXhsUser() {
+    document.getElementById('xhs-external-user').style.display = 'none';
 }
 
 // --- 浏览器数据 ---
@@ -643,6 +802,7 @@ function initGame() {
 
     // 初始化其他组件
     renderBookmarks(); 
+    renderXhsHomeFeed();
     setInterval(() => {
         document.getElementById('clock').innerText = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
     }, 1000);
