@@ -68,19 +68,115 @@
             </div>
             <div class="win-title">My Documents</div>
         </div>
-        <div class="file-grid">
+        
+        <div id="files-main-view" class="file-grid">
             <div class="icon-item"><span class="file-visual">📁</span>
                 <div class="icon-name">Work</div>
             </div>
-            <div class="icon-item"><span class="file-visual">📁</span>
-                <div class="icon-name">Photos</div>
+            <div class="icon-item" onclick="showRyanPasswordPrompt()">
+                <span class="file-visual">🔒</span>
+                <div class="icon-name">Ryan</div>
             </div>
             <div class="icon-item"><span class="file-visual">📁</span>
                 <div class="icon-name">Games</div>
             </div>
-            <div style="width:100%; text-align:center; color:#999; margin-top:50px; width:100%;">(Folder empty...)</div>
+        </div>
+    
+        <div id="ryan-password-screen" style="display:none; flex-direction:column; align-items:center; justify-content:center; flex:1; background:#f0f0f0;">
+            <div style="font-size: 40px; margin-bottom: 10px;">📂</div>
+            <div style="font-size: 13px; font-weight: bold; margin-bottom: 15px;">Folder "Ryan" is encrypted.</div>
+            <input type="password" id="ryan-pwd-input" placeholder="Enter Password" 
+                   style="padding:8px; border:1px solid #ccc; border-radius:4px; margin-bottom:10px; outline:none; text-align:center;">
+            <div style="display:flex; gap:10px;">
+                <button onclick="checkRyanPassword()" style="padding:5px 15px; cursor:pointer; background:#2c3e50; color:white; border:none; border-radius:4px;">Unlock</button>
+                <button onclick="backToFilesMain()" style="padding:5px 15px; cursor:pointer; background:#ccc; border:none; border-radius:4px;">Cancel</button>
+            </div>
+            <p id="ryan-pwd-error" style="color:red; font-size:11px; margin-top:10px; height:12px;"></p>
+        </div>
+    
+        <div id="ryan-content-view" class="file-grid" style="display:none; background:#fff; flex:1; overflow-y:auto;">
+            </div>
+    </div>
+
+
+   
+
+    <div id="win-music" class="window" style="width: 850px; height: 600px; top: 80px; left: 180px;">
+        <div class="title-bar">
+            <div class="traffic-lights">
+                <div class="dot close" onclick="closeWindow('win-music')"></div>
+                <div class="dot min"></div>
+                <div class="dot max"></div>
+            </div>
+            <div class="win-title">Music Player</div>
+        </div>
+
+        
+        <audio id="real-audio" style="display:none;"></audio>
+
+
+        <div class="music-container">
+            <div class="music-sidebar">
+                <div class="music-menu-section">
+                    <div class="menu-label">Recommend</div>
+                    <div class="menu-item disabled">Home</div>
+                    <div class="menu-item disabled">Explore</div>
+                    <div class="menu-item disabled">Video</div>
+                </div>
+                <div class="music-menu-section">
+                    <div class="menu-label">My Music</div>
+                    <div class="menu-item active-link" onclick="showLikedSongs()">❤️ Liked</div>
+                    <div class="menu-item disabled">Recent</div>
+                    <div class="menu-item disabled">Local</div>
+                    <div class="menu-item disabled">Cloud</div>
+                </div>
+            </div>
+    
+            <div class="music-main" id="music-main-content">
+                <div class="music-home-mock">
+                    <h2 style="margin-bottom:20px;">Hi, Guest</h2>
+                    <div class="mock-banner">Daily Recommendations for You</div>
+                    <div style="color:#999; margin-top:50px; text-align:center;">Click "Liked" to view your collection.</div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="music-player-bar">
+            <div class="current-track-info">
+                <div id="player-cover" class="player-cover">?</div>
+                <div class="track-text">
+                    <div id="player-title" class="player-title">Not Playing</div>
+                    <div id="player-artist" class="player-artist">Select a song</div>
+                </div>
+                <span style="color:#ff5c5c; margin-left:10px; cursor:pointer;">❤️</span>
+            </div>
+            
+            <div class="player-controls-center">
+
+
+                <div class="controls-btns">
+                    <span onclick="playPrevSong()" style="cursor:pointer;">⏮</span>
+                    <span id="play-btn" style="font-size:30px; cursor:pointer;" onclick="togglePlay()">▶️</span>
+                    <span onclick="playNextSong()" style="cursor:pointer;">⏭</span>
+                </div>
+
+
+                <div class="progress-container">
+                    <span class="time-text" id="curr-time">00:00</span>
+                    <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+                    <span class="time-text">03:37</span>
+                </div>
+            </div>
+            
+            <div class="player-extra-btns">
+                <span>🔊</span>
+                <span>List</span>
+            </div>
         </div>
     </div>
+
+
+
 
     <div id="win-trash" class="window" style="width: 400px; height: 300px; top: 180px; left: 500px;">
         <div class="title-bar">
@@ -512,6 +608,7 @@
         <div class="dock-icon icon-files" data-title="Files" onclick="openWindow('win-files')">📂</div>
         <!-- <div class="dock-icon icon-track" data-title="Tracking" onclick="openWindow('win-track')">📦</div> -->
         <div class="dock-icon icon-notes" data-title="Notes" onclick="openWindow('win-notes')">📝</div>
+        <div class="dock-icon icon-music" data-title="Music" onclick="openWindow('win-music')">🎵</div>
         <div class="dock-icon icon-trash" data-title="Trash" onclick="openWindow('win-trash')">🗑️</div>
     </div>
 
