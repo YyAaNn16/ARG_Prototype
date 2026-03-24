@@ -600,12 +600,13 @@ body {
 /* --- 小红书帖子详情页 --- */
 .xhs-detail-view {
     position: absolute;
-    top: 40px;
-    bottom: 50px;
+    top: 0;
+    /* 从最顶部开始覆盖 */
     left: 0;
-    right: 0;
+    width: 100%;
+    height: 100%;
+    /* 覆盖整个内容区 */
     background: #fff;
-    z-index: 10;
     display: none;
     flex-direction: row;
 }
