@@ -619,6 +619,293 @@ document.querySelector('.notes-textarea').addEventListener('input', function(e) 
     saveGame();
 });
 
+
+// --- 1. 新增数据：Ryan 文件夹内容 ---
+const ryanFolderData = {
+    password: "Ryan20001218",
+    files: [
+        { type: "img", name: "IMG_0821.jpg", url: "https://images.unsplash.com/photo-1516195851888-6f1a981a8a2a?q=80&w=200" }, // 偷拍的手1
+        { type: "img", name: "IMG_0822.jpg", url: "https://images.unsplash.com/photo-1583005825000-85f750739906?q=80&w=200" }, // 偷拍的手2
+        { type: "img", name: "IMG_0910.jpg", url: "https://images.unsplash.com/photo-1542553458-79a13aebfda6?q=80&w=200" }, // 偷拍的手3
+        { 
+            type: "txt", 
+            name: "Diary_20231001.txt", 
+            content: "Oct 1st. Ryan looks perfect today. He thinks he can just exist without my permission. I captured 12 shots of his hands while he was distracted. He is a masterpiece that only I deserve to own. Every finger, every movement... it all belongs to me. He is nothing without my eyes on him." 
+        },
+        { 
+            type: "txt", 
+            name: "Note_to_Self.txt", 
+            content: "He tried to talk to that girl again. Pathetic. He doesn't realize that I am the only one who truly sees him. I've spent years curating his life, and he will never escape this frame. My collection is growing. He is mine, forever and always." 
+        }
+    ]
+};
+
+// --- 2. 新增功能函数 ---
+
+// 显示密码输入框
+function showRyanPasswordPrompt() {
+    document.getElementById('files-main-view').style.display = 'none';
+    document.getElementById('ryan-password-screen').style.display = 'flex';
+}
+
+// 返回主文件夹视图
+function backToFilesMain() {
+    document.getElementById('ryan-password-screen').style.display = 'none';
+    document.getElementById('ryan-content-view').style.display = 'none';
+    document.getElementById('files-main-view').style.display = 'flex';
+    document.getElementById('ryan-pwd-input').value = '';
+    document.getElementById('ryan-pwd-error').innerText = '';
+}
+
+// 检查密码
+function checkRyanPassword() {
+    const input = document.getElementById('ryan-pwd-input').value;
+    if (input === ryanFolderData.password) {
+        renderRyanContent();
+    } else {
+        const error = document.getElementById('ryan-pwd-error');
+        error.innerText = "Access Denied. Incorrect credentials.";
+        document.getElementById('ryan-pwd-input').style.animation = "shake 0.3s";
+        setTimeout(() => document.getElementById('ryan-pwd-input').style.animation = "", 300);
+    }
+}
+
+
+// 渲染 Ryan 文件夹内容
+function renderRyanContent() {
+    document.getElementById('ryan-password-screen').style.display = 'none';
+    const container = document.getElementById('ryan-content-view');
+    container.style.display = 'flex';
+    container.innerHTML = '';
+
+    ryanFolderData.files.forEach((file, index) => {
+        let html = '';
+        if (file.type === 'img') {
+            html = `
+                <div class="ryan-item" onclick="openImagePreview('${file.url}')">
+                    <img src="${file.url}" class="ryan-photo-thumb">
+                    <div class="icon-name" style="font-size:10px;">${file.name}</div>
+                </div>`;
+        } else {
+            html = `
+                <div class="ryan-item" onclick="openDiaryPreview('${file.name}', \`${file.content}\`)">
+                    <span class="ryan-file-icon">📄</span>
+                    <div class="icon-name" style="font-size:10px;">${file.name}</div>
+                </div>`;
+        }
+        container.innerHTML += html;
+    });
+}
+
+// 借用现有的 Preview 窗口展示大图 (简单的覆盖逻辑)
+function openImagePreview(url) {
+    const previewWin = document.getElementById('win-preview');
+    // 修改 Preview 窗口的内容为图片
+    const contentArea = previewWin.querySelector('.receipt-paper').parentElement;
+    contentArea.innerHTML = `<img src="${url}" style="max-width:90%; border:5px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">`;
+    openWindow('win-preview');
+}
+
+// 借用现有的 Preview 窗口展示日记内容
+function openDiaryPreview(title, content) {
+    const previewWin = document.getElementById('win-preview');
+    const contentArea = previewWin.querySelector('.receipt-paper').parentElement;
+    contentArea.innerHTML = `
+        <div style="background:#fff; padding:30px; width:80%; min-height:80%; font-family:serif; line-height:1.6; color:#222; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <h4 style="border-bottom:1px solid #eee; padding-bottom:10px;">${title}</h4>
+            <p style="white-space: pre-wrap; font-size:14px;">${content}</p>
+        </div>`;
+    openWindow('win-preview');
+}
+
+
+
+// --- 1. 新增数据：音乐列表 ---
+// 修改 likedSongs 数据，增加 url 字段
+const likedSongs = [
+    { 
+        title: "Havana", 
+        artist: "Camila Cabello / Young Thug", 
+        cover: "https://images.unsplash.com/photo-1514525253361-bee8718a300a?q=80&w=100", 
+        duration: "03:37",
+        url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" // 替换为你的真实音频链接
+    },
+    { 
+        title: "Every Breath You Take", 
+        artist: "The Police", 
+        cover: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?q=80&w=100", 
+        duration: "04:13",
+        url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" 
+    },
+    { 
+        title: "Stan", 
+        artist: "Eminem", 
+        cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=100", 
+        duration: "06:44",
+        url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+    },
+    { 
+        title: "Creep", 
+        artist: "Radiohead", 
+        cover: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=100", 
+        duration: "03:56",
+        url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
+    },
+    { 
+        title: "Somebody's Watching Me", 
+        artist: "Rockwell", 
+        cover: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=100", 
+        duration: "03:59",
+        url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"
+    }
+];
+
+let isPlaying = false;
+let progressInterval = null;
+
+// --- 2. 音乐播放器逻辑 ---
+
+// 显示“喜欢”列表
+function showLikedSongs() {
+    const main = document.getElementById('music-main-content');
+    let html = `
+        <h2 style="margin-bottom:10px;">Liked Songs</h2>
+        <table class="song-list-table">
+            <thead>
+                <tr>
+                    <th style="width:40px;">#</th>
+                    <th>Song</th>
+                    <th>Artist</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>`;
+    
+    likedSongs.forEach((song, index) => {
+        html += `
+            <tr class="song-row" onclick="playSong(${index})">
+                <td style="color:#999;">0${index + 1}</td>
+                <td style="font-weight:bold;">${song.title}</td>
+                <td style="color:#666;">${song.artist}</td>
+                <td style="color:#999;">${song.duration}</td>
+            </tr>`;
+    });
+
+    html += `</tbody></table>`;
+    main.innerHTML = html;
+}
+
+// 获取音频 DOM 元素
+const audioEntity = document.getElementById('real-audio');
+
+
+
+
+// --- 修改/新增音乐播放逻辑 ---
+
+let currentSongIndex = 0; // 记录当前播放的歌曲索引
+
+// 修改原有的 playSong 函数，增加索引同步
+function playSong(index) {
+    currentSongIndex = index; // 同步当前索引
+    const song = likedSongs[index];
+    
+    // 更新 UI 内容
+    document.getElementById('player-title').innerText = song.title;
+    document.getElementById('player-artist').innerText = song.artist;
+    document.getElementById('player-cover').innerHTML = `<img src="${song.cover}">`;
+    document.getElementById('play-btn').innerText = "⏸️";
+    
+    // 加载并播放真实音频
+    audioEntity.src = song.url;
+    audioEntity.play().catch(e => console.log("Audio play blocked or error:", e));
+    
+    isPlaying = true;
+}
+
+// 新增：下一首
+function playNextSong() {
+    // 如果是最后一首，则跳回第一首
+    currentSongIndex = (currentSongIndex + 1) % likedSongs.length;
+    playSong(currentSongIndex);
+}
+
+// 新增：上一首
+function playPrevSong() {
+    // 如果是第一首，则跳到最后一首
+    currentSongIndex = (currentSongIndex - 1 + likedSongs.length) % likedSongs.length;
+    playSong(currentSongIndex);
+}
+
+// 修改：歌曲播放结束后的处理 (自动播放下一首)
+audioEntity.onended = function() {
+    playNextSong(); 
+};
+
+
+
+// 修改播放/暂停切换函数
+function togglePlay() {
+    if (!audioEntity.src) return; // 如果还没选歌，不执行
+    
+    if (isPlaying) {
+        audioEntity.pause();
+        document.getElementById('play-btn').innerText = "▶️";
+    } else {
+        audioEntity.play();
+        document.getElementById('play-btn').innerText = "⏸️";
+    }
+    isPlaying = !isPlaying;
+}
+
+// 利用 timeupdate 事件同步真实进度
+audioEntity.ontimeupdate = function() {
+    const progressFill = document.getElementById('progress-fill');
+    const currTimeText = document.getElementById('curr-time');
+    
+    if (audioEntity.duration) {
+        // 计算百分比
+        const percentage = (audioEntity.currentTime / audioEntity.duration) * 100;
+        progressFill.style.width = percentage + "%";
+        
+        // 格式化当前时间显示
+        let m = Math.floor(audioEntity.currentTime / 60);
+        let s = Math.floor(audioEntity.currentTime % 60);
+        currTimeText.innerText = `${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
+    }
+};
+
+// 歌曲播放结束后的处理
+audioEntity.onended = function() {
+    document.getElementById('play-btn').innerText = "▶️";
+    isPlaying = false;
+};
+
+
+
+// 模拟进度条
+function startProgress() {
+    clearInterval(progressInterval);
+    let progress = 0;
+    const bar = document.getElementById('progress-fill');
+    const timeText = document.getElementById('curr-time');
+    
+    progressInterval = setInterval(() => {
+        if (isPlaying && progress < 100) {
+            progress += 0.5;
+            bar.style.width = progress + "%";
+            
+            // 简单的时间滚动模拟
+            let totalSeconds = Math.floor((progress / 100) * 217); // 假设 3:37 = 217s
+            let min = Math.floor(totalSeconds / 60);
+            let sec = totalSeconds % 60;
+            timeText.innerText = `0${min}:${sec < 10 ? '0'+sec : sec}`;
+        }
+    }, 1000);
+}
+
+
+
 // --- 游戏初始化与恢复状态 ---
 function initGame() {
     const hasSave = loadGame(); // 尝试读取存档
