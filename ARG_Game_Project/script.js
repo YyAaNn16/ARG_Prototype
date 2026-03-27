@@ -756,7 +756,7 @@ function executeSearch(fromResultsPage = false) {
     document.getElementById('browser-url').value = `www.google.com/search?q=${encodeURIComponent(query)}`;
 
     // 记录历史
-    browserData.history.unshift({ time: "Just now", title: `${query} - Google Search`, url: document.getElementById('browser-url').value });
+    // browserData.history.unshift({ time: "Just now", title: `${query} - Google Search`, url: document.getElementById('browser-url').value });
 
     const container = document.getElementById('search-results-list');
     container.innerHTML = '';
@@ -1112,9 +1112,24 @@ function checkCouplePassword() {
     const pwd = document.getElementById('couple-pwd-input').value;
     const errorMsg = document.getElementById('couple-login-error');
     
+    // if (pwd === "LC20220808") {
+    //     navBrowser('couple-main'); // 密码正确，调用导航函数去主页
+    // } 
+    
+
     if (pwd === "LC20220808") {
-        navBrowser('couple-main'); // 密码正确，调用导航函数去主页
-    } else {
+        // [新增] 成功登录后，向历史记录最前面添加一条“主页”记录
+        browserData.history.unshift({ 
+            time: "Just now", 
+            title: "Our Eternal Aurora - C&L", 
+            url: "www.aurora-love-forever.com/home",
+            clickAction: "navBrowser('couple-main')" 
+        });
+        navBrowser('couple-main'); // 进入主页
+    }
+
+    
+    else {
         // 密码错误逻辑
         errorMsg.innerText = "Only for those who remember the beginning.";
         const inputField = document.getElementById('couple-pwd-input');
