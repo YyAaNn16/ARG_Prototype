@@ -548,11 +548,22 @@ function closeXhsUser() {
 // --- 浏览器数据 ---
 const browserData = {
     // 预设的历史记录 (埋藏剧情线索)
-    history: [
+  /*  history: [
         { time: "Today 09:15", title: "Bangkok weather", url: "www.google.com/search?q=bangkok+weather" },
         { time: "Yesterday 23:40", title: "FaceMatch AI - Compare Faces", url: "www.facematch-ai.com/demo", isClue: true },
         { time: "Yesterday 23:35", title: "Ryan Maya face match", url: "www.google.com/search?q=ryan+maya+face+match" }
     ],
+*/
+
+
+    history: [
+        { time: "Yesterday 22:10", title: "Our Eternal Aurora - C&L", url: "www.aurora-love-forever.com", clickAction: "navBrowser('couple-login')" },
+        { time: "Yesterday 18:45", title: "Bangkok Expats Forum", url: "www.bkk-expats.com/thread/7721" },
+        { time: "Yesterday 14:20", title: "Currency Converter (THB/CNY)", url: "www.xe.com/currencyconverter" }
+    ],
+
+
+
     // 预设的收藏夹
     bookmarks: [
         { title: "Global Express Track", icon: "📦", id: "tracking", url: "www.global-express.com/track" },
@@ -629,10 +640,23 @@ function navBrowser(viewId) {
     
     const urlBar = document.getElementById('browser-url');
     if (viewId === 'home') urlBar.value = "Search Google or type a URL";
-    else if (viewId === 'history') urlBar.value = "chrome://history";
+
+    // else if (viewId === 'history') urlBar.value = "chrome://history";
+
+    else if (viewId === 'history') {
+        urlBar.value = "chrome://history";
+        renderHistory(); // [关键新增] 只有加了这一行，点击三个点时才会去读取数据并生成列表
+    }
+    
+
     else if (viewId === 'tracking') urlBar.value = "www.global-express.com/track";
     else if (viewId === 'news-adam') urlBar.value = "www.bkk-daily.com/news/tourist-fall-incident";
     else if (viewId === 'zodiac-monkey') urlBar.value = "www.google.com/search?q=Year+of+the+Monkey";
+
+
+    else if (viewId === 'couple-login') urlBar.value = "www.aurora-love-forever.com/login";
+    else if (viewId === 'couple-main') urlBar.value = "www.aurora-love-forever.com/home";
+
 }
 
 function trackPackageWeb() {
@@ -652,16 +676,36 @@ function trackPackageWeb() {
     }
 }
 
-// 渲染历史记录
+// // 渲染历史记录
+// function renderHistory() {
+//     const container = document.getElementById('history-container');
+//     container.innerHTML = '';
+//     browserData.history.forEach(item => {
+//         // 如果是线索，可以用稍微不同的样式或直接允许点击
+//         container.innerHTML += `
+//             <div class="history-item">
+//                 <div class="history-time">${item.time}</div>
+//                 <div class="history-title" onclick="document.getElementById('main-search-input').value='${item.title}'; executeSearch();">${item.title}</div>
+//             </div>`;
+//     });
+// }
+
+
+// --- 替换原有的 renderHistory 函数 ---
 function renderHistory() {
     const container = document.getElementById('history-container');
-    container.innerHTML = '';
+    container.innerHTML = ''; // 先清空旧的列表内容
+    
     browserData.history.forEach(item => {
-        // 如果是线索，可以用稍微不同的样式或直接允许点击
+        // 判断这条记录是否有特殊的点击动作（比如去情侣登录页），如果没有则默认搜标题
+        let clickAction = item.clickAction 
+            ? `${item.clickAction}` 
+            : `document.getElementById('main-search-input').value='${item.title}'; executeSearch();`;
+
         container.innerHTML += `
             <div class="history-item">
                 <div class="history-time">${item.time}</div>
-                <div class="history-title" onclick="document.getElementById('main-search-input').value='${item.title}'; executeSearch();">${item.title}</div>
+                <div class="history-title" onclick="${clickAction}">${item.title}</div>
             </div>`;
     });
 }
@@ -1061,6 +1105,22 @@ function startProgress() {
             timeText.innerText = `0${min}:${sec < 10 ? '0'+sec : sec}`;
         }
     }, 1000);
+}
+
+
+function checkCouplePassword() {
+    const pwd = document.getElementById('couple-pwd-input').value;
+    const errorMsg = document.getElementById('couple-login-error');
+    
+    if (pwd === "LC20220808") {
+        navBrowser('couple-main'); // 密码正确，调用导航函数去主页
+    } else {
+        // 密码错误逻辑
+        errorMsg.innerText = "Only for those who remember the beginning.";
+        const inputField = document.getElementById('couple-pwd-input');
+        inputField.style.animation = "shake 0.3s";
+        setTimeout(() => inputField.style.animation = "", 300);
+    }
 }
 
 

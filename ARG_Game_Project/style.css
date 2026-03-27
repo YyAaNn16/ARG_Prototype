@@ -1817,3 +1817,161 @@ body {
     gap: 15px;
     color: #666;
 }
+
+
+/* --- [新增] 情侣网站专属样式 --- */
+
+/* 登录页全屏背景 (冰岛极光) */
+.couple-login-wrapper {
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1531366930477-4f219315f3c7?q=80&w=1200') no-repeat center center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.couple-login-card {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    padding: 50px;
+    border-radius: 20px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    color: white;
+}
+
+.couple-quote {
+    font-family: 'Courier Prime', monospace;
+    font-size: 26px;
+    margin-bottom: 40px;
+    letter-spacing: 3px;
+    font-weight: 400;
+}
+
+.couple-input-area {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.couple-input-area input {
+    padding: 12px 20px;
+    border-radius: 25px;
+    border: none;
+    width: 260px;
+    text-align: center;
+    font-size: 14px;
+    outline: none;
+}
+
+.couple-btn {
+    background: #fff;
+    color: #333;
+    border: none;
+    padding: 10px 40px;
+    border-radius: 25px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.couple-btn:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+#couple-login-error {
+    color: #ff5f56;
+    font-size: 11px;
+    margin-top: 15px;
+    height: 14px;
+}
+
+/* 主页内容样式 */
+.couple-site-header {
+    background: #fff5f7;
+    padding: 40px 0;
+    text-align: center;
+    border-bottom: 1px solid #ffe4e8;
+}
+
+.couple-site-header h1 {
+    color: #d81b60;
+    margin: 0;
+    font-size: 24px;
+}
+
+.couple-site-header p {
+    color: #ad1457;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.couple-site-container {
+    display: flex;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px;
+    gap: 40px;
+}
+
+.couple-column {
+    flex: 1;
+}
+
+.column-title {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #333;
+    border-bottom: 2px solid #ffe4e8;
+    padding-bottom: 10px;
+}
+
+.diary-post {
+    background: #fffafa;
+    border: 1px solid #fce4ec;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.diary-date {
+    font-size: 11px;
+    color: #d81b60;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.diary-post p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #555;
+    margin: 0;
+}
+
+.couple-gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 3px solid #fff;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.gallery-cap {
+    font-size: 10px;
+    color: #888;
+    text-align: center;
+    margin-top: 5px;
+}
