@@ -73,18 +73,62 @@ const chatData = {
     }
 };
 
+// --- 2. DATA: Contacts Directory (通讯录数据) ---
+const contactsData = {
+    "user_cousin": { 
+        name: "Cousin", avatarColor: "#4285f4", avatarText: "Co", wechatId: "wxid_cousin88", 
+        signature: "Family first." 
+    },
+    "user_luna": { 
+        name: "Luna 🌙", avatarColor: "#e91e63", avatarText: "🌙", wechatId: "luna_love99", 
+        signature: "Living my best life in BKK ✨" 
+    },
+    "user_chris": { 
+        name: "Chris", avatarColor: "#ff9800", avatarText: "Ch", wechatId: "chris_bkk", 
+        signature: "Work hard, play hard." 
+    },
+    "user_ryan": { 
+        name: "Ryan", avatarColor: "#607d8b", avatarText: "Ry", wechatId: "ryan_001", 
+        signature: "Code. Sleep. Repeat." 
+    },
+    "user_mom": { 
+        name: "Mom", avatarColor: "#e57373", avatarText: "Mom", wechatId: "wxid_mom_home", 
+        signature: "Blessed and grateful." 
+    },
+    "user_boss": { 
+        name: "Mr. Henderson (Ex-Boss)", avatarColor: "#795548", avatarText: "He", wechatId: "henderson_logistics", 
+        signature: "Logistics & Supply Chain Management." 
+    },
+    "user_landlord": { 
+        name: "BKK Landlord", avatarColor: "#8d6e63", avatarText: "La", wechatId: "bkk_rent_01", 
+        signature: "Rooms for rent. DM for inquiries." 
+    },
+    "user_airline": { 
+        name: "Thai Airways HR", avatarColor: "#5c6bc0", avatarText: "HR", wechatId: "tg_hr_recruit", 
+        signature: "Smooth as silk." 
+    }
+};
+
 function renderChatList() {
     const listContainer = document.getElementById('chat-list-view');
     listContainer.innerHTML = ''; 
     for (const [id, data] of Object.entries(chatData)) {
-        const lastMsg = data.messages[data.messages.length - 1];
-        let preview = lastMsg.type === 'img' ? '[Image]' : lastMsg.text;
+        // 安全获取最后一条消息
+        const lastMsg = data.messages.length > 0 ? data.messages[data.messages.length - 1] : null;
+        let preview = 'No messages yet';
+        
+        if (lastMsg) {
+            if (lastMsg.type === 'img') preview = '[Image]';
+            else if (lastMsg.xhsLink) preview = '[Link Shared]';
+            else preview = lastMsg.text;
+        }
+
         listContainer.innerHTML += `
             <div class="contact-item" id="contact-${id}" onclick="openChat('${id}')">
                 <div class="avatar" style="background:${data.avatarColor}">${data.avatarText}</div>
                 <div class="contact-info">
                     <div class="contact-name">${data.name}</div>
-                    <div class="last-msg">${preview || 'Link Shared'}</div>
+                    <div class="last-msg">${preview}</div>
                 </div>
             </div>`;
     }
@@ -103,49 +147,162 @@ function openChat(userId) {
     // 定义 Adam (玩家) 的默认黑灰头像
     const adamAvatarHTML = `<div class="msg-avatar" style="background:#333;">Ad</div>`;
     // 当前聊天对象的头像
-    const contactAvatarHTML = `<div class="msg-avatar" style="background:${data.avatarColor}">${data.avatarText}</div>`;
+    const contactAvatarHTML = `<div class="msg-avatar" style="background:${data.avatarColor}; cursor:pointer;" onclick="jumpToContactFromChat('${userId}')">${data.avatarText}</div>`;
 
     data.messages.forEach(msg => {
-        if (msg.type === 'sys') {
-            container.innerHTML += `<div class="system-msg">${msg.text}</div>`;
-            return;
-        }
-
-        let innerContent = '';
-        if (msg.type === 'img') {
-            innerContent = `<div class="img-bubble"><img src="${msg.src}" style="max-width:180px; border-radius:6px;"></div>`;
-        } else if (msg.xhsLink) {
-            innerContent = `
-            <div class="chat-link-card" onclick="openWindow('win-xhs'); openXhsDetail('${msg.postId}');">
-                <div class="chat-link-title">${msg.linkTitle}</div>
-                <div class="chat-link-desc"><span class="chat-link-icon">📕</span> Note Shared by ${msg.author}</div>
-            </div>`;
-        } else if (msg.isLink) {
-            innerContent = `<div class="bubble ${msg.type}">${msg.text}<span class="chat-link" onclick="openWindow('win-xhs')">See details</span></div>`;
+        if (data.messages.length === 0) {
+        container.innerHTML = `<div class="system-msg">You are now connected. Start chatting!</div>`;
         } else {
-            innerContent = `<div class="bubble ${msg.type}">${msg.text}</div>`;
-        }
+            if (msg.type === 'sys') {
+                container.innerHTML += `<div class="system-msg">${msg.text}</div>`;
+                return;
+            }
 
-        // 组装带头像的一整行
-        const isLeft = msg.type === 'left';
-        const rowAvatar = isLeft ? contactAvatarHTML : adamAvatarHTML;
-        
-        container.innerHTML += `
-            <div class="msg-row ${isLeft ? 'left' : 'right'}">
-                ${isLeft ? rowAvatar : ''}
-                <div class="msg-content">${innerContent}</div>
-                ${!isLeft ? rowAvatar : ''}
-            </div>
-        `;
+            let innerContent = '';
+            if (msg.type === 'img') {
+                innerContent = `<div class="img-bubble"><img src="${msg.src}" style="max-width:180px; border-radius:6px;"></div>`;
+            } else if (msg.xhsLink) {
+                innerContent = `
+                <div class="chat-link-card" onclick="openWindow('win-xhs'); openXhsDetail('${msg.postId}');">
+                    <div class="chat-link-title">${msg.linkTitle}</div>
+                    <div class="chat-link-desc"><span class="chat-link-icon">📕</span> Note Shared by ${msg.author}</div>
+                </div>`;
+            } else if (msg.isLink) {
+                innerContent = `<div class="bubble ${msg.type}">${msg.text}<span class="chat-link" onclick="openWindow('win-xhs')">See details</span></div>`;
+            } else {
+                innerContent = `<div class="bubble ${msg.type}">${msg.text}</div>`;
+            }
+
+            // 组装带头像的一整行
+            const isLeft = msg.type === 'left';
+            const rowAvatar = isLeft ? contactAvatarHTML : adamAvatarHTML;
+            
+            container.innerHTML += `
+                <div class="msg-row ${isLeft ? 'left' : 'right'}">
+                    ${isLeft ? rowAvatar : ''}
+                    <div class="msg-content">${innerContent}</div>
+                    ${!isLeft ? rowAvatar : ''}
+                </div>
+            `;
+        }
     });
 
     // 自动滚动到底部
     container.scrollTop = container.scrollHeight;
 }
 
+// 从聊天界面点击头像跳转到联系人详情
+function jumpToContactFromChat(userId) {
+    // 1. 模拟点击左侧的“联系人”导航栏图标
+    document.getElementById('nav-contacts').click();
+    
+    // 2. 渲染对应的联系人卡片
+    showContactProfile(userId);
+}
+
 function showChatList() {
     document.getElementById('chat-detail-view').style.display = 'none';
     document.getElementById('chat-list-view').style.display = 'block';
+}
+
+// --- 微信侧边栏切换逻辑 ---
+function switchWechatTab(tabId, element) {
+    // 隐藏所有分页
+    document.querySelectorAll('.wechat-page').forEach(p => p.classList.remove('active'));
+    // 激活对应分页
+    document.getElementById('wechat-' + tabId).classList.add('active');
+
+    // 更新侧边栏图标高亮状态
+    document.querySelectorAll('.wechat-sidebar .nav-icon').forEach(i => i.classList.remove('active'));
+    element.classList.add('active');
+
+    // 触发对应界面的渲染
+    if (tabId === 'contacts') renderContactsList();
+    if (tabId === 'wallet') renderWallet();
+}
+
+// --- 联系人界面逻辑 ---
+function renderContactsList() {
+    const listContainer = document.getElementById('contacts-list-view');
+    listContainer.innerHTML = ''; 
+    
+    // 改为遍历 contactsData 而不是 chatData
+    for (const [id, data] of Object.entries(contactsData)) {
+        listContainer.innerHTML += `
+            <div class="contact-item" onclick="showContactProfile('${id}')">
+                <div class="avatar" style="background:${data.avatarColor}">${data.avatarText}</div>
+                <div class="contact-info">
+                    <div class="contact-name">${data.name}</div>
+                </div>
+            </div>`;
+    }
+}
+
+// 在右侧展示联系人详情
+function showContactProfile(userId) {
+    const data = contactsData[userId];
+    const detailContainer = document.getElementById('contacts-detail-view');
+    
+    // 如果没有配置签名，显示默认占位符
+    const signatureText = data.signature ? `"${data.signature}"` : "No signature.";
+    
+    detailContainer.innerHTML = `
+        <div style="text-align:center; background:#fff; padding: 40px; border-radius:8px; box-shadow:0 2px 10px rgba(0,0,0,0.05); width: 320px;">
+            <div style="width:80px; height:80px; background:${data.avatarColor}; color:white; font-size:32px; font-weight:bold; display:flex; align-items:center; justify-content:center; border-radius:8px; margin: 0 auto 15px auto;">${data.avatarText}</div>
+            <h2 style="margin:0 0 5px 0; color:#333;">${data.name}</h2>
+            <p style="color:#999; font-size:13px; margin-bottom: 10px;">WeChat ID: ${data.wechatId}</p>
+            <p style="color:#666; font-size:14px; margin-bottom: 30px; font-style: italic;">${signatureText}</p>
+            <button onclick="jumpToChatFromContact('${userId}')" style="background:#07c160; color:white; border:none; padding:10px 40px; border-radius:4px; font-size:15px; font-weight:600; cursor:pointer; width: 100%;">Message</button>
+        </div>
+    `;
+}
+
+// 点击 "Message" 按钮跳转回对话列表
+function jumpToChatFromContact(userId) {
+    document.getElementById('nav-chats').click(); // 切换到对话Tab
+    
+    // 如果这个人不在聊天列表(chatData)里，我们就临时给他建一个空的聊天记录
+    if (!chatData[userId]) {
+        const cData = contactsData[userId];
+        chatData[userId] = {
+            name: cData.name,
+            avatarColor: cData.avatarColor,
+            avatarText: cData.avatarText,
+            messages: [] // 空聊天记录
+        };
+        renderChatList(); // 刷新左侧的对话列表，把新建立的空对话加进去
+    }
+    
+    openChat(userId); // 打开聊天记录
+}
+
+// --- 钱包界面逻辑 ---
+function renderWallet() {
+    const list = document.getElementById('wallet-records');
+    
+    // 预设交易记录，完美契合剧情时间线：给Ryan的转账以及给Luna买包的消费
+    const records = [
+        { title: "Transfer to Ryan", time: "Oct 20, 2023 14:30", amount: "-100,000.00", type: "negative", status: "Returned" },
+        { title: "Refund from Ryan", time: "Oct 21, 2023 09:15", amount: "+100,000.00", type: "positive", status: "Success" },
+        { title: "Guangzhou Logistics Center (Hermes)", time: "Oct 01, 2023 11:00", amount: "-800,000.00", type: "negative", status: "Success" },
+        { title: "Salary Incoming", time: "Sep 30, 2023 18:00", amount: "+25,000.00", type: "positive", status: "Success" }
+    ];
+
+    list.innerHTML = '';
+    records.forEach(r => {
+        // 如果状态是退回，给标题加上红色提示
+        let statusTag = r.status === 'Returned' ? '<span style="color:#d93025; font-size:12px; margin-left:8px;">(Returned)</span>' : '';
+        
+        list.innerHTML += `
+            <div class="wallet-item">
+                <div class="wallet-item-left">
+                    <span class="wallet-item-title">${r.title} ${statusTag}</span>
+                    <span class="wallet-item-time">${r.time}</span>
+                </div>
+                <div class="wallet-item-amount ${r.type}">${r.amount}</div>
+            </div>
+        `;
+    });
 }
 
 // --- 3. Logistics Logic ---
