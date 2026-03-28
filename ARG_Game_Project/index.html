@@ -637,6 +637,73 @@
 
 
 
+
+            <div id="browser-divination" class="browser-page" style="background: #fdf5e6;">
+                <div class="divination-site">
+                    
+                    <div class="divination-section">
+                        <div class="divination-header">
+                            <h1>☯️ Fate Unveiled</h1>
+                            <p style="font-size:11px; color:#999; font-style:italic;">Believe in Science. Rationality is the key to truth.</p>
+                        </div>
+            
+                        <div class="divination-container">
+                            <div class="divination-tabs">
+                                <button id="tab-single" class="active" onclick="switchDivMode('single')">Individual</button>
+                                <button id="tab-couple" onclick="switchDivMode('couple')">Couple</button>
+                            </div>
+                            <div class="divination-inputs">
+                                <div class="input-group">
+                                    <h3 id="p1-label">Date of Birth</h3>
+                                    <div class="dob-row">
+                                        <input type="number" id="div-y1" placeholder="YYYY" min="1920" max="2027">
+                                        <input type="number" id="div-m1" placeholder="MM" min="1" max="12">
+                                        <input type="number" id="div-d1" placeholder="DD" min="1" max="31">
+                                    </div>
+                                </div>
+                                <div id="p2-input-group" class="input-group" style="display:none;">
+                                    <h3>Date of Birth</h3>
+                                    <div class="dob-row">
+                                        <input type="number" id="div-y2" placeholder="YYYY" min="1920" max="2027">
+                                        <input type="number" id="div-m2" placeholder="MM" min="1" max="12">
+                                        <input type="number" id="div-d2" placeholder="DD" min="1" max="31">
+                                    </div>
+                                </div>
+                                <button class="div-btn" onclick="runDivination()">Reveal Fate</button>
+                            </div>
+                            <div id="div-result" class="divination-result-box" style="display:none;"></div>
+                        </div>
+                    </div>
+            
+                    <hr style="border: 0; border-top: 1px solid #eee; margin: 40px 0;">
+            
+                    <div class="divination-section">
+                        <div class="divination-header">
+                            <h1 style="color: #2c3e50;">🔍 Biometric Similarity Analysis</h1>
+                            <p style="font-size:11px; color:#999; font-style:italic;">Internal Testing.</p>
+                        </div>
+            
+                        <div class="divination-container" style="border-color: #ced4da;">
+                            <div class="face-compare-container">
+                                <div class="face-slot" onclick="selectGamePhoto('A')">
+                                    <div id="preview-a" class="face-preview-box"><span>+ Select Photo A</span></div>
+                                </div>
+                                <div class="compare-vs">VS</div>
+                                <div class="face-slot" onclick="selectGamePhoto('B')">
+                                    <div id="preview-b" class="face-preview-box"><span>+ Select Photo B</span></div>
+                                </div>
+                            </div>
+                            
+                            <button class="div-btn" onclick="runFaceRecognition()" style="margin-top:20px; background:#2c3e50;">Analyze Biometrics</button>
+                            
+                            <div id="face-result" class="divination-result-box" style="display:none; margin-top: 15px;"></div>
+                        </div>
+                    </div>
+            
+                </div>
+            </div>
+
+
     
             <div id="browser-tracking" class="browser-page">
                 <div
@@ -732,6 +799,12 @@
         <div class="dock-icon icon-music" data-title="Music" onclick="openWindow('win-music')">🎵</div>
         <div class="dock-icon icon-trash" data-title="Trash" onclick="openWindow('win-trash')">🗑️</div>
     </div>
+
+
+
+    <div id="desktop-icons" class="desktop-icons"></div>
+
+
 
     <script src="script.js"></script>
 </body>

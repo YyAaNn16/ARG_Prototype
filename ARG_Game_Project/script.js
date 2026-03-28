@@ -725,7 +725,8 @@ const browserData = {
     bookmarks: [
         { title: "Global Express Track", icon: "📦", id: "tracking", url: "www.global-express.com/track" },
         { title: "FaceMatch AI", icon: "👤", isSearch: true, keyword: "face match" },
-        { title: "BKK Wedding Planners", icon: "💍", url: "www.bkk-weddings.th" }
+        { title: "BKK Wedding Planners", icon: "💍", url: "www.bkk-weddings.th" },
+        { title: "Destiny Finder", icon: "☯️", id: "divination", url: "www.fate-unveiled.com" }
     ],
     // 搜索引擎关键词数据库 (可以配置多个关键词触发同一结果)
     searchDatabase: {
@@ -813,6 +814,8 @@ function navBrowser(viewId) {
 
     else if (viewId === 'couple-login') urlBar.value = "www.aurora-love-forever.com/login";
     else if (viewId === 'couple-main') urlBar.value = "www.aurora-love-forever.com/home";
+    // 在 navBrowser(viewId) 函数中添加
+    else if (viewId === 'divination') urlBar.value = "www.fate-unveiled.com";
 
 }
 
@@ -1057,26 +1060,68 @@ function renderRyanContent() {
     });
 }
 
-// 借用现有的 Preview 窗口展示大图 (简单的覆盖逻辑)
+// // 借用现有的 Preview 窗口展示大图 (简单的覆盖逻辑)
+// function openImagePreview(url) {
+//     const previewWin = document.getElementById('win-preview');
+//     // 修改 Preview 窗口的内容为图片
+//     const contentArea = previewWin.querySelector('.receipt-paper').parentElement;
+//     contentArea.innerHTML = `<img src="${url}" style="max-width:90%; border:5px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">`;
+//     openWindow('win-preview');
+// }
+
+// // 借用现有的 Preview 窗口展示日记内容
+// function openDiaryPreview(title, content) {
+//     const previewWin = document.getElementById('win-preview');
+//     const contentArea = previewWin.querySelector('.receipt-paper').parentElement;
+//     contentArea.innerHTML = `
+//         <div style="background:#fff; padding:30px; width:80%; min-height:80%; font-family:serif; line-height:1.6; color:#222; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+//             <h4 style="border-bottom:1px solid #eee; padding-bottom:10px;">${title}</h4>
+//             <p style="white-space: pre-wrap; font-size:14px;">${content}</p>
+//         </div>`;
+//     openWindow('win-preview');
+// }
+
+
+// 修改 script.js 中的 openImagePreview 函数
 function openImagePreview(url) {
     const previewWin = document.getElementById('win-preview');
-    // 修改 Preview 窗口的内容为图片
-    const contentArea = previewWin.querySelector('.receipt-paper').parentElement;
-    contentArea.innerHTML = `<img src="${url}" style="max-width:90%; border:5px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">`;
-    openWindow('win-preview');
+    // 获取存放内容的容器（.title-bar 下方的那个 div）
+    const contentArea = previewWin.querySelector('.title-bar').nextElementSibling;
+    
+    // 彻底清空内容，防止旧的 receipt 或 image 干扰
+    contentArea.innerHTML = '';
+    contentArea.style = "background:#1a1a1a; flex:1; display:flex; align-items:center; justify-content:center; overflow:hidden;";
+
+    // 创建新的图片元素
+    const img = document.createElement('img');
+    img.src = url;
+    img.style = "max-width:90%; max-height:90%; border:5px solid white; box-shadow: 0 10px 30px rgba(0,0,0,0.5); object-fit: contain;";
+    
+    contentArea.appendChild(img);
+    
+    // 打开窗口并置顶
+    previewWin.style.display = 'flex';
+    previewWin.style.zIndex = ++zIndex;
 }
 
-// 借用现有的 Preview 窗口展示日记内容
+// 同时也建议修复一下 openDiaryPreview 确保它也不会破坏结构
 function openDiaryPreview(title, content) {
     const previewWin = document.getElementById('win-preview');
-    const contentArea = previewWin.querySelector('.receipt-paper').parentElement;
+    const contentArea = previewWin.querySelector('.title-bar').nextElementSibling;
+    
+    contentArea.innerHTML = '';
+    contentArea.style = "background:#333; flex:1; overflow:auto; display:flex; justify-content:center; padding:20px;";
+    
     contentArea.innerHTML = `
-        <div style="background:#fff; padding:30px; width:80%; min-height:80%; font-family:serif; line-height:1.6; color:#222; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-            <h4 style="border-bottom:1px solid #eee; padding-bottom:10px;">${title}</h4>
+        <div style="background:#fff9c4; padding:30px; width:85%; height:fit-content; font-family:serif; line-height:1.6; color:#222; box-shadow: 0 5px 15px rgba(0,0,0,0.3); border-radius:2px;">
+            <h4 style="border-bottom:1px solid rgba(0,0,0,0.1); padding-bottom:10px; margin-top:0;">${title}</h4>
             <p style="white-space: pre-wrap; font-size:14px;">${content}</p>
         </div>`;
-    openWindow('win-preview');
+    
+    previewWin.style.display = 'flex';
+    previewWin.style.zIndex = ++zIndex;
 }
+
 
 
 
@@ -1296,6 +1341,307 @@ function checkCouplePassword() {
 }
 
 
+// --- 5. 算命网站核心逻辑 (1920-2027) ---
+const lunarNewYearDates = {
+    "1920":"02-20","1921":"02-08","1922":"01-28","1923":"02-16","1924":"02-05","1925":"01-24","1926":"02-13","1927":"02-02","1928":"01-23","1929":"02-10",
+    "1930":"01-30","1931":"02-17","1932":"02-06","1933":"01-26","1934":"02-14","1935":"02-04","1936":"01-24","1937":"02-11","1938":"01-31","1939":"02-19",
+    "1940":"02-08","1941":"01-27","1942":"02-15","1943":"02-05","1944":"01-25","1945":"02-13","1946":"02-02","1947":"01-22","1948":"02-10","1949":"01-29",
+    "1950":"02-17","1951":"02-06","1952":"01-27","1953":"02-14","1954":"02-03","1955":"01-24","1956":"02-12","1957":"01-31","1958":"02-18","1959":"02-08",
+    "1960":"01-28","1961":"02-15","1962":"02-05","1963":"01-25","1964":"02-13","1965":"02-02","1966":"01-21","1967":"02-09","1968":"01-30","1969":"02-17",
+    "1970":"02-06","1971":"01-27","1972":"02-15","1973":"02-03","1974":"01-23","1975":"02-11","1976":"01-31","1977":"02-18","1978":"02-07","1979":"01-28",
+    "1980":"02-16","1981":"02-05","1982":"01-25","1983":"02-13","1984":"02-02","1985":"02-20","1986":"02-09","1987":"01-29","1988":"02-17","1989":"02-06",
+    "1990":"01-27","1991":"02-15","1992":"02-04","1993":"01-23","1994":"02-10","1995":"01-31","1996":"02-19","1997":"02-07","1998":"01-28","1999":"02-16",
+    "2000":"02-05","2001":"01-24","2002":"02-12","2003":"02-01","2004":"01-22","2005":"02-09","2006":"01-29","2007":"02-18","2008":"02-07","2009":"01-26",
+    "2010":"02-14","2011":"02-03","2012":"01-23","2013":"02-10","2014":"01-31","2015":"02-19","2016":"02-08","2017":"01-28","2018":"02-16","2019":"02-05",
+    "2020":"01-25","2021":"02-12","2022":"02-01","2023":"01-22","2024":"02-10","2025":"01-29","2026":"02-17","2027":"02-06"
+};
+
+// 严谨日期校验：拦截负数、越界年份、越界月份、及2月天数错误
+function isValidDate(y, m, d) {
+    if (isNaN(y) || isNaN(m) || isNaN(d)) return false;
+    if (y < 1920 || y > 2027) return false;
+    if (m < 1 || m > 12) return false;
+    if (d < 1 || d > 31) return false;
+
+    const dt = new Date(y, m - 1, d);
+    return dt.getFullYear() === y && (dt.getMonth() + 1) === m && dt.getDate() === d;
+}
+
+function getZodiac(y, m, d) {
+    let effectiveYear = y;
+    const spring = lunarNewYearDates[y];
+    if (spring) {
+        const [sm, sd] = spring.split('-').map(Number);
+        if (m < sm || (m === sm && d < sd)) effectiveYear -= 1;
+    }
+    const zodiacs = ["Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Goat", "Monkey", "Rooster", "Dog", "Pig"];
+    let idx = (effectiveYear - 4) % 12;
+    if (idx < 0) idx += 12;
+    return zodiacs[index = idx]; // 修正变量指向
+}
+
+function getFiveElements(y, m, d) {
+    const ds = `${y}-${m.toString().padStart(2,'0')}-${d.toString().padStart(2,'0')}`;
+    
+    // 1. 核心角色优先级覆盖 (确保剧情线索不被通用算法覆盖)
+    if (ds === "2000-03-15") return { name: "Wood", desc: "Represents growth, ideal, and deep emotions. You are often the anchor in a relationship." };
+    if (ds === "1998-07-22") return { name: "Fire", desc: "Represents passion and energy. You need support to keep shining." };
+    if (ds === "1999-10-10") return { name: "Metal", desc: "Represents strength and control. Can be cold or restrictive." };
+
+    // 2. 判定土属性 (四季末18天)
+    const daysInMonth = new Date(y, m, 0).getDate(); // 获取当月实际总天数
+    const seasonalEndMonths = [3, 6, 9, 12]; // 春夏秋冬四季最后一个月
+    
+    if (seasonalEndMonths.includes(m) && d > (daysInMonth - 18)) {
+        return { name: "Earth", desc: "Represents stability, patience, and transformation. You are the grounded balance that holds things together." };
+    }
+
+    // 3. 通用季节逻辑
+    if (m === 3 || m === 4 || m === 5) return { name: "Wood", desc: "Vibrant and seeking growth." };
+    if (m === 6 || m === 7 || m === 8) return { name: "Fire", desc: "Passionate and full of heat." };
+    if (m === 9 || m === 10 || m === 11) return { name: "Metal", desc: "Organized and sharp." };
+    
+    // 默认冬季 (12, 1, 2)
+    return { name: "Water", desc: "Deep and introspective." };
+}
+
+let currentDivMode = 'single';
+function switchDivMode(mode) {
+    currentDivMode = mode;
+    document.getElementById('p2-input-group').style.display = (mode === 'couple') ? 'block' : 'none';
+    document.getElementById('tab-single').classList.toggle('active', mode === 'single');
+    document.getElementById('tab-couple').classList.toggle('active', mode === 'couple');
+    document.getElementById('div-result').style.display = 'none';
+}
+
+// --- 修改后的 runDivination 函数 ---
+function runDivination() {
+    const y1 = parseInt(document.getElementById('div-y1').value);
+    const m1 = parseInt(document.getElementById('div-m1').value);
+    const d1 = parseInt(document.getElementById('div-d1').value);
+    const res = document.getElementById('div-result');
+
+    if (!isValidDate(y1, m1, d1)) { 
+        alert("Invalid Date! Please enter a valid birthday (1920-2027).\nCheck if the month (1-12) and day exist for that month."); 
+        return; 
+    }
+
+    const z1 = getZodiac(y1, m1, d1), e1 = getFiveElements(y1, m1, d1);
+    const ds1 = `${y1}-${m1.toString().padStart(2,'0')}-${d1.toString().padStart(2,'0')}`;
+
+    if (currentDivMode === 'single') {
+        res.innerHTML = `<div class="res-card">
+            <h2>The Universe Says...</h2>
+            <p><b>Zodiac:</b> ${z1}</p>
+            <p><b>Wǔ Xíng:</b> ${e1.name}</p>
+            <p style="font-size:10px; color:#888; margin-top:-10px; margin-bottom:10px; font-style:italic;">
+                * Precise Wǔ Xíng require more data support (such as birth time) for full accuracy.
+            </p>
+            <hr style="border:0; border-top:1px dashed #d2b48c; margin:15px 0;">
+            <p class="res-desc">${e1.desc}</p>
+            <p class="science-disclaimer">* Follow science. Fate is in your hands.</p>
+        </div>`;
+    } else {
+        const y2 = parseInt(document.getElementById('div-y2').value), m2 = parseInt(document.getElementById('div-m2').value), d2 = parseInt(document.getElementById('div-d2').value);
+        if (!isValidDate(y2, m2, d2)) { alert("Partner's Date is Invalid!"); return; }
+        const z2 = getZodiac(y2, m2, d2), e2 = getFiveElements(y2, m2, d2);
+        const ds2 = `${y2}-${m2.toString().padStart(2,'0')}-${d2.toString().padStart(2,'0')}`;
+
+        let score = 55, title = "Common Connection", type = "Mixed", desc = "An ordinary meeting of souls.", detail = "Neutral compatibility.";
+        const pair = [ds1, ds2].sort();
+
+        // 剧情判词逻辑
+        if (ds1 === "2000-03-15" && ds2 === "2000-03-15") {
+            score = 92; title = "Mirror Fate (镜像之缘)"; type = "Wood + Wood (Synchronized)";
+            desc = "You see each other, but never truly possess."; detail = "Extremely high spiritual synchronization. Your souls are echoes of each other.";
+        } else if (pair.includes("1998-07-22") && pair.includes("2000-03-15")) {
+            score = 78; title = "Reality Fate (现实之缘)"; type = "Wood feeds Fire (Generative)";
+            desc = "Not the hottest fire, but burns the longest."; detail = "A stable, long-lasting partnership.";
+        } else if (pair.includes("1999-10-10") && pair.includes("2000-03-15")) {
+            score = 85; title = "Destructive Fate (孽缘)"; type = "Metal chops Wood (Restrictive)";
+            desc = "The closer you get, the closer you are to losing."; detail = "Intense magnetism but inherently destructive.";
+        }
+
+        res.innerHTML = `<div class="res-card couple-res">
+            <div class="score-circle"><span class="score-num">${score}%</span><br><span style="font-size:8px;">Match</span></div>
+            <h2>${title}</h2>
+            <div class="elements-compare"><b>${e1.name} (${z1})</b> ⚡ <b>${e2.name} (${z2})</b></div>
+            <p style="font-size:9px; color:#888; text-align:center; margin-top:-10px; margin-bottom:15px; font-style:italic; opacity:0.8;">
+                Note: Accurate Wǔ Xíng analysis requires specific birth hours.
+            </p>
+            <p><b>Relationship:</b> ${type}</p>
+            <p class="res-quote">"${desc}"</p>
+            <hr style="border:0; border-top:1px dashed #d2b48c; margin:15px 0;">
+            <p class="res-desc">${detail}</p>
+            <p class="science-disclaimer">* Follow science. Fate is in your hands.</p>
+        </div>`;
+    }
+    res.style.display = 'block';
+}
+
+
+
+// --- 桌面测试资源数据 (1920-2027 符合逻辑) ---
+const desktopFiles = [
+    { name: "ryan_school.jpg", url: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?q=80&w=200%22%20" },
+    { name: "adam_school.jpg", url: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200" },
+    { name: "chris_school.jpg", url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200" },
+    { name: "luna_now.png", url: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200" },
+    { name: "adam_now.jpg", url: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=200" },
+    { name: "chris_now.jpg", url: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200" }
+];
+
+// 渲染桌面图标函数
+function renderDesktop() {
+    const container = document.getElementById('desktop-icons');
+    if (!container) return;
+    container.innerHTML = '';
+    desktopFiles.forEach(file => {
+        container.innerHTML += `
+            <div class="desktop-item" onclick="openImagePreview('${file.url}')">
+                <img src="${file.url}" class="desktop-icon-img">
+                <div class="icon-name">${file.name}</div>
+            </div>`;
+    });
+}
+
+// 人脸识别预览处理
+function handleFacePreview(input, previewId) {
+    const file = input.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            document.getElementById(previewId).innerHTML = `<img src="${e.target.result}">`;
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+function runFaceRecognition() {
+    const imgA = document.querySelector('#preview-a img');
+    const imgB = document.querySelector('#preview-b img');
+    const faceResultBox = document.getElementById('face-result');
+
+    if (!imgA || !imgB) { 
+        alert("Please select photos from the desktop first."); 
+        return; 
+    }
+
+    const nameA = imgA.getAttribute('data-name');
+    const nameB = imgB.getAttribute('data-name');
+
+    // 开启扫描动画
+    document.querySelectorAll('.face-slot').forEach(el => el.classList.add('scanning'));
+    
+    setTimeout(() => {
+        document.querySelectorAll('.face-slot').forEach(el => el.classList.remove('scanning'));
+        
+        let sim = 0;
+        let verdict = "";
+
+        const isRyan = (n) => n.toLowerCase().includes('ryan');
+        const isLuna = (n) => n.toLowerCase().includes('luna');
+        const isAdam = (n) => n.toLowerCase().includes('adam');
+        const isChris = (n) => n.toLowerCase().includes('chris');
+
+        // --- 核心判定逻辑 ---
+        
+        // 1. 完全同一张照片
+        if (nameA === nameB) {
+            sim = 99; 
+            verdict = "Identical Biological Signature";
+        }
+        // 2. 同一个人，不同时期的照片 (Adam vs Adam / Chris vs Chris)
+        else if ((isAdam(nameA) && isAdam(nameB)) || (isChris(nameA) && isChris(nameB))) {
+            sim = Math.floor(Math.random() * 11) + 80; // 80%-90%
+            verdict = "Identity Match Confirmed";
+        }
+        // 3. Ryan 和 Luna (兄妹线索)
+        else if ((isRyan(nameA) && isLuna(nameB)) || (isLuna(nameA) && isRyan(nameB))) {
+            sim = Math.floor(Math.random() * 11) + 55; // 55%-65%
+            verdict = "Significant Genetic Correlation";
+        }
+        // 4. 跨人配对 (完全无血缘)
+        else {
+            sim = Math.floor(Math.random() * 6) + 5; // 5%-10%
+            verdict = "Low Correlation";
+        }
+
+        // 渲染结果
+        faceResultBox.innerHTML = `
+            <div class="res-card">
+                <div class="score-circle">
+                    <span class="score-num">${sim}%</span><br>
+                    <span style="font-size:8px;">Similarity</span>
+                </div>
+                <h2 style="font-size:16px; color:#8b0000; margin-bottom:10px;">${verdict}</h2>
+                <hr style="border:0; border-top:1px dashed #d2b48c; margin:10px 0;">
+                <p class="res-desc" style="text-align:center; font-size:13px;">
+                    Biometric markers matched: <b>${sim}%</b>. <br>
+                    <span style="font-size:11px; color:#666; display:block; margin-top:5px;">
+                        ⚠️The result is for reference only and has no authority.
+                    </span>
+                </p>
+            </div>`;
+        faceResultBox.style.display = 'block';
+    }, 2000);
+}
+
+
+let currentTargetSlot = ''; // 记录当前是在选 A 还是 B
+
+// 1. 打开选择器弹窗
+function selectGamePhoto(slot) {
+    currentTargetSlot = slot;
+    // 如果没有弹窗容器，我们动态创建一个（为了方便，直接用 JS 生成）
+    let picker = document.getElementById('file-picker-modal');
+    if (!picker) {
+        picker = document.createElement('div');
+        picker.id = 'file-picker-modal';
+        picker.className = 'window';
+        picker.style = "display:none; width:320px; position:fixed; z-index:9999; left:50%; top:50%; transform:translate(-50%, -50%); background:white; border:1px solid #444; box-shadow:0 0 20px rgba(0,0,0,0.5);";
+        picker.innerHTML = `
+            <div class="title-bar"><div class="win-title">Select Photo</div><span onclick="closeFilePicker()" style="cursor:pointer; padding-right:10px;">✕</span></div>
+            <div id="file-picker-list" style="padding:15px; display:grid; grid-template-columns:1fr 1fr; gap:10px; max-height:300px; overflow-y:auto;"></div>
+        `;
+        document.body.appendChild(picker);
+    }
+    
+    const listContainer = document.getElementById('file-picker-list');
+    listContainer.innerHTML = '';
+    
+    // 渲染桌面上的图片作为选项
+    desktopFiles.forEach(file => {
+        const item = document.createElement('div');
+        item.style = "cursor:pointer; text-align:center; border:1px solid #eee; padding:5px;";
+        item.innerHTML = `
+            <img src="${file.url}" style="width:100%; height:80px; object-fit:cover;">
+            <div style="font-size:10px; margin-top:4px;">${file.name}</div>
+        `;
+        item.onclick = () => confirmPhotoSelection(file);
+        listContainer.appendChild(item);
+    });
+
+    picker.style.display = 'block';
+}
+
+// 2. 确认选择并更新预览
+function confirmPhotoSelection(file) {
+    const previewId = currentTargetSlot === 'A' ? 'preview-a' : 'preview-b';
+    const previewBox = document.getElementById(previewId);
+    
+    // 关键：在这里给图片加上 data-name，以便 runFaceRecognition 识别
+    previewBox.innerHTML = `<img src="${file.url}" data-name="${file.name}">`;
+    
+    closeFilePicker();
+}
+
+function closeFilePicker() {
+    document.getElementById('file-picker-modal').style.display = 'none';
+}
+
+
+
 
 // --- 游戏初始化与恢复状态 ---
 function initGame() {
@@ -1320,6 +1666,7 @@ function initGame() {
     }
 
     // 初始化其他组件
+    renderDesktop();
     renderBookmarks(); 
     renderXhsHomeFeed();
     setInterval(() => {
@@ -1329,3 +1676,5 @@ function initGame() {
 
 // 页面加载完毕后执行初始化
 initGame();
+
+

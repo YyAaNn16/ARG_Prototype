@@ -1247,6 +1247,7 @@ body {
     padding: 0 10px;
     gap: 8px;
     overflow-x: auto;
+    overflow-y: hidden; /* 严格禁止垂直滚动条 */
 }
 
 .bookmark-item {
@@ -1268,6 +1269,7 @@ body {
 
 .bookmark-item .bm-icon {
     font-size: 14px;
+    transform: translateY(5px);
 }
 
 /* --- 开场剧情屏幕 (Intro Screen) --- */
@@ -2100,4 +2102,141 @@ body {
 
 .wallet-item-amount.positive {
     color: #d93025;
+}
+
+
+/* --- 算命网站样式 --- */
+.divination-site { padding: 30px; font-family: 'Inter', sans-serif; color: #4a3728; }
+.divination-header { text-align: center; margin-bottom: 30px; }
+.divination-header h1 { font-family: 'Courier Prime', serif; font-size: 26px; color: #8b0000; }
+.divination-container { max-width: 420px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #e0cda9; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+.divination-tabs { display: flex; margin-bottom: 20px; border-bottom: 2px solid #f0e6d2; }
+.divination-tabs button { flex: 1; padding: 10px; border: none; background: none; cursor: pointer; font-weight: bold; color: #aaa; transition: 0.3s; }
+.divination-tabs button.active { color: #8b0000; border-bottom: 2px solid #8b0000; }
+.dob-row { display: flex; gap: 8px; margin-top: 10px; }
+.dob-row input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 4px; outline: none; font-size: 14px; text-align: center; }
+.div-btn { width: 100%; padding: 12px; background: #8b0000; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 15px; }
+.divination-result-box { margin-top: 20px; padding: 20px; background: #fffdf9; border: 1px dashed #d2b48c; border-radius: 4px; animation: fadeIn 0.4s; }
+.res-card h2 { color: #8b0000; font-size: 18px; margin-bottom: 10px; text-align: center; }
+.res-desc { font-size: 13px; line-height: 1.6; color: #5a4636; }
+.science-disclaimer { font-size: 9px; color: #bbb; text-align: center; margin-top: 15px; }
+.score-circle { width: 60px; height: 60px; border: 3px solid #8b0000; border-radius: 50%; margin: 0 auto 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold; }
+.score-num { font-size: 18px; color: #8b0000; }
+.elements-compare { text-align: center; margin-bottom: 10px; color: #333; }
+.res-quote { font-style: italic; color: #8b0000; font-family: serif; text-align: center; margin: 10px 0; }
+
+
+
+/* --- 桌面图标布局 --- */
+/* 修改 .desktop-icons 的样式 */
+.desktop-icons {
+    position: absolute;
+    top: 50px;       /* 避开顶部状态栏 */
+    left: 20px;      /* ✨ 移到最左边一列 */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;       /* 增加间距看起来更像电脑桌面 */
+    z-index: 5;      /* 确保在背景图之上，但在弹窗之下 */
+    width: 80px;
+}
+
+.desktop-item {
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.1s;
+}
+
+.desktop-item:active {
+    transform: scale(0.95); /* 点击时的缩放反馈 */
+}
+
+.desktop-icon-img {
+    width: 55px;     /* 稍微调大一点 */
+    height: 55px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    object-fit: cover;
+    margin-bottom: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.desktop-item .icon-name {
+    color: white;
+    font-size: 11px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* 增强文字在壁纸上的可读性 */
+    word-break: break-all;
+    line-height: 1.2;
+}
+
+
+
+/* --- 人脸对比区域样式 --- */
+.face-compare-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.face-slot {
+    flex: 1;
+    aspect-ratio: 1/1;
+    border: 2px dashed #d2b48c;
+    border-radius: 8px;
+    background: #fffdf9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative; /* ✨ 必须添加这一行 */
+}
+
+.face-preview-box {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: #aaa;
+}
+
+.face-preview-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.compare-vs {
+    font-weight: bold;
+    color: #8b0000;
+    font-size: 14px;
+    font-family: 'Courier Prime', monospace;
+}
+
+/* 扫描线样式修复 */
+.face-slot.scanning::after {
+    content: "";
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 3px; /* 稍微加粗一点点 */
+    background: #8b0000;
+    box-shadow: 0 0 12px #ff0000;
+    z-index: 10;
+    animation: scanMove 2s infinite linear;
+}
+
+@keyframes scanMove { 
+    0% { top: 0%; } 
+    50% { top: 100%; } /* 来回扫描效果更好 */
+    100% { top: 0%; } 
 }
