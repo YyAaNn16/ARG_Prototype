@@ -34,34 +34,62 @@ const chatData = {
     "user_cousin": {
         name: "Cousin", avatarColor: "#4285f4", avatarText: "Co",
         messages: [
+            { type: "sys", text: "Oct 20, 10:30 AM" },
             { type: "left", text: "Hey, are you still in Bangkok? Auntie is worried." },
             { type: "right", text: "I'm fine. Just busy making money." },
             { type: "left", text: "Making money? You borrowed rent money last month." },
             { type: "right", text: "That was before. I just bought an 80k Hermes for Luna." },
-            { type: "left", text: "80k?! Where did you get that cash?" }
+            { type: "left", text: "80k?! Where did you get that cash?" },
+            { type: "right", text: "Don't worry about it. I have things under control." }
         ]
     },
     "user_luna": {
         name: "Luna 🌙", avatarColor: "#e91e63", avatarText: "🌙",
         messages: [
-            { type: "sys", text: "Oct 01, 10:05 AM" },
-            { type: "left", text: "I've been sharing so many Bangkok food spots on XHS lately, have you seen them?" },
-            // 链接到首页提到的美食帖子
+            { type: "sys", text: "Aug 15, 08:20 PM" },
+            { type: "left", text: "Babe! I tried making Mapo Tofu today following a Chinese recipe! Look! 🌶️" },
+            { type: "left", isImg: true, src: "https://images.unsplash.com/photo-1555126634-323283e090fa?q=80&w=200" },
+            { type: "right", text: "Wow, that looks incredibly authentic! You're getting so good at this." },
+            { type: "left", text: "Hehe, I love learning about your culture. Btw, did the package arrive?" },
+            { type: "right", text: "Yes! The mechanical keyboard." },
+            { type: "left", text: "I know it's not super expensive, but I researched the switches and they are great for coding and gaming. Hope you like it! ❤️" },
+            { type: "right", text: "I love it. It's perfect. You're too good to me." },
+            { type: "sys", text: "Sep 08, 08:30 PM" },
+            { type: "right", text: "Babe, my college roommate is having his wedding in Bangkok late next month. Let's go together? We can take a few weeks off and treat it as a vacation. 🌴" },
+            { type: "left", text: "Oh my god! Yes! I've always wanted to visit Thailand! The street food there looks amazing! 🍜🥰" },
+            { type: "right", text: "I'll book our flights right now." },
+            { type: "sys", text: "Sep 28, 11:45 PM" },
+            { type: "sys", text: "📷 Video Call ended (01:24:15)" },
+            { type: "right", text: "Goodnight my love. See you in Bangkok next week. I have a big surprise prepared for you before we leave." },
+            { type: "sys", text: "Oct 05, 10:05 AM" },
+            { type: "left", text: "Did you see my recent posts about the Bangkok food stalls?" },
             { type: "left", xhsLink: true, postId: "luna_post_1", linkTitle: "Best street food in BKK! 🍜 Found a hidden gem...", author: "Luna_99" },
-            { type: "left", text: "Babe! Look what I got!" },
-            { type: "img", src: "https://cdn.shopify.com/s/files/1/0879/1520/0785/files/30_1024x1024.jpg?v=1726396117" },
-            { type: "left", text: "Finally got the Birkin 30. You are the best! ❤️" },
-            // 链接到名牌包开箱帖子
+            { type: "left", text: "Babe! Look what the front desk just delivered to me!" },
+            { type: "left", isImg: true, src: "https://cdn.shopify.com/s/files/1/0879/1520/0785/files/30_1024x1024.jpg?v=1726396117" },
+            { type: "left", text: "Finally got the Birkin 30. You are the absolute best boyfriend in the world! ❤️ Literally crying right now." },
             { type: "left", xhsLink: true, postId: "luna_post_unboxing", linkTitle: "Unboxing my new Chanel! Limited Edition! ✨🥰", author: "Luna_99" },
-            { type: "right", text: "Only the best for you. I have the receipt to prove it." },
-            { type: "right", text: "Hold on, need to clear my desktop files." }
+            { type: "right", text: "Only the best for you. I kept the receipt to prove it, 100% authentic." },
+            { type: "right", text: "Give me a sec, need to clear some files on my desktop." }
         ]
     },
     "user_chris": {
         name: "Chris", avatarColor: "#ff9800", avatarText: "Ch",
         messages: [
-            { type: "left", text: "I need to find him." },
-            { type: "right", text: "Stop asking about Ryan." }
+            { type: "sys", text: "Feb 14, 2018" },
+            { type: "right", text: "Hey Chris, any news from Ryan? Did he ever reach out to you?" },
+            { type: "left", text: "No man. He changed his number and socials. You need to let it go. Whatever happened between you two, it's over." },
+            { type: "sys", text: "Nov 05, 2020" },
+            { type: "right", text: "Just saw your post about your new job in Bangkok. Congrats!" },
+            { type: "left", text: "Thanks bro. It's a fresh start." },
+            { type: "right", text: "Yeah. Btw, I've moved on from the Ryan thing. Just hope he is doing well wherever he is." },
+            { type: "left", text: "Glad to hear that. Life goes on." },
+            { type: "sys", text: "Sep 05, 2023" },
+            { type: "left", text: "Adam! Big news. I'm getting married! 💍" },
+            { type: "left", text: "The wedding is next month (Oct 24th) in Bangkok. I'd really love for you to come." },
+            { type: "left", isImg: true, src: "https://images.unsplash.com/photo-1544592732-83bbd75bbec4?q=80&w=200" },
+            { type: "left", text: "Attached the digital invite with the venue details and a photo of us." },
+            { type: "right", text: "Wow... congratulations. The bride is beautiful." },
+            { type: "right", text: "I'll book my tickets. I'll definitely be there." }
         ]
     },
     "user_ryan": {
@@ -113,12 +141,12 @@ function renderChatList() {
     const listContainer = document.getElementById('chat-list-view');
     listContainer.innerHTML = ''; 
     for (const [id, data] of Object.entries(chatData)) {
-        // 安全获取最后一条消息
         const lastMsg = data.messages.length > 0 ? data.messages[data.messages.length - 1] : null;
         let preview = 'No messages yet';
         
         if (lastMsg) {
-            if (lastMsg.type === 'img') preview = '[Image]';
+            // 修复：兼容 isImg 属性
+            if (lastMsg.isImg || lastMsg.type === 'img') preview = '[Image]';
             else if (lastMsg.xhsLink) preview = '[Link Shared]';
             else preview = lastMsg.text;
         }
@@ -140,18 +168,15 @@ function openChat(userId) {
     document.getElementById('active-chat-name').innerText = data.name;
     container.innerHTML = '';
 
-    // 处理左侧列表的绿色选中状态
     document.querySelectorAll('.contact-item').forEach(item => item.classList.remove('active'));
     document.getElementById(`contact-${userId}`).classList.add('active');
 
-    // 定义 Adam (玩家) 的默认黑灰头像
     const adamAvatarHTML = `<div class="msg-avatar" style="background:#333;">Ad</div>`;
-    // 当前聊天对象的头像
     const contactAvatarHTML = `<div class="msg-avatar" style="background:${data.avatarColor}; cursor:pointer;" onclick="jumpToContactFromChat('${userId}')">${data.avatarText}</div>`;
 
     data.messages.forEach(msg => {
         if (data.messages.length === 0) {
-        container.innerHTML = `<div class="system-msg">You are now connected. Start chatting!</div>`;
+            container.innerHTML = `<div class="system-msg">You are now connected. Start chatting!</div>`;
         } else {
             if (msg.type === 'sys') {
                 container.innerHTML += `<div class="system-msg">${msg.text}</div>`;
@@ -159,7 +184,8 @@ function openChat(userId) {
             }
 
             let innerContent = '';
-            if (msg.type === 'img') {
+            // 修复：增加对 isImg 的判断
+            if (msg.isImg || msg.type === 'img') {
                 innerContent = `<div class="img-bubble"><img src="${msg.src}" style="max-width:180px; border-radius:6px;"></div>`;
             } else if (msg.xhsLink) {
                 innerContent = `
@@ -173,7 +199,7 @@ function openChat(userId) {
                 innerContent = `<div class="bubble ${msg.type}">${msg.text}</div>`;
             }
 
-            // 组装带头像的一整行
+            // 这里的判断现在能正确读取 type 里的 left/right 了
             const isLeft = msg.type === 'left';
             const rowAvatar = isLeft ? contactAvatarHTML : adamAvatarHTML;
             
@@ -187,7 +213,6 @@ function openChat(userId) {
         }
     });
 
-    // 自动滚动到底部
     container.scrollTop = container.scrollHeight;
 }
 
@@ -786,6 +811,20 @@ const browserData = {
                 clickAction: ""
             }
         ],
+        "university": [
+            { 
+                url: "www.bkk-tech-uni.ac.th", 
+                title: "Bangkok Technology University (BKK Tech)", 
+                snippet: "Innovating the Future. Discover our top-ranked engineering, science, and business programs. See our latest alumni spotlights and campus news.",
+                clickAction: "navBrowser('uni')" // 点击后调用内部路由
+            },
+            { 
+                url: "www.bkk-tech-uni.ac.th/alumni", 
+                title: "Alumni Network | Bangkok Technology University", 
+                snippet: "Connect with BKK Tech graduates worldwide. Read our latest spotlight on Christopher Chen (Class of 2017).",
+                clickAction: "navBrowser('uni')"
+            }
+        ],
     }
 };
 
@@ -816,7 +855,7 @@ function navBrowser(viewId) {
     else if (viewId === 'couple-main') urlBar.value = "www.aurora-love-forever.com/home";
     // 在 navBrowser(viewId) 函数中添加
     else if (viewId === 'divination') urlBar.value = "www.fate-unveiled.com";
-
+    else if (viewId === 'uni') urlBar.value = "www.bkk-tech-uni.ac.th";
 }
 
 function trackPackageWeb() {
