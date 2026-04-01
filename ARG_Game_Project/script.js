@@ -29,6 +29,264 @@ function clearSave() {
     location.reload(); // 刷新页面
 }
 
+
+// --- 小红书用户数据库 ---
+const xhsUsers = {
+    "luna": {
+        name: "Luna_99", id: "994021",
+        avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+        bio: "Exploring the world one spicy dish at a time 🌶️",
+        stats: { posts: 12, followers: "1.2k", following: 892 },
+        posts: ["luna_post_unboxing", "luna_post_bkk", "luna_post_airport", "luna_post_cooking", "luna_post_hello"]
+    },
+    "ryan": {
+        name: "Deactivated Account", id: "Account Disabled",
+        avatar: "", // 留空则显示灰色
+        bio: "This account has been deactivated by the user.",
+        stats: { posts: 4, followers: 128, following: 150 }, // 更新帖子数量为 3
+        posts: ["ryan_post_4", "ryan_post_video_clue", "ryan_post_2", "ryan_post_1"]    
+    },
+    "adam_burner": {
+        name: "Adam_1010", id: "102400",
+        avatar: "", // 默认头像
+        bio: "Just looking for some advice.",
+        stats: { posts: 1, followers: 2, following: 0 },
+        posts: ["luna_burner_post"] 
+    },
+    "adam": {
+        name: "Adam", id: "8832910",
+        avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
+        bio: "Less is more.",
+        stats: { posts: 4, followers: 45, following: 128 },
+        posts: ["adam_post_1", "adam_post_2", "adam_post_3", "adam_post_4"]
+    },
+};
+
+// --- 小红书帖子详情数据  ---
+const xhsPostData = {
+// === Luna 大号帖子 (按时间倒序) ===
+    "luna_post_unboxing": {
+        img: "https://cdn.shopify.com/s/files/1/0879/1520/0785/files/30_1024x1024.jpg?v=1726396117",
+        author: "Luna_99", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+        text: "Unboxing my Dream Bag! ✨🥰\nThe biggest surprise of this Bangkok trip! When the front desk delivered it, I thought there was a mistake. Thank you to the best boyfriend in the world, Adam. I was literally on the verge of crying in the hotel lobby. The leather feels so incredibly good! I am definitely the happiest girl today! ❤️\n#HermesBirkin #Unboxing #BestBoyfriend #BangkokTrip",
+        date: "2023-10-05", comments: "2 Comments",
+        commentsList: [
+            { user: "FashionGuru", avatar: "https://randomuser.me/api/portraits/women/12.jpg", text: "Omg so jealous! That color is super hard to get! 😍", time: "2023-10-05" },
+            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Only the best for you. ❤️", time: "2023-10-05" }
+        ]
+    },
+    "luna_post_bkk": {
+        img: "https://images.unsplash.com/photo-1555126634-323283e090fa?q=80&w=500", // 替换为泰国街头美食/冬阴功汤图片
+        author: "Luna_99", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+        text: "First time trying authentic Thai street food! 🍜\nThe Tom Yum soup is incredibly spicy, but I just can't stop eating it! The tropical vibe here is amazing, such a perfect vacation spot. Spent the whole day eating through the night markets with Adam, completely gave up on diet control hahahaha! 🌴\n#FirstTimeInBKK #TravelDiary #FoodieLife #VacationMode",
+        date: "2023-10-04", comments: "2 Comments",
+        commentsList: [
+            { user: "Wanderlust_Dreamer", avatar: "https://randomuser.me/api/portraits/women/33.jpg", text: "Looks absolutely amazing! Enjoy your vacation!", time: "2023-10-04" },
+            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Eat as much as you want, I love you just the same even if you gain weight.", time: "2023-10-04" }
+        ]
+    },
+    "luna_post_airport": {
+        img: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=500", // 替换为机场咖啡/护照的图片
+        author: "Luna_99", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+        text: "October vacation mode ON! ✈️ Bangkok here we come!\nFinally redeeming this long-awaited trip! Also attending Adam's college friend's wedding at the end of the month. It's my first time in Thailand, any must-visit spots for first-timers? Waiting online! 👇\n#TravelGram #CouplesTrip #AirportVlog",
+        date: "2023-10-01", comments: "1 Comments",
+        commentsList: [
+            { user: "DailyVibes", avatar: "https://randomuser.me/api/portraits/women/68.jpg", text: "Have a great trip! You definitely need to check out the Grand Palace!", time: "2023-10-01" }
+        ]
+    },
+    "luna_post_cooking": {
+        img: "https://images.unsplash.com/photo-1543826173-70651703c5a4?q=80&w=500", // 替换为麻婆豆腐/中餐图片
+        author: "Luna_99", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+        text: "First time making authentic Mapo Tofu! 🌶️\nI've always been super fascinated by Chinese culture and food! Today I finally gathered the courage to follow a recipe step by step. Even though my kitchen looks like a warzone now, it tastes surprisingly good! My boyfriend praised it as very authentic (hope he's not just blindly complimenting me haha). Next challenge: Sweet and Sour Pork Ribs! 🥢\n#ChineseFood #CookingDiaries #MapoTofu #CrossCulturalRomance",
+        date: "2023-08-15", comments: "2 Comments",
+        commentsList: [
+            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Looks incredibly authentic! Giving this dish a 100/100 💯. Next time you challenge the sweet and sour ribs, I can pass on my secret recipe to you. 😉", time: "2023-08-15" },
+            { user: "Luna_99", avatar: "https://randomuser.me/api/portraits/women/44.jpg", text: "Wow really?! That's great, looking forward to your secret recipe! ✨", time: "2023-08-15" }
+        ]
+    },
+    "luna_post_hello": {
+        img: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=500", // 替换为自拍或街景打卡照
+        author: "Luna_99", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+        text: "Hello Xiaohongshu! 👋\nMy previous Tiktok account got banned out of nowhere, was really sad about it for a long time, lost so many memories. But that's okay, considering this as a fresh start! From now on, I'll be sharing my daily life, travels, and random moments here. Nice to meet you all! 🥰\n#NewHere #LifeLog #HelloXHS",
+        date: "2023-05-20", comments: "3 Comments",
+        commentsList: [
+            { user: "DailyVibes", avatar: "https://randomuser.me/api/portraits/women/68.jpg", text: "Welcome to Xiaohongshu! Followed!", time: "2023-05-20" },
+            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Finally found you! I used to watch your updates all the time, glad you didn't leave the internet entirely. Followed! 😊", time: "2023-05-20" },
+            { user: "Luna_99", avatar: "https://randomuser.me/api/portraits/women/44.jpg", text: "Thank you for the support! ✨", time: "2023-05-21" }
+        ]
+    },
+
+// === Ryan 的旧账帖子 (核心剧情线索) ===
+    "ryan_post_1": {
+        img: "https://images.unsplash.com/photo-1461360228754-6e81c478b882?q=80&w=500", // 替换为黑胶唱片/复古音乐图
+        author: "Deactivated Account", avatar: "",
+        text: "Finally got my hands on this out-of-print vinyl! Been looping 'Can't Help Falling in Love' all week. The King lives on. 🎸👑",
+        date: "2015-10-05", comments: "0 Comments",
+        commentsList: []
+    },
+    "ryan_post_2": {
+        img: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=500", // 书桌与咖啡/外卖
+        author: "Deactivated Account", avatar: "",
+        text: "Struggling with the major assignment until my brain melted. Thanks to my awesome roommate Adam for helping me sort out the logic and bringing me late-night snacks. Grateful! 🙏💻",
+        date: "2015-10-28", comments: "1 Comments",
+        commentsList: [
+            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "No problem bro. Finish it up and get some rest.", time: "2015-10-28" }
+        ]
+    },
+    "ryan_post_video_clue": {
+        isVideo: true, 
+        videoSrc: "assets/ryan_desk_pan.mp4", // 以后替换为包含药瓶的真实视频路径
+        img: "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?q=80&w=500", // 杂乱书桌封面图
+        author: "Deactivated Account", avatar: "",
+        text: "The reality of a finals week desk. A total disaster. Note to self: never leave assignments to the last day ever again. 📚😵",
+        date: "2015-11-15", comments: "1 Comments",
+        commentsList: [
+            { user: "Chris", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "Your desk is an absolute disaster zone.", time: "2015-11-15" }
+        ]
+    },
+    "ryan_post_4": {
+        img: "https://images.unsplash.com/photo-1550534731-2e673f4e2f4a?q=80&w=500", // 模糊眩晕感的图
+        author: "Deactivated Account", avatar: "",
+        text: "Don't know what's wrong lately, always feeling lightheaded and dizzy. Slept for 12 hours yesterday and still woke up exhausted. My brain feels like mush. Is finals stress really this bad? 😵‍💫 No amount of coffee helps.",
+        date: "2015-11-20", comments: "2 Comments",
+        commentsList: [
+            { user: "Chris", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "You don't look right man, you should go to the campus clinic.", time: "2015-11-21" },
+            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Don't push yourself too hard, health comes first. I'll bring some hot soup back to the dorm for you tonight.", time: "2015-11-21" }
+        ]
+    },
+    // === Adam 大号帖子 (按时间倒序) ===
+    "adam_post_1": {
+        img: "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?q=80&w=500", // 整洁的行李箱内部
+        author: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
+        text: "Leave finally approved. See you next week, Bangkok. 🌴",
+        date: "2023-09-28", comments: "2 Comments",
+        commentsList: [
+            { user: "Luna_99", avatar: "https://randomuser.me/api/portraits/women/44.jpg", text: "Babe, your luggage packing is so satisfying to look at!! My suitcase looks like a dumpster compared to this 😂", time: "2023-09-28" },
+            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "It's fine. I have all the itineraries planned out, just follow my lead.", time: "2023-09-28" }
+        ]
+    },
+    "adam_post_2": {
+        img: "https://images.unsplash.com/photo-1554650635-c38f9b9646b9?q=80&w=500", // 机场停机坪夜景
+        author: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
+        text: "Three consecutive night shifts. T2 terminal has finally quieted down. Need a double espresso to survive. ☕️✈️",
+        date: "2023-09-10", comments: "2 Comments",
+        commentsList: [
+            { user: "Chris", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "Working the night shift again bro? Is the ops center that busy?", time: "2023-09-10" },
+            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Lots of flights lately. Just wrapping up the last departure.", time: "2023-09-10" }
+        ]
+    },
+    "adam_post_3": {
+        img: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=500", // 极度整洁的办公桌
+        author: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
+        text: "Weekend deep clean. A clear desk equals a clear mind. 🧹✨",
+        date: "2023-08-05", comments: "2 Comments",
+        commentsList: [
+            { user: "Luna_99", avatar: "https://randomuser.me/api/portraits/women/44.jpg", text: "Wow... I don't think there's a single speck of dust in your room. Can you help organize my desk next time? 🥺", time: "2023-08-05" },
+            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Sure, next time I'm over, I'll throw away all your useless stuff. 😜", time: "2023-08-05" }
+        ]
+    },
+    "adam_post_4": {
+        img: "https://images.unsplash.com/photo-1495474472204-51ea0d20dcd8?q=80&w=500", // 手冲咖啡特写
+        author: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
+        text: "15g light roast, 92°C water, 225ml extraction. A perfect morning starts with precise measurements. ☕️☀️",
+        date: "2023-05-12", comments: "2 Comments",
+        commentsList: [
+            { user: "CoffeeHolic", avatar: "https://randomuser.me/api/portraits/men/32.jpg", text: "Are those Ethiopian beans? That extraction color is absolutely perfect!", time: "2023-05-12" },
+            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Yes, Yirgacheffe.", time: "2023-05-12" }
+        ]
+    },
+    "mock_post_1": {
+        img: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=500",
+        author: "CoffeeLover", avatar: "https://randomuser.me/api/portraits/women/12.jpg",
+        text: "Quiet afternoon with a good cup of coffee ☕️",
+        date: "10-12 Local", comments: "1 Comments",
+        commentsList: [{ user: "DailyVibes", avatar: "https://randomuser.me/api/portraits/women/18.jpg", text: "Love this vibe!", time: "10-12" }]
+    },
+
+    "mock_post_2": {
+        img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=500",
+        author: "Wanderlust_Dreamer",
+        avatar: "https://randomuser.me/api/portraits/men/22.jpg",
+        text: "There is nothing quite like the sound of waves to calm the mind. Planning my next island escape already! Where should I go next? 🌴🌊\n\n#TravelGram #BeachLife #Wanderlust",
+        date: "10-15 Remote",
+        commentsList: []
+    },
+
+    "mock_post_3": {
+        img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=500",
+        author: "StyleByMe",
+        avatar: "https://randomuser.me/api/portraits/women/33.jpg",
+        text: "Keeping it monochrome today. You can never go wrong with a classic black blazer and vintage jeans. 🖤👖\n\n#OOTD #FashionDiary #StreetStyle",
+        date: "10-18 Local",
+        commentsList: []
+    },
+
+    "mock_post_4": {
+        img: "https://images.unsplash.com/photo-1518998053901-5348d3961a04?q=80&w=500",
+        author: "Art_Enthusiast",
+        avatar: "https://randomuser.me/api/portraits/men/44.jpg",
+        text: "Finally got to see the new contemporary art exhibit. The use of light and shadows in these installations is just mind-blowing. ✨🎨\n\n#ArtGallery #Exhibition #Inspiration",
+        date: "10-20 Local",
+        commentsList: []
+    },
+
+    "mock_post_5": {
+        img: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=500",
+        author: "CatMom_Daily",
+        avatar: "https://randomuser.me/api/portraits/women/55.jpg",
+        text: "It’s raining outside, but it’s cozy in here. Look at this little fluffball sleeping on my laptop. Guess I'm not working today! 😂🐱💤\n\n#CatLife #PetLover #Cozy",
+        date: "10-21 Local",
+        commentsList: []
+    },
+    "ryan_post_eng1": {
+        img: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=500", // 实验室/电路板图片
+        author: "Deactivated Account", avatar: "",
+        text: "AutoCAD just crashed, and I didn't save. Three hours of gear reducer modeling just vanished into thin air. I need a moment. ⚙️📐 \n\n#MechanicalEngineering #FinalsWeek #EngineeringStruggles",
+        date: "2015-11-10", comments: "1 Comments",
+        commentsList: [
+            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Bro, always remember to Ctrl+S. Let's go, I'll buy you a drink.", time: "2015-11-10" }
+        ]
+    },
+    "ryan_post_video_clue": {
+        isVideo: true, // 标记这是一个视频帖子
+        videoSrc: "assets/ryan_desk_pan.mp4", // 这里填入你实际的视频文件路径
+        img: "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?q=80&w=500", // 视频加载失败或在首页列表显示的封面图
+        author: "Deactivated Account", avatar: "",
+        text: "Been feeling so dizzy lately, my brain feels like mush. Sleeping 12 hours a day and still feeling exhausted. Finals week is killing me. 😵‍💫📚 Need more coffee. \n\n#StudyGrind #AllNighter",
+        date: "2015-11-20", comments: "2 Comments",
+        commentsList: [
+            { user: "Chris", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "You should go see a doctor man, that doesn't sound normal.", time: "2015-11-21" },
+            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Take it easy, I'll bring you some hot soup later.", time: "2015-11-21" }
+        ]
+    },
+    "ryan_post_eng2": {
+        img: "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?q=80&w=500", // 熬夜写代码/复习图片
+        author: "Deactivated Account", avatar: "",
+        text: "Who even invented 'Microcomputer Principles and Interface Technology'? Going blind staring at assembly language. 💻🔌 \n\n#EngineeringStudent #EE",
+        date: "2015-12-02", comments: "0 Comments", commentsList: []
+    },
+    "luna_burner_post": {
+        img: "https://images.unsplash.com/photo-1584308666744-24d5e471956c?q=80&w=500", // 药瓶图片
+        author: "Adam_1024", avatar: "",
+        text: "Help: Found this in my boyfriend's bag.\nThe label says 'Novacard', which I googled and it's for his heart condition. But the pills inside are plain white and round, completely different from the blue ones on the internet. We are on vacation in Bangkok right now, and tonight he was being super persistent about making me a glass of hot milk to help me sleep... I didn't drink it and poured it away. My heart is racing right now, what should I do?",
+        date: "Oct 22", comments: "3 Comments",
+        commentsList: [
+            { user: "MedStudent_Anna", avatar: "https://randomuser.me/api/portraits/women/11.jpg", text: "Sis, Novacard pills are strictly blue and hexagonal. White round pills could be anything. Be careful!", time: "Oct 22" },
+            { user: "TravelSafe", avatar: "https://randomuser.me/api/portraits/men/22.jpg", text: "Don't drink anything he gives you. Lock your door.", time: "Oct 22" },
+            { user: "Maya_in_BKK", avatar: "https://randomuser.me/api/portraits/women/33.jpg", text: "DO NOT DRINK IT!!! I know exactly what those pills are. CHECK YOUR DMs NOW!!!", time: "Oct 22" }
+        ]
+    },
+};
+
+// xhs帖子转换函数
+function generateXhsLinkMsg(postId, senderType = "left") {
+    const post = xhsPostData[postId];
+    if (!post) return { type: senderType, text: "[分享的帖子已失效]" };
+    const firstLine = post.text.split('\n')[0];
+    const shortTitle = firstLine.length > 30 ? firstLine.substring(0, 30) + "..." : firstLine;
+    return { type: senderType, xhsLink: true, postId: postId, linkTitle: shortTitle, author: post.author };
+}
+
 // --- 1. DATA: Chat History ---
 const chatData = {
     "user_cousin": {
@@ -63,11 +321,10 @@ const chatData = {
             { type: "right", text: "Goodnight my love. See you in Bangkok next week. I have a big surprise prepared for you before we leave." },
             { type: "sys", text: "Oct 05, 10:05 AM" },
             { type: "left", text: "Did you see my recent posts about the Bangkok food stalls?" },
-            { type: "left", xhsLink: true, postId: "luna_post_1", linkTitle: "Best street food in BKK! 🍜 Found a hidden gem...", author: "Luna_99" },
-            { type: "left", text: "Babe! Look what the front desk just delivered to me!" },
+            generateXhsLinkMsg("luna_post_cooking", "left"),
             { type: "left", isImg: true, src: "https://cdn.shopify.com/s/files/1/0879/1520/0785/files/30_1024x1024.jpg?v=1726396117" },
             { type: "left", text: "Finally got the Birkin 30. You are the absolute best boyfriend in the world! ❤️ Literally crying right now." },
-            { type: "left", xhsLink: true, postId: "luna_post_unboxing", linkTitle: "Unboxing my new Chanel! Limited Edition! ✨🥰", author: "Luna_99" },
+            generateXhsLinkMsg("luna_post_unboxing", "left"),
             { type: "right", text: "Only the best for you. I kept the receipt to prove it, 100% authentic." },
             { type: "right", text: "Give me a sec, need to clear some files on my desktop." }
         ]
@@ -401,149 +658,6 @@ function switchXhsTab(pageId, navElement) {
     navElement.classList.add('active');
 }
 
-// --- 小红书用户数据库 ---
-const xhsUsers = {
-    "luna": {
-        name: "Luna_99", id: "994021",
-        avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-        bio: "Exploring the world one spicy dish at a time 🌶️",
-        stats: { posts: 12, followers: "1.2k", following: 892 },
-        posts: ["luna_post_1", "luna_post_unboxing"] // 绑定她的帖子
-    },
-    "ryan": {
-        name: "Deactivated Account", id: "Account Disabled",
-        avatar: "", // 留空则显示灰色
-        bio: "This account has been deactivated by the user.",
-        stats: { posts: 4, followers: 128, following: 150 }, // 更新帖子数量为 3
-        posts: ["ryan_post_eng1", "ryan_post_video_clue", "ryan_post_eng2", "ryan_post_1"] // 绑定新设计的工科帖子和视频线索
-    }
-};
-
-// --- 小红书帖子详情数据 (后续可移入 JSON) ---
-const xhsPostData = {
-    "luna_post_1": {
-        img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=500",
-        author: "Luna_99", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-        text: "Bangkok street food gems! 🍜 Found a hidden gem near the night market. Everything is so authentic and spicy! \n\n#BangkokFood #TravelLog #Foodie",
-        date: "10-05 Thailand", comments: "2 Comments",
-        commentsList: [
-            { user: "Travel_Master", avatar: "https://randomuser.me/api/portraits/men/22.jpg", text: "Looks amazing! Where is this?", time: "10-05" },
-            { user: "Chris", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "Check your private messages.", time: "10-06" }
-        ]
-    },
-    "luna_post_unboxing": {
-        img: "https://cdn.shopify.com/s/files/1/0879/1520/0785/files/30_1024x1024.jpg?v=1726396117",
-        author: "Luna_99", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-        text: "Unboxing my new Chanel! Limited Edition! ✨🥰 \n\nAdam surprised me with this beauty today. I'm literally crying! It's so much more beautiful in person. \n\n#Chanel #Unboxing #GiftFromBae #LuxuryLife",
-        date: "10-01 Thailand", comments: "2 Comments",
-        commentsList: [
-            { user: "FashionGuru", avatar: "https://randomuser.me/api/portraits/women/12.jpg", text: "Omg so jealous! 😍", time: "10-01" },
-            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Only the best for you. ❤️", time: "10-01" }
-        ]
-    },
-
-    // === Ryan 的旧账帖子 (核心剧情线索) ===
-    "ryan_post_1": {
-        img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=500", // 耳机图
-        author: "Deactivated Account", avatar: "",
-        text: "Thanks to my awesome roommate Adam for the early birthday gift! These headphones are sick. He even helped me fix my laptop today. 🙏🎧 \n\n#BestRoommate #CollegeLife",
-        date: "2015-09-12", comments: "1 Comments",
-        commentsList: [{ user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Happy early birthday bro! Enjoy.", time: "2015-09-12" }]
-    },
-    "ryan_post_2": {
-        img: "https://images.unsplash.com/photo-1470229722913-7c090be5f524?q=80&w=500", // 演唱会图
-        author: "Deactivated Account", avatar: "",
-        text: "Finally got the tickets for Jay Chou's concert!! Been waiting for this for years. So hyped! 🎶🎤 \n\n#JayChou #Concert #Music",
-        date: "2015-10-05", comments: "0 Comments", commentsList: []
-    },
-    "ryan_post_3": {
-        img: "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?q=80&w=500", // 桌面图 (用CSS加上了药瓶提示)
-        customImgOverlay: "<div style='position:absolute; top:10px; right:10px; background:rgba(217,48,37,0.9); color:white; padding:4px 8px; font-size:10px; border-radius:4px; font-weight:bold;'>[Clue: A small white pill bottle is visible on the desk corner]</div>",
-        author: "Deactivated Account", avatar: "",
-        text: "Been feeling so tired and dizzy lately... sleeping 12 hours a day and still waking up exhausted. My brain is all foggy. Finals week is getting to me. 😵‍💫📚 Need more coffee.",
-        date: "2015-11-20", comments: "2 Comments",
-        commentsList: [
-            { user: "Chris", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "You should go see a doctor man, that doesn't sound normal.", time: "2015-11-21" },
-            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Take it easy, I'll bring you some hot soup later.", time: "2015-11-21" }
-        ]
-    },
-    "ryan_post_4": {
-        img: "https://images.unsplash.com/photo-1550534731-2e673f4e2f4a?q=80&w=500", // 随便一张电脑打码图
-        author: "Deactivated Account", avatar: "",
-        text: "Late night coding sessions... 💻☕️",
-        date: "2015-12-02", comments: "0 Comments", commentsList: []
-    },
-    "mock_post_1": {
-        img: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=500",
-        author: "CoffeeLover", avatar: "https://randomuser.me/api/portraits/women/12.jpg",
-        text: "Quiet afternoon with a good cup of coffee ☕️",
-        date: "10-12 Local", comments: "1 Comments",
-        commentsList: [{ user: "DailyVibes", avatar: "https://randomuser.me/api/portraits/women/18.jpg", text: "Love this vibe!", time: "10-12" }]
-    },
-
-    "mock_post_2": {
-        img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=500",
-        author: "Wanderlust_Dreamer",
-        avatar: "https://randomuser.me/api/portraits/men/22.jpg",
-        text: "There is nothing quite like the sound of waves to calm the mind. Planning my next island escape already! Where should I go next? 🌴🌊\n\n#TravelGram #BeachLife #Wanderlust",
-        date: "10-15 Remote",
-        commentsList: []
-    },
-
-    "mock_post_3": {
-        img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=500",
-        author: "StyleByMe",
-        avatar: "https://randomuser.me/api/portraits/women/33.jpg",
-        text: "Keeping it monochrome today. You can never go wrong with a classic black blazer and vintage jeans. 🖤👖\n\n#OOTD #FashionDiary #StreetStyle",
-        date: "10-18 Local",
-        commentsList: []
-    },
-
-    "mock_post_4": {
-        img: "https://images.unsplash.com/photo-1518998053901-5348d3961a04?q=80&w=500",
-        author: "Art_Enthusiast",
-        avatar: "https://randomuser.me/api/portraits/men/44.jpg",
-        text: "Finally got to see the new contemporary art exhibit. The use of light and shadows in these installations is just mind-blowing. ✨🎨\n\n#ArtGallery #Exhibition #Inspiration",
-        date: "10-20 Local",
-        commentsList: []
-    },
-
-    "mock_post_5": {
-        img: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=500",
-        author: "CatMom_Daily",
-        avatar: "https://randomuser.me/api/portraits/women/55.jpg",
-        text: "It’s raining outside, but it’s cozy in here. Look at this little fluffball sleeping on my laptop. Guess I'm not working today! 😂🐱💤\n\n#CatLife #PetLover #Cozy",
-        date: "10-21 Local",
-        commentsList: []
-    },
-    "ryan_post_eng1": {
-        img: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=500", // 实验室/电路板图片
-        author: "Deactivated Account", avatar: "",
-        text: "AutoCAD just crashed, and I didn't save. Three hours of gear reducer modeling just vanished into thin air. I need a moment. ⚙️📐 \n\n#MechanicalEngineering #FinalsWeek #EngineeringStruggles",
-        date: "2015-11-10", comments: "1 Comments",
-        commentsList: [
-            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Bro, always remember to Ctrl+S. Let's go, I'll buy you a drink.", time: "2015-11-10" }
-        ]
-    },
-    "ryan_post_video_clue": {
-        isVideo: true, // 标记这是一个视频帖子
-        videoSrc: "assets/ryan_desk_pan.mp4", // 这里填入你实际的视频文件路径
-        img: "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?q=80&w=500", // 视频加载失败或在首页列表显示的封面图
-        author: "Deactivated Account", avatar: "",
-        text: "Been feeling so dizzy lately, my brain feels like mush. Sleeping 12 hours a day and still feeling exhausted. Finals week is killing me. 😵‍💫📚 Need more coffee. \n\n#StudyGrind #AllNighter",
-        date: "2015-11-20", comments: "2 Comments",
-        commentsList: [
-            { user: "Chris", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "You should go see a doctor man, that doesn't sound normal.", time: "2015-11-21" },
-            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Take it easy, I'll bring you some hot soup later.", time: "2015-11-21" }
-        ]
-    },
-    "ryan_post_eng2": {
-        img: "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?q=80&w=500", // 熬夜写代码/复习图片
-        author: "Deactivated Account", avatar: "",
-        text: "Who even invented 'Microcomputer Principles and Interface Technology'? Going blind staring at assembly language. 💻🔌 \n\n#EngineeringStudent #EE",
-        date: "2015-12-02", comments: "0 Comments", commentsList: []
-    },
-};
 
 function renderXhsHomeFeed() {
     const feedContainer = document.querySelector('#xhs-home .xhs-feed');
@@ -569,6 +683,26 @@ function renderXhsHomeFeed() {
                     <div class="xhs-post-title">${post.text.substring(0, 35)}...</div>
                 </div>
             `;
+        }
+    });
+}
+
+// --- 渲染 Adam 自己的个人主页帖子 ---
+function renderAdamProfileFeed() {
+    const feedContainer = document.getElementById('xhs-my-feed');
+    if (!feedContainer) return;
+    
+    feedContainer.innerHTML = '';
+    const adamData = xhsUsers["adam"];
+    
+    adamData.posts.forEach(postId => {
+        const post = xhsPostData[postId];
+        if (post) {
+            feedContainer.innerHTML += `
+                <div class="xhs-post" onclick="openXhsDetail('${postId}')">
+                    <img src="${post.img}" alt="post">
+                    <div class="xhs-post-title">${post.text.substring(0, 30)}...</div>
+                </div>`;
         }
     });
 }
@@ -727,6 +861,17 @@ function closeXhsUser() {
     document.getElementById('xhs-external-user').style.display = 'none';
 }
 
+// --- 跨应用跳转：从浏览器打开小红书帖子 ---
+function jumpToXhsFromBrowser(postId) {
+    // 1. 打开小红书应用窗口
+    openWindow('win-xhs');
+    
+    // 2. 延迟执行详情页渲染，确保窗口已经完全显示
+    setTimeout(() => {
+        openXhsDetail(postId);
+    }, 100);
+}
+
 // --- 浏览器数据 ---
 const browserData = {
     // 预设的历史记录 (埋藏剧情线索)
@@ -786,7 +931,7 @@ const browserData = {
             }
         ],
         "adam": [
-{ 
+            { 
                 url: "www.bkk-daily.com/news/tourist-incident", 
                 title: "Tragic Incident: Foreign Guest Found Dead at Wedding Venue", 
                 snippet: "Local authorities are investigating the sudden death of 32-year-old Adam at a wedding venue. Preliminary reports suggest a suspected overdose... traveled with his girlfriend, Luna...",
@@ -823,6 +968,27 @@ const browserData = {
                 title: "Alumni Network | Bangkok Technology University", 
                 snippet: "Connect with BKK Tech graduates worldwide. Read our latest spotlight on Christopher Chen (Class of 2017).",
                 clickAction: "navBrowser('uni')"
+            }
+        ],
+        // Gemini编了一个药物“Novacard”，我们在搜索结果里埋了一个线索（小红书帖子），点击后直接跳转到小红书的对应帖子详情页
+        "novacard": [
+            { 
+                url: "www.wikihealth.org/novacard", 
+                title: "Novacard (Medication) - WikiHealth", 
+                snippet: "Novacard is a prescription medication primarily used to treat chronic cardiac arrhythmias. <strong>Warning:</strong> The authentic pills are small, blue, and hexagonal. Do not crush or chew...",
+                clickAction: ""
+            },
+            { 
+                url: "www.xiaohongshu.com/explore/luna_burner_post", 
+                title: "Is this normal? Found Novacard in his bag... - Xiaohongshu", 
+                snippet: "2 days ago — I found this <strong>Novacard</strong> bottle in my boyfriend's luggage. But the pills inside are white and round, not blue. He insisted on making me hot milk...",
+                clickAction: "jumpToXhsFromBrowser('luna_burner_post')" // 直接调用我们之前写的跨应用跳转函数
+            },
+            { 
+                url: "www.medforum.com/reviews/novacard", 
+                title: "Novacard Side Effects and Reviews - MedForum", 
+                snippet: "User discussions on the side effects of Novacard. Many users report mild drowsiness during the first week of usage...",
+                clickAction: ""
             }
         ],
     }
@@ -1708,6 +1874,7 @@ function initGame() {
     renderDesktop();
     renderBookmarks(); 
     renderXhsHomeFeed();
+    renderAdamProfileFeed();
     setInterval(() => {
         document.getElementById('clock').innerText = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
     }, 1000);
