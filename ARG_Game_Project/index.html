@@ -516,15 +516,27 @@
                 <div class="dot max"></div>
             </div>
             <div class="browser-tabs">
-                <div class="browser-tab active">New Tab</div>
+                <div class="browser-tab active">
+                    <span id="browser-tab-title">New Tab</span>
+                </div>
             </div>
         </div>
     
-        <div class="browser-toolbar">
-            <div class="browser-nav-btn" onclick="navBrowser('home')">🏠</div>
-            <div class="browser-nav-btn">⟳</div>
-            <input type="text" id="browser-url" class="browser-omnibox" value="Search Google or type a URL" readonly>
-            <div class="browser-nav-btn" onclick="navBrowser('history')">⋮</div>
+        <div class="browser-controls"
+            style="display: flex; gap: 8px; align-items: center; padding: 10px; background: #f1f3f4; border-bottom: 1px solid #ccc;">
+
+            <button onclick="goBrowserBack()"
+                style="border:none; background:transparent; font-size:18px; cursor:pointer; padding: 5px 10px; border-radius: 4px;"
+                onmouseover="this.style.background='#e4e6e9'" onmouseout="this.style.background='transparent'">🔙
+            </button>
+
+            <button onclick="navBrowser('home')"
+                style="border:none; background:transparent; font-size:18px; cursor:pointer; padding: 5px 10px; border-radius: 4px;"
+                onmouseover="this.style.background='#e4e6e9'" onmouseout="this.style.background='transparent'">🏠
+            </button>
+
+            <input type="text" id="browser-url" readonly
+                style="flex:1; padding: 6px 12px; border-radius: 16px; border: 1px solid #ddd; background: #fff;">
         </div>
 
         <div class="browser-bookmarks-bar" id="bookmarks-bar"></div>
@@ -556,13 +568,6 @@
                 <div id="search-results-list" class="results-list">
                 </div>
             </div>
-
-
-            
-    
-            
-
-
 
 
             <div id="browser-couple-login" class="browser-page">
@@ -789,57 +794,361 @@
                 </div>
             </div>
 
-            <div id="browser-uni" class="browser-page">
-                <div style="background: #fff; min-height: 100%; font-family: 'Inter', sans-serif;">
-                    <header
-                        style="background: #1a1a1a; color: white; display: flex; justify-content: space-between; align-items: center; padding: 15px 40px;">
-                        <div style="font-size: 22px; font-weight: bold; letter-spacing: 1px;">
-                            BKK <span style="font-weight: 300;">Tech</span>
-                        </div>
-                        <nav style="display: flex; gap: 20px; font-size: 13px; text-transform: uppercase;">
-                            <span style="cursor:pointer;">Home</span>
-                            <span style="cursor:pointer;">Academics</span>
-                            <span style="cursor:pointer; color: #4dabf7;">Alumni</span>
-                            <span style="cursor:pointer;">About</span>
-                        </nav>
-                    </header>
+            <div id="browser-wiki-adam" class="browser-page"
+                style="padding: 20px; font-family: sans-serif; background: #fff; height: 100%; overflow-y: auto;">
+                <div
+                    style="display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid #a2a9b1; padding-bottom: 5px; margin-bottom: 15px;">
+                    <h1 style="margin: 0; font-family: 'Linux Libertine', Georgia, Times, serif; font-weight: normal;">Adam</h1>
+                    <span style="font-size: 12px; color: #0645ad; cursor: pointer;">[edit]</span>
+                </div>
+                <p style="font-size: 14px; line-height: 1.6; color: #202122;">
+                    <b>Adam</b> is a figure in the Book of Genesis in the Hebrew Bible, and in the Quran and Christian belief.
+                    According to the creation myth of the Abrahamic religions, he was the first human.
+                </p>
+                <p style="font-size: 14px; line-height: 1.6; color: #202122;">
+                    In the Genesis creation narratives, he was created by God. Christian churches differ on how they view Adam's
+                    subsequent behavior in disobeying God (often called the Fall of man), and on the consequences that those actions
+                    had on the rest of humanity. Christian and Jewish teachings sometimes hold Adam and Eve to be a different level
+                    of responsibility for the Fall...
+                </p>
+                <h2
+                    style="font-family: 'Linux Libertine', Georgia, Times, serif; font-weight: normal; border-bottom: 1px solid #a2a9b1; padding-bottom: 5px; margin-top: 20px;">
+                    See also</h2>
+                <ul style="font-size: 14px; color: #0645ad; line-height: 1.8;">
+                    <li>Adam and Eve</li>
+                    <li>Biblical chronology</li>
+                    <li>Original sin</li>
+                </ul>
+            </div>
             
-                    <section style="background: #f8f9fa; padding: 50px 40px; border-bottom: 1px solid #eee;">
-                        <h1 style="margin: 0 0 15px 0; font-size: 36px; color: #111;">Innovating the Future.</h1>
-                        <p style="margin: 0 0 20px 0; color: #555; font-size: 16px; max-width: 600px;">
-                            Grounded in tradition, driving tomorrow's technology. Welcome to Bangkok Technology University.
-                        </p>
-                        <button
-                            style="background: #1a1a1a; color: white; border: none; padding: 10px 24px; border-radius: 4px; font-size: 13px; cursor: pointer;">Explore
-                            Programs</button>
-                    </section>
+            <div id="browser-algo-adam" class="browser-page"
+                style="padding: 30px 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #fdfdfd; height: 100%; overflow-y: auto; box-sizing: border-box; overflow-x: hidden;">
+                <h1 style="margin-top: 0; margin-bottom: 10px; color: #222; font-size: 24px; line-height: 1.3;">A Gentle
+                    Introduction to the Adam Optimization Algorithm</h1>
+                <p style="font-size: 12px; color: #777; margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+                    Posted by Jason Brownlee on July 3, 2017</p>
+                <p style="font-size: 15px; line-height: 1.7; color: #333;">
+                    <b>Adam</b> is an optimization algorithm that can be used instead of the classical stochastic gradient descent
+                    procedure to update network weights iterative based in training data.
+                </p>
+                <p style="font-size: 15px; line-height: 1.7; color: #333;">
+                    The name Adam is derived from <i>adaptive moment estimation</i>. When designing deep learning models,
+                    configuring the learning rate can be one of the most challenging hyperparameters. Adam realizes the benefits of
+                    both AdaGrad and RMSProp.
+                </p>
             
-                    <section style="padding: 40px;">
+                <div
+                    style="background: #f4f4f4; padding: 15px; border-left: 4px solid #4CAF50; margin: 20px 0; font-family: monospace; font-size: 13px; color: #555; white-space: pre-wrap; word-wrap: break-word;">
+                    m = beta1 * m + (1 - beta1) * dx
+                    v = beta2 * v + (1 - beta2) * (dx ** 2)
+                    x += - learning_rate * m / (np.sqrt(v) + eps)
+                </div>
+            
+                <p style="font-size: 15px; line-height: 1.7; color: #333;">
+                    As we can see from the pseudo-code above, the algorithm calculates an exponential moving average of the gradient
+                    and the squared gradient...
+                </p>
+            </div>
+
+            <div id="browser-linkedin-adam" class="browser-page"
+                style="padding: 0; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Fira Sans', Ubuntu, Oxygen, 'Oxygen Sans', Cantarell, sans-serif; background: #f3f2ef; height: 100%; overflow-y: auto;">
+            
+                <div
+                    style="background: #fff; padding: 10px 20px; display: flex; align-items: center; border-bottom: 1px solid #e0e0e0; position: sticky; top: 0; z-index: 10;">
+                    <div
+                        style="background: #0a66c2; color: white; font-weight: bold; font-size: 18px; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 4px; margin-right: 15px;">
+                        in</div>
+                    <div
+                        style="background: #eef3f8; padding: 6px 12px; border-radius: 4px; color: #555; font-size: 14px; width: 250px;">
+                        🔍 Search
+                    </div>
+                </div>
+            
+                <div style="max-width: 800px; margin: 20px auto; padding: 0 20px;">
+            
+                    <div
+                        style="background: #fff; border-radius: 8px; border: 1px solid #e0e0e0; overflow: hidden; margin-bottom: 15px;">
                         <div
-                            style="background: #1a1a1a; color: white; border-radius: 8px; display: flex; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Chris Chen"
-                                style="width: 220px; object-fit: cover;">
-                            <div style="padding: 30px; display: flex; flex-direction: column; justify-content: center;">
-                                <span
-                                    style="color: #4dabf7; font-size: 11px; text-transform: uppercase; font-weight: bold; letter-spacing: 1px; margin-bottom: 8px;">Alumni
-                                    Spotlight</span>
-                                <h2 style="margin: 0 0 12px 0; font-size: 24px;">Christopher "Chris" Chen</h2>
-                                <p style="color: #ccc; font-size: 14px; line-height: 1.6; margin-bottom: 20px;">
-                                    <strong>Class of 2017, Major in Industrial Engineering.</strong><br><br>
-                                    "The foundation laid at BKK Tech was instrumental in scaling my current logistics ventures
-                                    across Southeast Asia," Chen notes in our exclusive interview about building robust
-                                    international supply chains.
+                            style="height: 150px; background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800') center/cover;">
+                        </div>
+            
+                        <div style="padding: 0 20px 20px 20px;">
+                            <div
+                                style="width: 120px; height: 120px; border-radius: 50%; border: 4px solid #fff; background: url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150') center/cover; margin-top: -60px; position: relative; z-index: 2;">
+                            </div>
+            
+                            <div style="margin-top: 15px;">
+                                <h1 style="margin: 0; font-size: 24px; color: #000;">Adam</h1>
+                                <p style="margin: 5px 0 0 0; font-size: 16px; color: #000;">Airport Operations Supervisor |
+                                    Efficiency & Logistics Expert</p>
+                                <p style="margin: 5px 0 15px 0; font-size: 14px; color: #666;">Mingzhou, China · 500+ connections
                                 </p>
-                                <div>
+            
+                                <div style="display: flex; gap: 10px;">
                                     <button
-                                        style="background: transparent; border: 1px solid #ccc; color: white; padding: 8px 16px; border-radius: 4px; font-size: 12px; cursor: pointer; transition: all 0.2s;"
-                                        onmouseover="this.style.background='#fff'; this.style.color='#1a1a1a';"
-                                        onmouseout="this.style.background='transparent'; this.style.color='#fff';">Read Full
-                                        Interview</button>
+                                        style="background: #0a66c2; color: #fff; border: none; padding: 6px 15px; border-radius: 16px; font-weight: bold; cursor: pointer;">Connect</button>
+                                    <button
+                                        style="background: #fff; color: #0a66c2; border: 1px solid #0a66c2; padding: 6px 15px; border-radius: 16px; font-weight: bold; cursor: pointer;">Message</button>
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </div>
+            
+                    <div
+                        style="background: #fff; border-radius: 8px; border: 1px solid #e0e0e0; padding: 20px; margin-bottom: 15px;">
+                        <h2 style="margin: 0 0 15px 0; font-size: 18px;">About</h2>
+                        <p style="margin: 0; font-size: 14px; color: #333; line-height: 1.6;">
+                            I specialize in creating flawless operational frameworks. In the aviation industry, there is zero
+                            tolerance for errors or unpredictable variables. I pride myself on maintaining absolute control over
+                            complex logistical systems, ensuring peak efficiency and strictly eliminating any deviations from
+                            protocol. Chaos is simply a result of weak management. I don't just manage processes; I master them.
+                        </p>
+                    </div>
+            
+                    <div
+                        style="background: #fff; border-radius: 8px; border: 1px solid #e0e0e0; padding: 20px; margin-bottom: 15px;">
+                        <h2 style="margin: 0 0 20px 0; font-size: 18px;">Experience</h2>
+            
+                        <div style="display: flex; margin-bottom: 20px;">
+                            <div
+                                style="width: 48px; height: 48px; background: #eee; margin-right: 15px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0;">
+                                ✈️</div>
+                            <div>
+                                <h3 style="margin: 0; font-size: 16px;">Operations Supervisor</h3>
+                                <p style="margin: 2px 0; font-size: 14px; color: #000;">Mingzhou International Airport</p>
+                                <p style="margin: 2px 0 10px 0; font-size: 13px; color: #666;">Jun 2018 - Present · 5 yrs 5 mos</p>
+                                <ul style="margin: 0; padding-left: 15px; font-size: 14px; color: #333; line-height: 1.5;">
+                                    <li>Oversee daily terminal operations and ramp management.</li>
+                                    <li>Maintain passenger safety and enforce strict compliance with aviation security standards.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+            
+                        <div style="display: flex;">
+                            <div
+                                style="width: 48px; height: 48px; background: #eee; margin-right: 15px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0;">
+                                📦</div>
+                            <div>
+                                <h3 style="margin: 0; font-size: 16px;">Logistics Coordinator</h3>
+                                <p style="margin: 2px 0; font-size: 14px; color: #000;">Henderson Logistics</p>
+                                <p style="margin: 2px 0 10px 0; font-size: 13px; color: #666;">Sep 2016 - May 2018 · 1 yr 9 mos</p>
+                                <p style="margin: 0; font-size: 14px; color: #333;">Managed supply chain distributions under the
+                                    direct supervision of Mr. Henderson. Streamlined database management to track shipments with
+                                    100% accuracy.</p>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div
+                        style="background: #fff; border-radius: 8px; border: 1px solid #e0e0e0; padding: 20px; margin-bottom: 30px;">
+                        <h2 style="margin: 0 0 20px 0; font-size: 18px;">Education</h2>
+                        <div style="display: flex;">
+                            <div
+                                style="width: 48px; height: 48px; background: #eee; margin-right: 15px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0;">
+                                🎓</div>
+                            <div>
+                                <h3 style="margin: 0; font-size: 16px;">Mingzhou University of Science and Technology (MUST)</h3>
+                                <p style="margin: 2px 0; font-size: 14px; color: #333;">Bachelor's degree, Operations Management</p>
+                                <p style="margin: 2px 0; font-size: 13px; color: #666;">2012 - 2016</p>
+                            </div>
+                        </div>
+                    </div>
+            
+                </div>
+            </div>
+
+            <div id="browser-uni" class="browser-page"
+                style="padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: #fff; height: 100%; overflow: hidden;">
+            
+                <div style="display: flex; flex-direction: row; width: 100%; height: 100%;">
+            
+                    <div
+                        style="width: 230px; background: #fbfbfb; flex-shrink: 0; border-right: 1px solid #eaeaea; display: flex; flex-direction: column; overflow-y: auto;">
+                        <div
+                            style="background: #173b66; color: #fff; padding: 20px 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 120px; box-sizing: border-box;">
+                            <div
+                                style="width: 32px; height: 32px; border: 1px solid rgba(255,255,255,0.8); border-radius: 50%; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold;">
+                                M</div>
+                            <div style="font-size: 11px; text-align: center; line-height: 1.3; letter-spacing: 0px;">MINGZHOU
+                                UNIVERSITY<br>OF SCIENCE & TECHNOLOGY</div>
+                        </div>
+            
+                        <div
+                            style="background: #c91459; color: #fff; padding: 15px 20px; font-size: 13px; font-weight: 500; line-height: 1.4;">
+                            Mingzhou University of Science and Technology
+                        </div>
+            
+                        <div
+                            style="padding: 15px 20px; border-bottom: 1px solid #eaeaea; font-size: 13px; color: #333; display: flex; justify-content: space-between; cursor: pointer;">
+                            Study <span style="color: #999;">⌄</span></div>
+                        <div
+                            style="padding: 15px 20px; border-bottom: 1px solid #eaeaea; font-size: 13px; color: #333; display: flex; justify-content: space-between; cursor: pointer;">
+                            Research <span style="color: #999;">⌄</span></div>
+                        <div
+                            style="padding: 15px 20px; border-bottom: 1px solid #eaeaea; font-size: 13px; color: #333; display: flex; justify-content: space-between; cursor: pointer;">
+                            Doctoral studies <span style="color: #999;">⌄</span></div>
+                        <div
+                            style="padding: 15px 20px; border-bottom: 1px solid #eaeaea; font-size: 13px; color: #333; display: flex; justify-content: space-between; cursor: pointer;">
+                            Collaboration and innovation <span style="color: #999;">⌄</span></div>
+                        <div
+                            style="padding: 15px 20px; border-bottom: 1px solid #eaeaea; font-size: 13px; color: #333; display: flex; justify-content: space-between; cursor: pointer;">
+                            About the University <span style="color: #999;">⌄</span></div>
+                    </div>
+            
+                    <div style="flex: 1; display: flex; flex-direction: column; overflow-y: auto;">
+            
+                        <div
+                            style="height: 80px; flex-shrink: 0; border-bottom: 1px solid #eaeaea; display: flex; align-items: center; justify-content: space-between; padding-left: 30px;">
+                            <div style="font-size: 20px; color: #777; font-weight: 300;">Mingzhou University of Science & Technology
+                            </div>
+            
+                            <div style="display: flex; height: 100%;">
+                                <div style="display: flex; align-items: center; gap: 25px; padding: 0 25px;">
+                                    <div style="text-align: center; cursor: pointer;">
+                                        <div style="font-size: 16px; margin-bottom: 2px;">💬</div>
+                                        <div style="font-size: 11px; font-weight: bold; color: #000;">Contact</div>
+                                    </div>
+                                    <div style="text-align: center; cursor: pointer;">
+                                        <div style="font-size: 16px; margin-bottom: 2px;">🌍</div>
+                                        <div style="font-size: 11px; font-weight: bold; color: #000;">Chinese</div>
+                                    </div>
+                                </div>
+                                <div
+                                    style="width: 80px; border-left: 1px solid #eaeaea; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; background: #fafafa;">
+                                    <div style="font-size: 18px; margin-bottom: 2px; color: #333;">🔍</div>
+                                    <div style="font-size: 12px; color: #333;">Search</div>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <div onclick="navBrowser('uni-chris-interview')"
+                            style="height: 450px; flex-shrink: 0; background: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200') center/cover; position: relative; cursor: pointer;">
+                            <div
+                                style="position: absolute; bottom: 0; left: 0; width: 100%; height: 60%; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);">
+                            </div>
+            
+                            <div style="position: absolute; bottom: 45px; left: 60px; color: #fff; max-width: 700px;">
+                                <h1
+                                    style="font-size: 48px; margin: 0 0 15px 0; line-height: 1.1; font-weight: 900; letter-spacing: -0.5px;">
+                                    Alumni Spotlight:<br>Chris Henderson
+                                </h1>
+                                <p style="font-size: 16px; margin: 0; font-weight: 600; letter-spacing: 0.5px;">
+                                    Rebuilding lives and finding peace in Bangkok. Read the interview.
+                                </p>
+                            </div>
+            
+                            <div
+                                style="position: absolute; bottom: 45px; right: 60px; color: #fff; font-size: 32px; font-weight: 300;">
+                                ➔</div>
+                        </div>
+            
+                        <div style="padding: 60px;">
+                            <h2
+                                style="font-size: 42px; color: #1a1a1a; margin-top: 0; margin-bottom: 40px; font-weight: 800; font-family: 'Arial Narrow', sans-serif; letter-spacing: -1px;">
+                                Mingzhou University of Science and Technology
+                            </h2>
+            
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                                <div style="background: #f8f8f8; padding: 25px;">
+                                    <h3 style="margin-top: 0; font-size: 20px; font-weight: 400; color: #444; margin-bottom: 20px;">
+                                        Study here</h3>
+                                    <div
+                                        style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e0e0e0; font-size: 13px; color: #111; font-weight: 500; cursor: pointer;">
+                                        Study in Mingzhou <span style="font-size: 16px;">→</span></div>
+                                    <div
+                                        style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e0e0e0; font-size: 13px; color: #111; font-weight: 500; cursor: pointer;">
+                                        Master's programs <span style="font-size: 16px;">→</span></div>
+                                    <div
+                                        style="display: flex; justify-content: space-between; padding: 12px 0; font-size: 13px; color: #111; font-weight: 500; cursor: pointer;">
+                                        Bachelor's programs <span style="font-size: 16px;">→</span></div>
+                                </div>
+                                <div style="background: #f8f8f8; padding: 25px;">
+                                    <h3 style="margin-top: 0; font-size: 20px; font-weight: 400; color: #444; margin-bottom: 20px;">
+                                        Our research</h3>
+                                    <div
+                                        style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e0e0e0; font-size: 13px; color: #111; font-weight: 500; cursor: pointer;">
+                                        Find research <span style="font-size: 16px;">→</span></div>
+                                    <div
+                                        style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e0e0e0; font-size: 13px; color: #111; font-weight: 500; cursor: pointer;">
+                                        Excellent research <span style="font-size: 16px;">→</span></div>
+                                    <div
+                                        style="display: flex; justify-content: space-between; padding: 12px 0; font-size: 13px; color: #111; font-weight: 500; cursor: pointer;">
+                                        Doctoral studies <span style="font-size: 16px;">→</span></div>
+                                </div>
+                                <div style="background: #f8f8f8; padding: 25px;">
+                                    <h3 style="margin-top: 0; font-size: 20px; font-weight: 400; color: #444; margin-bottom: 20px;">
+                                        The University</h3>
+                                    <div
+                                        style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e0e0e0; font-size: 13px; color: #111; font-weight: 500; cursor: pointer;">
+                                        Vacancies <span style="font-size: 16px;">→</span></div>
+                                    <div
+                                        style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e0e0e0; font-size: 13px; color: #111; font-weight: 500; cursor: pointer;">
+                                        Contact us <span style="font-size: 16px;">→</span></div>
+                                    <div
+                                        style="display: flex; justify-content: space-between; padding: 12px 0; font-size: 13px; color: #111; font-weight: 500; cursor: pointer;">
+                                        Get to know us <span style="font-size: 16px;">→</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="browser-uni-chris-interview" class="browser-page"
+                style="padding: 0; font-family: Arial, sans-serif; background: #fff; height: 100%; overflow-y: auto;">
+            
+                <div
+                    style="background: #fbfbfb; padding: 15px 40px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e0e0e0; position: sticky; top: 0; z-index: 10;">
+                    <div style="display: flex; align-items: center;">
+                        <div
+                            style="background: #c91459; color: white; padding: 5px 10px; font-weight: bold; border-radius: 2px; margin-right: 15px; font-size: 14px;">
+                            MUST</div>
+                        <div style="color: #333; font-weight: bold; font-size: 18px;">Alumni Profiles</div>
+                    </div>
+                    <a href="#" onclick="navBrowser('uni'); return false;"
+                        style="color: #173b66; text-decoration: none; font-size: 14px; font-weight: bold;">
+                        ← Back to MUST Home
+                    </a>
+                </div>
+            
+                <div style="max-width: 800px; margin: 40px auto; padding: 0 20px 60px 20px;">
+                    <div style="border-bottom: 1px solid #eee; padding-bottom: 20px; margin-bottom: 30px;">
+                        <h1 style="font-size: 36px; color: #000; margin: 0 0 10px 0; font-weight: 800; letter-spacing: -0.5px;">
+                            Rebuilding Lives through Architecture: An Interview with Chris Henderson ('16)</h1>
+                        <p style="font-size: 14px; color: #666; margin: 0;">Published by MUST Alumni Association | October 15, 2023
+                        </p>
+                    </div>
+            
+                    <img src="https://images.unsplash.com/photo-1503387873255-3a4a2bd51c1d?q=80&w=1200"
+                        alt="Chris in Southeast Asia"
+                        style="width: 100%; height: 400px; object-fit: cover; border-radius: 4px; margin-bottom: 30px;">
+            
+                    <div class="interview-text" style="font-size: 17px; line-height: 1.8; color: #333;">
+                        <p style="font-weight: bold; font-size: 18px; color: #000;">MUST: Chris, it is a pleasure to connect. Your
+                            journey from a MUST Operations Management graduate to a successful architect in Thailand is fascinating.
+                            How did MUST prepare you?</p>
+            
+                        <p><strong>Chris Henderson:</strong> MUST provided the structural foundation for my mind. Operations
+                            Management taught me about efficiency, resilience, and systemic integrity. Architecture isn't just about
+                            pretty buildings; it's about systems that support lives.</p>
+            
+                        <p style="font-weight: bold; font-size: 18px; color: #000; margin-top: 30px;">MUST: After graduation, you
+                            disappeared from the alumni scene for a few years before re-emerging in Southeast Asia. Was this period
+                            significant?</p>
+            
+                        <p><strong>Chris:</strong> It was the "storm." I faced personal challenges that shook me to the core, much
+                            like a flawed design during a stress test. I needed to move, to strip everything back to basic
+                            foundations. I found that peace in Thailand.</p>
+            
+                        <p style="font-weight: bold; font-size: 18px; color: #000; margin-top: 30px;">MUST: Your firm Henderson
+                            Architecture is now thriving. To what do you attribute your success and newfound stability?</p>
+            
+                        <p><strong>Chris:</strong> I attribute everything to finding my true cornerstone. A building cannot stand on
+                            sandy soil. My stability is my family. <strong>I recently married my best friend, someone I have known
+                                for many years, even during my MUST days.</strong> We have both navigated incredible challenges to
+                            be together, to find peace after the chaos. She is the source of my inspiration and my strength.</p>
+                    </div>
                 </div>
             </div>
             

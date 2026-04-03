@@ -898,9 +898,10 @@ const browserData = {
         { title: "BKK Wedding Planners", icon: "💍", url: "www.bkk-weddings.th" },
         { title: "Destiny Finder", icon: "☯️", id: "divination", url: "www.fate-unveiled.com" }
     ],
+    
     // 搜索引擎关键词数据库 (可以配置多个关键词触发同一结果)
     searchDatabase: {
-        "year of the monkey": [
+        "year of the monkey, monkey year": [
             {
                 // 直接在数据里插入卡片的 HTML
                 customHTML: `
@@ -930,44 +931,71 @@ const browserData = {
                 clickAction: ""
             }
         ],
+
         "adam": [
+            // 1. 维基百科 (干扰项)
+            { 
+                url: "en.wikipedia.org/wiki/Adam", 
+                title: "Adam - Wikipedia", 
+                snippet: "Adam is a figure in the Book of Genesis in the Hebrew Bible, and in the Quran and Christian belief. According to the creation myth of the Abrahamic religions, he was the first human...",
+                clickAction: "navBrowser('wiki-adam')"
+            },
+            // 2. 深度学习优化算法 (干扰项)
+            { 
+                url: "machinelearningmastery.com/adam-optimization-algorithm", 
+                title: "A Gentle Introduction to the Adam Optimization Algorithm", 
+                snippet: "Adam is an optimization algorithm that can be used instead of the classical stochastic gradient descent procedure to update network weights iterative based in training data...",
+                clickAction: "navBrowser('algo-adam')"
+            },
+            // 3. 曼谷死亡新闻报道 (核心剧情线索！)
             { 
                 url: "www.bkk-daily.com/news/tourist-incident", 
                 title: "Tragic Incident: Foreign Guest Found Dead at Wedding Venue", 
                 snippet: "Local authorities are investigating the sudden death of 32-year-old Adam at a wedding venue. Preliminary reports suggest a suspected overdose... traveled with his girlfriend, Luna...",
                 clickAction: "navBrowser('news-adam')"
             },
+            // 4. LinkedIn 档案 (职业线索)
             { 
                 url: "www.linkedin.com/in/adam-operations", 
                 title: "Adam - Airport Operations Supervisor - LinkedIn", 
                 snippet: "Experienced Operations Supervisor with a demonstrated history of working in the aviation and airport industry. Skilled in logistics and passenger safety.",
+                clickAction: "navBrowser('linkedin-adam')"
+            },
+            // 5. 乱七八糟的干扰项 - 同名电影
+            { 
+                url: "www.imdb.com/title/tt1184698", 
+                title: "Adam (2009) - IMDb", 
+                snippet: "Directed by Max Mayer. With Hugh Dancy, Rose Byrne, Peter Gallagher. Adam, a lonely man with Asperger's Syndrome, develops a relationship with his upstairs neighbor...",
                 clickAction: ""
             },
+            // 6. 乱七八糟的干扰项 - 男士理容品牌
             { 
-                url: "www.facebook.com/public/Adam", 
-                title: "Adam Profiles | Facebook", 
-                snippet: "View the profiles of people named Adam. Join Facebook to connect with Adam and others you may know.",
-                clickAction: ""
-            },
-            { 
-                url: "www.global-obituaries.com/adam-memorial", 
-                title: "In Loving Memory of Adam - Online Memorials", 
-                snippet: "Share your condolences, send flowers, and light a candle in memory of Adam. Gone too soon.",
+                url: "www.adam-grooming.com", 
+                title: "ADAM | Premium Men's Grooming & Barbershop", 
+                snippet: "Discover the ADAM experience. Elevate your daily routine with our premium grooming products, from beard oils to revitalizing face washes. Book an appointment today.",
                 clickAction: ""
             }
         ],
-        "university": [
+
+        // 大学搜索结果
+        "mingzhou university of science and technology, mingzhou university": [
             { 
-                url: "www.bkk-tech-uni.ac.th", 
-                title: "Bangkok Technology University (BKK Tech)", 
-                snippet: "Innovating the Future. Discover our top-ranked engineering, science, and business programs. See our latest alumni spotlights and campus news.",
-                clickAction: "navBrowser('uni')" // 点击后调用内部路由
+                url: "en.mingzhou.edu.cn", 
+                title: "Mingzhou University of Science and Technology (MUST)", 
+                snippet: "Welcome to MUST. A premier institution in engineering, applied sciences, and technology, dedicated to fostering global innovators since 1952.",
+                clickAction: "navBrowser('uni')" 
             },
             { 
-                url: "www.bkk-tech-uni.ac.th/alumni", 
-                title: "Alumni Network | Bangkok Technology University", 
-                snippet: "Connect with BKK Tech graduates worldwide. Read our latest spotlight on Christopher Chen (Class of 2017).",
-                clickAction: "navBrowser('uni')"
+                url: "en.mingzhou.edu.cn/alumni/newsletter-2015", 
+                title: "Alumni Archive: Fall 2015 Highlights - MUST", 
+                snippet: "Celebrating the outstanding achievements of our Engineering cohort. Read about the National CAD Design Competition and student updates...",
+                clickAction: "navBrowser('uni')" 
+            },
+            { 
+                url: "www.campus-forum.cn/thread/9921", 
+                title: "Is the workload at Mingzhou Tech really that insane? - Campus Forum", 
+                snippet: "Freshman here. Heard the exams at MUST are brutal. Someone told me a senior literally passed out from exhaustion a few years ago...",
+                clickAction: "" 
             }
         ],
         // Gemini编了一个药物“Novacard”，我们在搜索结果里埋了一个线索（小红书帖子），点击后直接跳转到小红书的对应帖子详情页
@@ -996,32 +1024,114 @@ const browserData = {
 
 // --- 浏览器逻辑 ---
 
-// 导航到不同页面 (home, history, bookmarks, results)
-function navBrowser(viewId) {
+// --- 更新后的导航函数，支持后退栈、动态标题和真实 URL ---
+function navBrowser(viewId, isBack = false) {
+    // 1. 记录历史栈
+    if (!isBack && currentBrowserPage !== viewId) {
+        browserHistoryStack.push(currentBrowserPage);
+    }
+    currentBrowserPage = viewId;
+
+    // 2. 切换 UI 视图
     document.querySelectorAll('.browser-page').forEach(page => page.classList.remove('active'));
     document.getElementById(`browser-${viewId}`).classList.add('active');
     
+    // 3. 更新地址栏和窗口标题
     const urlBar = document.getElementById('browser-url');
-    if (viewId === 'home') urlBar.value = "Search Google or type a URL";
+    let currentTitle = "New Tab";
 
-    // else if (viewId === 'history') urlBar.value = "chrome://history";
-
+    if (viewId === 'home') {
+        urlBar.value = "www.google.com"; // 修改 1：始终显示真实网址
+        currentTitle = "Google";
+    }
     else if (viewId === 'history') {
         urlBar.value = "chrome://history";
-        renderHistory(); // [关键新增] 只有加了这一行，点击三个点时才会去读取数据并生成列表
+        currentTitle = "History";
+        renderHistory(); 
     }
-    
+    else if (viewId === 'results') {
+        // 地址栏已在 executeSearch 中更新，这里只改标题
+        currentTitle = document.getElementById('main-search-input').value + " - Google Search";
+    }
+    else if (viewId === 'tracking') {
+        urlBar.value = "www.global-express.com/track";
+        currentTitle = "Global Express Track";
+    }
 
-    else if (viewId === 'tracking') urlBar.value = "www.global-express.com/track";
-    else if (viewId === 'news-adam') urlBar.value = "www.bkk-daily.com/news/tourist-fall-incident";
-    else if (viewId === 'zodiac-monkey') urlBar.value = "www.google.com/search?q=Year+of+the+Monkey";
+    // Adam 相关的多个页面
+    else if (viewId === 'news-adam') {
+        urlBar.value = "www.bkk-daily.com/news/tourist-incident";
+        currentTitle = "BKK Daily News";
+    }
+    else if (viewId === 'wiki-adam') {
+        urlBar.value = "en.wikipedia.org/wiki/Adam";
+        currentTitle = "Adam - Wikipedia";
+    }
+    else if (viewId === 'algo-adam') {
+        urlBar.value = "machinelearningmastery.com/adam-optimization-algorithm";
+        currentTitle = "Adam Optimization Algorithm";
+    }
+    else if (viewId === 'linkedin-adam') {
+        urlBar.value = "www.linkedin.com/in/adam-operations";
+        currentTitle = "Adam - LinkedIn";
+    }
+
+    else if (viewId === 'zodiac-monkey') {
+        urlBar.value = "www.google.com/search?q=Year+of+the+Monkey";
+        currentTitle = "Year of the Monkey - Search";
+    }
+
+    else if (viewId === 'couple-login') {
+        urlBar.value = "www.aurora-love-forever.com/login";
+        currentTitle = "Our Eternal Aurora";
+    }
+    else if (viewId === 'couple-main') {
+        urlBar.value = "www.aurora-love-forever.com/home";
+        currentTitle = "Our Eternal Aurora - Home";
+    }
+    else if (viewId === 'divination') {
+        urlBar.value = "www.fate-unveiled.com";
+        currentTitle = "Destiny Finder";
+    }
+    else if (viewId === 'uni') {
+        urlBar.value = "www.mingzhou.edu.cn";
+        currentTitle = "Mingzhou University of Science and Technology";
+    }
+    else if (viewId === 'must-chris-interview') {
+        urlBar.value = "www.mingzhou.edu.cn/alumni/chris-henderson";
+        currentTitle = "Alumni Spotlight - Chris";
+    }
 
 
-    else if (viewId === 'couple-login') urlBar.value = "www.aurora-love-forever.com/login";
-    else if (viewId === 'couple-main') urlBar.value = "www.aurora-love-forever.com/home";
-    // 在 navBrowser(viewId) 函数中添加
-    else if (viewId === 'divination') urlBar.value = "www.fate-unveiled.com";
-    else if (viewId === 'uni') urlBar.value = "www.bkk-tech-uni.ac.th";
+    // 4. 更新浏览器顶部的窗口标题
+    const browserWin = document.getElementById('win-browser');
+    if (browserWin) {
+        const titleEl = browserWin.querySelector('.win-title');
+        if (titleEl) {
+            titleEl.innerText = currentTitle;
+        }
+    }
+
+    // ✨ 5. 新增：更新浏览器内部标签页的名字 ✨
+    const tabTitleEl = document.getElementById('browser-tab-title');
+    if (tabTitleEl) {
+        // 如果名字太长，在标签页里可以截断一下，比如只显示前 15 个字符
+        tabTitleEl.innerText = currentTitle.length > 20 ? currentTitle.substring(0, 20) + '...' : currentTitle;
+    }
+}
+
+// --- 浏览器导航堆栈逻辑 ---
+let browserHistoryStack = [];
+let currentBrowserPage = 'home'; // 默认初始页面是 home
+
+// 执行后退操作
+function goBrowserBack() {
+    if (browserHistoryStack.length > 0) {
+        // 弹出上一页的 ID
+        const prevPage = browserHistoryStack.pop();
+        // 调用导航函数，并标记 isBack 为 true，防止无限套娃压栈
+        navBrowser(prevPage, true); 
+    }
 }
 
 function trackPackageWeb() {
@@ -1127,9 +1237,13 @@ function executeSearch(fromResultsPage = false) {
     container.innerHTML = '';
     let results = [];
     
-    // 关键词匹配
-    for (const [key, value] of Object.entries(browserData.searchDatabase)) {
-        if (query.includes(key) || key.includes(query)) {
+    // 关键词精准匹配 (支持多对一)
+    for (const [keysString, value] of Object.entries(browserData.searchDatabase)) {
+        // 将键名按逗号拆分成数组，并去除两端多余空格
+        const validKeys = keysString.split(',').map(k => k.trim().toLowerCase());
+        
+        // 只有当玩家输入的 query 【完全等于】数组中的某一个词时，才算匹配成功
+        if (validKeys.includes(query)) {
             results = results.concat(value);
         }
     }
@@ -1875,6 +1989,9 @@ function initGame() {
     renderBookmarks(); 
     renderXhsHomeFeed();
     renderAdamProfileFeed();
+
+    navBrowser('home');
+
     setInterval(() => {
         document.getElementById('clock').innerText = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
     }, 1000);
