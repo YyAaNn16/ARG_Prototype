@@ -287,70 +287,140 @@ function generateXhsLinkMsg(postId, senderType = "left") {
     return { type: senderType, xhsLink: true, postId: postId, linkTitle: shortTitle, author: post.author };
 }
 
+
 // --- 1. DATA: Chat History ---
 const chatData = {
-    "user_cousin": {
-        name: "Cousin", avatarColor: "#4285f4", avatarText: "Co",
+    "user_mom": {
+        name: "Mom", avatarColor: "#e57373", avatarText: "Mom",
         messages: [
-            { type: "sys", text: "Oct 20, 10:30 AM" },
-            { type: "left", text: "Hey, are you still in Bangkok? Auntie is worried." },
-            { type: "right", text: "I'm fine. Just busy making money." },
-            { type: "left", text: "Making money? You borrowed rent money last month." },
-            { type: "right", text: "That was before. I just bought an 80k Hermes for Luna." },
-            { type: "left", text: "80k?! Where did you get that cash?" },
-            { type: "right", text: "Don't worry about it. I have things under control." }
+            { type: "sys", text: "Nov 12, 2024" },
+            { type: "left", text: "How's work lately?" },
+            { type: "right", text: "Going well. How's your health, Mom?" },
+            { type: "left", text: "I'm doing fine." },
+            { type: "left", text: "Take good care of yourself out there." },
+            { type: "right", text: "Will do." },
+
+            { type: "sys", text: "Jan 29, 2025" },
+            { type: "right", text: "Happy Year of the Snake, Mom! 🥳 Wishing you good health and all your dreams come true! ❤️" },
+            { type: "sys", text: "You transferred ¥5,000.00 to Mom." },
+            { type: "left", text: "Thanks, son!" },
+            { type: "left", text: "Happy New Year to you too!" },
+            { type: "left", text: "Hope you find a girlfriend soon~ 😜" },
+
+            { type: "sys", text: "Mar 25, 2026" },
+            { type: "right", text: "Mom, I'm heading to Thailand in a few days for a college buddy's wedding. I'll bring back some local treats for you! 😍" },
+            { type: "left", text: "Is it that good friend of yours from college?" },
+            { type: "right", text: "Yeah, he met his other half in Thailand." },
+            { type: "left", text: "That's wonderful. Hope to hear some good news about you and Luna soon." },
+
+            { type: "sys", text: "Apr 08, 2026" },
+            { type: "sys", text: "The call could not be connected." },
+            { type: "sys", text: "The call could not be connected." },
+            { type: "left", text: "Son? Why aren't you picking up?" },
+            { type: "sys", text: "The call could not be connected." },
+            { type: "left", text: "Is everything okay?" },
+            { type: "sys", text: "The call could not be connected." },
+            { type: "sys", text: "The call could not be connected." },
         ]
     },
+
     "user_luna": {
-        name: "Luna 🌙", avatarColor: "#e91e63", avatarText: "🌙",
+        name: "月 🌙", avatarColor: "#e91e63", avatarText: "🌙",
         messages: [
-            { type: "sys", text: "Aug 15, 08:20 PM" },
-            { type: "left", text: "Babe! I tried making Mapo Tofu today following a Chinese recipe! Look! 🌶️" },
-            { type: "left", isImg: true, src: "https://images.unsplash.com/photo-1555126634-323283e090fa?q=80&w=200" },
-            { type: "right", text: "Wow, that looks incredibly authentic! You're getting so good at this." },
-            { type: "left", text: "Hehe, I love learning about your culture. Btw, did the package arrive?" },
-            { type: "right", text: "Yes! The mechanical keyboard." },
-            { type: "left", text: "I know it's not super expensive, but I researched the switches and they are great for coding and gaming. Hope you like it! ❤️" },
-            { type: "right", text: "I love it. It's perfect. You're too good to me." },
-            { type: "sys", text: "Sep 08, 08:30 PM" },
-            { type: "right", text: "Babe, my college roommate is having his wedding in Bangkok late next month. Let's go together? We can take a few weeks off and treat it as a vacation. 🌴" },
-            { type: "left", text: "Oh my god! Yes! I've always wanted to visit Thailand! The street food there looks amazing! 🍜🥰" },
-            { type: "right", text: "I'll book our flights right now." },
-            { type: "sys", text: "Sep 28, 11:45 PM" },
-            { type: "sys", text: "📷 Video Call ended (01:24:15)" },
-            { type: "right", text: "Goodnight my love. See you in Bangkok next week. I have a big surprise prepared for you before we leave." },
-            { type: "sys", text: "Oct 05, 10:05 AM" },
-            { type: "left", text: "Did you see my recent posts about the Bangkok food stalls?" },
-            generateXhsLinkMsg("luna_post_cooking", "left"),
-            { type: "left", isImg: true, src: "https://cdn.shopify.com/s/files/1/0879/1520/0785/files/30_1024x1024.jpg?v=1726396117" },
-            { type: "left", text: "Finally got the Birkin 30. You are the absolute best boyfriend in the world! ❤️ Literally crying right now." },
+            { type: "sys", text: "Oct 30, 2025" },
+            { type: "left", text: "I’m glad we finally moved to WeTalk 😄" },
+            { type: "right", text: "yeah RG chat is too slow sometimes" },
+            { type: "left", text: "Is the dish in your new post really made of lion meat? 😂" },
+            { type: "right", text: "Hahaha no, 'Lion's Head' is just giant meatballs. It's mostly pork, it just looks like a lion's head." },
+            { type: "left", text: "Ohh, that sounds delicious." },
+            { type: "right", text: "It's my signature dish. I'll make it for you when I get the chance!" },
+            { type: "sys", text: "☎️ Video Call ended (45:12)" },
+
+            { type: "sys", text: "Nov 28, 2025" },
+            { type: "left", text: "Babe! I tried making Mapo Tofu today following your Chinese recipe! Look! 🌶️" },
+            { type: "left", isImg: true, src: "https://images.unsplash.com/photo-1543826173-70651703c5a4?q=80&w=200" },
+            { type: "right", text: "Looks amazing 😋 My baby is a culinary genius." },
+            { type: "left", text: "Hehe" },
+            { type: "left", text: "But I still can't handle the spice 😭" },
+            { type: "right", text: "You're doing great just by trying it babe 💗" },
+
+            { type: "sys", text: "Dec 21, 2025" },
+            { type: "right", text: "Honey, did you get the birthday gift I prepared for you?" },
+            { type: "left", text: "Ahhh!!! It's way too expensive baby!!" },
+            { type: "right", text: "This bag perfectly matches your style." },
+            { type: "right", text: "I wanted to buy it for you the second I saw it!" },
             generateXhsLinkMsg("luna_post_unboxing", "left"),
-            { type: "right", text: "Only the best for you. I kept the receipt to prove it, 100% authentic." },
-            { type: "right", text: "Give me a sec, need to clear some files on my desktop." }
+            { type: "left", text: "❤️❤️❤️ Love you babe~ But seriously, don't get me anything this expensive next time 😘" },
+            { type: "right", text: "I just thought it suited you so well~ But alright, I'll listen to you. Won't go this 'crazy' next time 🥺" },
+            { type: "sys", text: "☎️ Video Call ended (01:12:05)" },
+
+            { type: "sys", text: "Jan 15, 2026" },
+            { type: "right", text: "I got the keyboard package!" },
+            { type: "right", text: "I absolutely love it! Thank you baby ❤️❤️❤️" },
+            { type: "left", text: "Yay so happy ~~" },
+            { type: "right", text: "You're still a college student, you really don't need to buy me gifts." },
+            { type: "right", text: "Just being with you makes me happy enough!" },
+            { type: "left", text: "[Sticker: Love]" },
+
+            { type: "sys", text: "Mar 05, 2026" },
+            { type: "right", isImg: true, src: "https://images.unsplash.com/photo-1544592732-83bbd75bbec4?q=80&w=200" },
+            { type: "right", text: "Babe, a good friend of mine from college is getting married in Thailand next month." },
+            { type: "right", text: "Do you want to go together?" },
+            { type: "right", text: "We could turn it into a vacation in Thailand~" },
+            { type: "left", text: "Omg, I've always wanted to visit Thailand! Plus my classes next month are super boring anyway 😝" },
+            { type: "right", text: "Awesome, I'll book our flights then." },
+            { type: "right", text: "Can't wait for our Thailand trip." },
+            { type: "left", text: "Can't wait to see you too~ ❤️" }
         ]
     },
-    "user_chris": {
-        name: "Chris", avatarColor: "#ff9800", avatarText: "Ch",
+
+    "user_lucas": {
+        name: "程光", avatarColor: "#ff9800", avatarText: "Lu",
         messages: [
-            { type: "sys", text: "Feb 14, 2018" },
-            { type: "right", text: "Hey Chris, any news from Ryan? Did he ever reach out to you?" },
-            { type: "left", text: "No man. He changed his number and socials. You need to let it go. Whatever happened between you two, it's over." },
-            { type: "sys", text: "Nov 05, 2020" },
-            { type: "right", text: "Just saw your post about your new job in Bangkok. Congrats!" },
-            { type: "left", text: "Thanks bro. It's a fresh start." },
-            { type: "right", text: "Yeah. Btw, I've moved on from the Ryan thing. Just hope he is doing well wherever he is." },
-            { type: "left", text: "Glad to hear that. Life goes on." },
-            { type: "sys", text: "Sep 05, 2023" },
-            { type: "left", text: "Adam! Big news. I'm getting married! 💍" },
-            { type: "left", text: "The wedding is next month (Oct 24th) in Bangkok. I'd really love for you to come." },
-            { type: "left", isImg: true, src: "https://images.unsplash.com/photo-1544592732-83bbd75bbec4?q=80&w=200" },
-            { type: "left", text: "Attached the digital invite with the venue details and a photo of us." },
-            { type: "right", text: "Wow... congratulations. The bride is beautiful." },
-            { type: "right", text: "I'll book my tickets. I'll definitely be there." }
+            { type: "sys", text: "Apr 27, 2022" },
+            { type: "right", text: "Hey Lucas, how've you been? Have you heard anything from Xin?" },
+            { type: "left", text: "I'm doing good." },
+            { type: "left", text: "I haven't been in touch with Xin for a long time either." },
+
+            { type: "sys", text: "Oct 03, 2023" },
+            { type: "right", text: "Bro, saw your new RG post. Did you settle down in Thailand?" },
+            { type: "left", text: "Yeah bro. Found a new job in Thailand." },
+            { type: "left", text: "Are you still in Mingzhou?" },
+            { type: "right", text: "Yes, working at customs now." },
+            { type: "left", text: "Nice, let's hit the courts at MUST next time you're back!" },
+
+            { type: "sys", text: "Mar 04, 2026" },
+            { type: "left", isImg: true, src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=200" },
+            { type: "left", text: "Hey Adam, I'm getting married in Thailand next month!" },
+            { type: "left", text: "Would love to invite you and your partner to the wedding~" },
+            { type: "right", text: "Omggg, congrats bro! Didn't expect you to be the first one to tie the knot out of the three of us!!" },
+            { type: "right", text: "My girlfriend and I will definitely be there! Can't wait to see you guys~" }
+        ]
+    },
+
+    "user_cousin": {
+        name: "陆白", avatarColor: "#4285f4", avatarText: "白",
+        messages: [
+            { type: "sys", text: "Aug 31, 2024" },
+            { type: "left", text: "Hey, the elective you recommended for next semester is so hard to get into." },
+            { type: "right", text: "That class is super popular. Maybe consider another elective in the same department." },
+            { type: "left", text: "Got it." },
+
+            { type: "sys", text: "Jun 05, 2025" },
+            { type: "right", text: "I'm heading back to campus next week for an alumni event." },
+            { type: "right", text: "Let's grab food together~" },
+            { type: "left", text: "Sounds good! I'm definitely going to make you treat me to a huge meal haha." },
+            { type: "right", text: "No problem, whatever you want to eat is on me hahaha 😊" },
+
+            { type: "sys", text: "Apr 09, 2026" },
+            { type: "sys", text: "The call could not be connected." },
+            { type: "left", text: "Hey?" },
+            { type: "left", text: "Auntie says she can't reach you at all." },
+            { type: "left", text: "Hit me back when you see this." }
         ]
     },
     "user_ryan": {
-        name: "Ryan", avatarColor: "#607d8b", avatarText: "Ry",
+        name: "木心（❤）", avatarColor: "#607d8b", avatarText: "Ry",
         messages: [
             { type: "sys", text: "You transferred ¥100,000.00 to Ryan." },
             { type: "sys", text: "Transfer returned by Ryan." }
@@ -365,16 +435,16 @@ const contactsData = {
         signature: "Family first." 
     },
     "user_luna": { 
-        name: "Luna 🌙", avatarColor: "#e91e63", avatarText: "🌙", wechatId: "luna_love99", 
-        signature: "Living my best life in BKK ✨" 
+        name: "月 🌙", avatarColor: "#e91e63", avatarText: "🌙", wechatId: "LunaCarter1007", 
+        signature: "Living my best life" 
     },
-    "user_chris": { 
-        name: "Chris", avatarColor: "#ff9800", avatarText: "Ch", wechatId: "chris_bkk", 
+    "user_lucas": { 
+        name: "程光", avatarColor: "#ff9800", avatarText: "Ch", wechatId: "LUCAS_THE_TALL", 
         signature: "Work hard, play hard." 
     },
     "user_ryan": { 
-        name: "Ryan", avatarColor: "#607d8b", avatarText: "Ry", wechatId: "ryan_001", 
-        signature: "Code. Sleep. Repeat." 
+        name: "木心（❤）", avatarColor: "#607d8b", avatarText: "Ry", wechatId: "XinWoodenHeart", 
+        signature: "Dragon in da house. 🐉" 
     },
     "user_mom": { 
         name: "Mom", avatarColor: "#e57373", avatarText: "Mom", wechatId: "wxid_mom_home", 
@@ -391,6 +461,10 @@ const contactsData = {
     "user_airline": { 
         name: "Thai Airways HR", avatarColor: "#5c6bc0", avatarText: "HR", wechatId: "tg_hr_recruit", 
         signature: "Smooth as silk." 
+    },
+    "user_adam": { 
+        name: "陆原", avatarColor: "#333", avatarText: "Ad", wechatId: "Adam_99", 
+        signature: "Carry the vision of the future" 
     }
 };
 
@@ -518,6 +592,12 @@ function renderContactsList() {
                 </div>
             </div>`;
     }
+    // 在联系人列表最下方添加总数显示
+    listContainer.innerHTML += `
+        <div style="text-align: center; color: #999; font-size: 13px; padding: 20px 0; margin-top: 10px; border-top: 1px solid #eee;">
+            583 contacts
+        </div>
+    `;
 }
 
 // 在右侧展示联系人详情
