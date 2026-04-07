@@ -32,169 +32,326 @@ function clearSave() {
 
 // --- 小红书用户数据库 ---
 const xhsUsers = {
+
+
     "luna": {
-        name: "Luna_99", id: "994021",
+        name: "🌙 YUE 🌙", id: "994021",
         avatar: "https://randomuser.me/api/portraits/women/44.jpg",
         bio: "Exploring the world one spicy dish at a time 🌶️",
-        stats: { posts: 12, followers: "1.2k", following: 892 },
-        posts: ["luna_post_unboxing", "luna_post_bkk", "luna_post_airport", "luna_post_cooking", "luna_post_hello"]
+        stats: { posts: 6, followers: "1.2k", following: 892 },
+        // 按时间倒序排列
+        posts: ["luna_post_bkk_2026", "luna_post_unboxing_2025", "luna_post_luosifen", "luna_post_cola_chicken", "luna_post_tomato_egg", "luna_post_hello"]
     },
+
+
     "ryan": {
         name: "Deactivated Account", id: "Account Disabled",
-        avatar: "", // 留空则显示灰色
+        avatar: "", 
         bio: "This account has been deactivated by the user.",
-        stats: { posts: 4, followers: 128, following: 150 }, // 更新帖子数量为 3
-        posts: ["ryan_post_4", "ryan_post_video_clue", "ryan_post_2", "ryan_post_1"]    
+        stats: { posts: 5, followers: 128, following: 150 },
+        posts: ["ryan_post_5", "ryan_post_4", "ryan_post_3", "ryan_post_2", "ryan_post_1"] // 按时间倒序
     },
-    "adam_burner": {
-        name: "Adam_1010", id: "102400",
-        avatar: "", // 默认头像
-        bio: "Just looking for some advice.",
-        stats: { posts: 1, followers: 2, following: 0 },
-        posts: ["luna_burner_post"] 
-    },
+    
     "adam": {
-        name: "Adam", id: "8832910",
+        name: "Augenster", id: "8832910",
         avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
         bio: "Less is more.",
         stats: { posts: 4, followers: 45, following: 128 },
-        posts: ["adam_post_1", "adam_post_2", "adam_post_3", "adam_post_4"]
+        // 按时间倒序排列：10.25 -> 09.18
+        posts: ["adam_post_laziji", "adam_post_mango", "adam_post_mapo", "adam_post_cooking_start"]
     },
+
+
+    "basketball_boy": {
+        name: "BasketballBoy", id: "772105",
+        avatar: "https://randomuser.me/api/portraits/men/45.jpg",
+        bio: "Ball is life. 🏀 | MUST Class of 2016",
+        stats: { posts: 5, followers: 310, following: 215 },
+        // 按时间倒序排列：2025 -> 2019
+        posts: ["l_post_proposal", "l_post_couple", "l_post_thailand", "l_post_graduation", "l_post_basketball_win"] 
+    },
+    "hl_forever": {
+        name: "HL_FOREVER", id: "5201314",
+        avatar: "https://randomuser.me/api/portraits/women/65.jpg",
+        bio: "Happily preparing for the next chapter of life. ✨",
+        stats: { posts: 3, followers: 890, following: 156 },
+        // 按时间倒序排列：2026 -> 2024
+        posts: ["hl_post_wedding", "hl_post_bday", "hl_post_dress"]
+    },
+
+    "luna_burner": {
+        name: "1_4_1_13_1010", id: "Burner_772",
+        avatar: "", // 留空显示默认灰色头像
+        bio: "Just looking for answers.",
+        stats: { posts: 1, followers: 5, following: 0 },
+        posts: ["luna_burner_sos"] // 仅保留图片中的这条帖子
+    },
+    "work_hard": {
+        name: "WORK_HARD", id: "229103",
+        avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+        bio: "Fitness is a lifestyle. 💪",
+        stats: { posts: 15, followers: 800, following: 200 },
+        posts: []
+    },
+    "felin": {
+        name: "FELIN", id: "441029",
+        avatar: "https://randomuser.me/api/portraits/women/22.jpg",
+        bio: "Capturing light and shadows. 📸",
+        stats: { posts: 42, followers: "2.5k", following: 310 },
+        posts: []
+    },
+
+
 };
 
 // --- 小红书帖子详情数据  ---
 const xhsPostData = {
 // === Luna 大号帖子 (按时间倒序) ===
-    "luna_post_unboxing": {
-        img: "https://cdn.shopify.com/s/files/1/0879/1520/0785/files/30_1024x1024.jpg?v=1726396117",
-        author: "Luna_99", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-        text: "Unboxing my Dream Bag! ✨🥰\nThe biggest surprise of this Bangkok trip! When the front desk delivered it, I thought there was a mistake. Thank you to the best boyfriend in the world, Adam. I was literally on the verge of crying in the hotel lobby. The leather feels so incredibly good! I am definitely the happiest girl today! ❤️\n#HermesBirkin #Unboxing #BestBoyfriend #BangkokTrip",
-        date: "2023-10-05", comments: "2 Comments",
-        commentsList: [
-            { user: "FashionGuru", avatar: "https://randomuser.me/api/portraits/women/12.jpg", text: "Omg so jealous! That color is super hard to get! 😍", time: "2023-10-05" },
-            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Only the best for you. ❤️", time: "2023-10-05" }
-        ]
-    },
-    "luna_post_bkk": {
-        img: "https://images.unsplash.com/photo-1555126634-323283e090fa?q=80&w=500", // 替换为泰国街头美食/冬阴功汤图片
-        author: "Luna_99", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-        text: "First time trying authentic Thai street food! 🍜\nThe Tom Yum soup is incredibly spicy, but I just can't stop eating it! The tropical vibe here is amazing, such a perfect vacation spot. Spent the whole day eating through the night markets with Adam, completely gave up on diet control hahahaha! 🌴\n#FirstTimeInBKK #TravelDiary #FoodieLife #VacationMode",
-        date: "2023-10-04", comments: "2 Comments",
-        commentsList: [
-            { user: "Wanderlust_Dreamer", avatar: "https://randomuser.me/api/portraits/women/33.jpg", text: "Looks absolutely amazing! Enjoy your vacation!", time: "2023-10-04" },
-            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Eat as much as you want, I love you just the same even if you gain weight.", time: "2023-10-04" }
-        ]
-    },
-    "luna_post_airport": {
-        img: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=500", // 替换为机场咖啡/护照的图片
-        author: "Luna_99", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-        text: "October vacation mode ON! ✈️ Bangkok here we come!\nFinally redeeming this long-awaited trip! Also attending Adam's college friend's wedding at the end of the month. It's my first time in Thailand, any must-visit spots for first-timers? Waiting online! 👇\n#TravelGram #CouplesTrip #AirportVlog",
-        date: "2023-10-01", comments: "1 Comments",
-        commentsList: [
-            { user: "DailyVibes", avatar: "https://randomuser.me/api/portraits/women/68.jpg", text: "Have a great trip! You definitely need to check out the Grand Palace!", time: "2023-10-01" }
-        ]
-    },
-    "luna_post_cooking": {
-        img: "https://images.unsplash.com/photo-1543826173-70651703c5a4?q=80&w=500", // 替换为麻婆豆腐/中餐图片
-        author: "Luna_99", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-        text: "First time making authentic Mapo Tofu! 🌶️\nI've always been super fascinated by Chinese culture and food! Today I finally gathered the courage to follow a recipe step by step. Even though my kitchen looks like a warzone now, it tastes surprisingly good! My boyfriend praised it as very authentic (hope he's not just blindly complimenting me haha). Next challenge: Sweet and Sour Pork Ribs! 🥢\n#ChineseFood #CookingDiaries #MapoTofu #CrossCulturalRomance",
-        date: "2023-08-15", comments: "2 Comments",
-        commentsList: [
-            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Looks incredibly authentic! Giving this dish a 100/100 💯. Next time you challenge the sweet and sour ribs, I can pass on my secret recipe to you. 😉", time: "2023-08-15" },
-            { user: "Luna_99", avatar: "https://randomuser.me/api/portraits/women/44.jpg", text: "Wow really?! That's great, looking forward to your secret recipe! ✨", time: "2023-08-15" }
-        ]
-    },
+// === Luna 的主页帖子 (地道英文版) ===
+
     "luna_post_hello": {
-        img: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=500", // 替换为自拍或街景打卡照
-        author: "Luna_99", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-        text: "Hello Xiaohongshu! 👋\nMy previous Tiktok account got banned out of nowhere, was really sad about it for a long time, lost so many memories. But that's okay, considering this as a fresh start! From now on, I'll be sharing my daily life, travels, and random moments here. Nice to meet you all! 🥰\n#NewHere #LifeLog #HelloXHS",
-        date: "2023-05-20", comments: "3 Comments",
+        img: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=500",
+        author: "🌙 YUE 🌙", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+        text: "Hello RedGram! ✌️\nMy previous TickTock account got banned out of nowhere, was really sad about it for a long time, lost so many memories.\nBut that's okay, considering this as a fresh start! From now on, I'll be sharing my daily life, travels, and random moments here. Nice to meet you all! 🥰\n#NewHere #TickTockrefugee #HelloRG",
+        date: "2025.8.20", comments: "1 Comments",
+        commentsList: [{ user: "DailyVibes", avatar: "", text: "Welcome! Hope you enjoy it here! 😊", time: "2025.8.20" }]
+    },
+    "luna_post_tomato_egg": {
+        img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=500",
+        author: "🌙 YUE 🌙", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+        text: "My first time making Chinese food! ~ 🍳\nTomato and egg stir-fry is so tasty and easy. It's hands-down the best companion for a bowl of rice, no competition! \n#TomatoEggStirFry #ChineseStomach #ILoveTomatoes #ChineseFood",
+        date: "2025.09.15", comments: "2 Comments",
         commentsList: [
-            { user: "DailyVibes", avatar: "https://randomuser.me/api/portraits/women/68.jpg", text: "Welcome to Xiaohongshu! Followed!", time: "2023-05-20" },
-            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Finally found you! I used to watch your updates all the time, glad you didn't leave the internet entirely. Followed! 😊", time: "2023-05-20" },
-            { user: "Luna_99", avatar: "https://randomuser.me/api/portraits/women/44.jpg", text: "Thank you for the support! ✨", time: "2023-05-21" }
+            { user: "Foodie_Girl", avatar: "", text: "Looks delicious! ~", time: "2025.09.15" },
+            { user: "PrettyBoy", avatar: "", text: "Highly recommend trying Cola Chicken Wings next! You'll love them!", time: "2025.09.16" }
         ]
     },
+    "luna_post_cola_chicken": {
+        img: "https://images.unsplash.com/photo-1527477396000-e27163b481c2?q=80&w=500",
+        author: "🌙 YUE 🌙", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+        text: "So many people recommended I try Cola Chicken Wings~ \nThanks for the suggestions, I finally got to taste this perfection! What Chinese dish should I challenge next? 🍗\n#ColaChickenWings #Foodie",
+        date: "2025.09.28", comments: "2 Comments",
+        commentsList: [
+            { user: "HomeCook_Sam", avatar: "", text: "Stir-fried potato shreds! 🥔", time: "2025.09.28" },
+            { user: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Mapo Tofu is also great for beginners. You can check the recipe on my page~", time: "2025.09.29" }
+        ]
+    },
+    "luna_post_luosifen": {
+        img: "https://images.unsplash.com/photo-1552611052-33e04de081de?q=80&w=500",
+        author: "🌙 YUE 🌙", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+        text: "Food Share 🍜\nBravely took on the 'mild spicy' Luosifen (Snail Rice Noodles) challenge! How can something be so smelly yet so delicious at the same time? Such a unique flavor! \n#LuosifenChallenge",
+        date: "2025.10.13", comments: "2 Comments",
+        commentsList: [
+            { user: "TravelChina", avatar: "", text: "You have to come to China and try the authentic version one day!", time: "2025.10.13" },
+            { user: "Guangxi_Native", avatar: "", text: "Welcome from a Guangxi local! 😂", time: "2025.10.14" }
+        ]
+    },
+    "luna_post_unboxing_2025": {
+        img: "https://cdn.shopify.com/s/files/1/0879/1520/0785/files/30_1024x1024.jpg?v=1726396117",
+        author: "🌙 YUE 🌙", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+        text: "Unboxing! ✨\nAbsolutely in love with the gift from my babe 🎁",
+        date: "2025.12.21", comments: "1 Comments",
+        commentsList: [
+            { user: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Looks sooooo good on you. 😍", time: "2025.12.21" }
+        ]
+    },
+    "luna_post_bkk_2026": {
+        img: "https://images.unsplash.com/photo-1563492065599-3520f775eeed?q=80&w=500",
+        author: "🌙 YUE 🌙", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+        text: "Thailand🇹🇭\nThe weather is amazing here ☀️ So many street food choices~ The Tom Yum soup is so sour and spicy, it's the perfect appetizer! 🤩",
+        date: "2026.4.1", comments: "0 Comments",
+        commentsList: []
+    },   
+
 
 // === Ryan 的旧账帖子 (核心剧情线索) ===
+// === Ryan 的旧帖：地道英文版 ===
     "ryan_post_1": {
-        img: "https://images.unsplash.com/photo-1461360228754-6e81c478b882?q=80&w=500", // 替换为黑胶唱片/复古音乐图
+        img: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=500",
         author: "Deactivated Account", avatar: "",
-        text: "Finally got my hands on this out-of-print vinyl! Been looping 'Can't Help Falling in Love' all week. The King lives on. 🎸👑",
-        date: "2015-10-05", comments: "0 Comments",
-        commentsList: []
-    },
-    "ryan_post_2": {
-        img: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=500", // 书桌与咖啡/外卖
-        author: "Deactivated Account", avatar: "",
-        text: "Struggling with the major assignment until my brain melted. Thanks to my awesome roommate Adam for helping me sort out the logic and bringing me late-night snacks. Grateful! 🙏💻",
-        date: "2015-10-28", comments: "1 Comments",
+        text: "Met the absolute best roommate ever! 🥺 Another day of them grabbing me food. Blessed.",
+        date: "2017-09-10", comments: "1 Comments",
         commentsList: [
-            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "No problem bro. Finish it up and get some rest.", time: "2015-10-28" }
+            { user: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Still gotta remember to eat on time, buddy!", time: "2017-09-10" }
         ]
     },
-    "ryan_post_video_clue": {
-        isVideo: true, 
-        videoSrc: "assets/ryan_desk_pan.mp4", // 以后替换为包含药瓶的真实视频路径
-        img: "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?q=80&w=500", // 杂乱书桌封面图
+    "ryan_post_2": {
+        img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=500",
         author: "Deactivated Account", avatar: "",
-        text: "The reality of a finals week desk. A total disaster. Note to self: never leave assignments to the last day ever again. 📚😵",
-        date: "2015-11-15", comments: "1 Comments",
+        text: "Perfect weather to just get lost in music today. ☀️🎵",
+        date: "2018-03-24", comments: "1 Comments",
         commentsList: [
-            { user: "Chris", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "Your desk is an absolute disaster zone.", time: "2015-11-15" }
+            { user: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "Great taste! 👍", time: "2018-03-24" }
+        ]
+    },
+    "ryan_post_3": {
+        img: "https://images.unsplash.com/photo-1530103043960-ef38714abb15?q=80&w=500",
+        author: "Deactivated Account", avatar: "",
+        text: "Another year older, wishing to be even happier than yesterday. Thanks for all the wishes and gifts! ~",
+        date: "2019-03-15", comments: "2 Comments",
+        commentsList: [
+            { user: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "Happy Birthday! 🤩", time: "2019-03-15" },
+            { user: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Happy Birthday🥳 Hope you finally catch that Live House show soon!", time: "2019-03-15" }
         ]
     },
     "ryan_post_4": {
-        img: "https://images.unsplash.com/photo-1550534731-2e673f4e2f4a?q=80&w=500", // 模糊眩晕感的图
+        img: "https://images.unsplash.com/photo-1550534731-2e673f4e2f4a?q=80&w=500",
         author: "Deactivated Account", avatar: "",
-        text: "Don't know what's wrong lately, always feeling lightheaded and dizzy. Slept for 12 hours yesterday and still woke up exhausted. My brain feels like mush. Is finals stress really this bad? 😵‍💫 No amount of coffee helps.",
-        date: "2015-11-20", comments: "2 Comments",
+        text: "Not sure why, but I've been feeling so lightheaded lately. Maybe winter is just made for sleeping... 🥱",
+        date: "2019-11-21", comments: "2 Comments",
         commentsList: [
-            { user: "Chris", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "You don't look right man, you should go to the campus clinic.", time: "2015-11-21" },
-            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Don't push yourself too hard, health comes first. I'll bring some hot soup back to the dorm for you tonight.", time: "2015-11-21" }
+            { user: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Time to save up some energy for hibernation~", time: "2019-11-21" },
+            { user: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "Get up and play a round of hoops with me! 💪", time: "2019-11-21" }
         ]
     },
+    "ryan_post_5": {
+        img: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?q=80&w=500",
+        author: "Deactivated Account", avatar: "",
+        text: "Quick Room Tour of the Dorm Culture Fest winner! Honestly, it's just way too cozy for sleeping. 😴",
+        date: "2020-02-18", comments: "1 Comments",
+        commentsList: [
+            { user: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "Damn, Augenster's desk is way too tidy! 🐱", time: "2020-02-18" }
+        ]
+    },
+
     // === Adam 大号帖子 (按时间倒序) ===
-    "adam_post_1": {
-        img: "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?q=80&w=500", // 整洁的行李箱内部
-        author: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
-        text: "Leave finally approved. See you next week, Bangkok. 🌴",
-        date: "2023-09-28", comments: "2 Comments",
+    // === Adam (Augenster) 的主页帖子 (地道英文版) ===
+    "adam_post_cooking_start": {
+        img: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=500",
+        author: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
+        text: "Lately I've been obsessed with cooking 🥘 Planning to share my culinary journey with everyone here. 😋",
+        date: "2025.09.18", comments: "0 Comments",
+        commentsList: []
+    },
+    "adam_post_mapo": {
+        isVideo: true, // 图片提到步骤看视频
+        videoSrc: "assets/mapo_tofu_tutorial.mp4",
+        img: "https://images.unsplash.com/photo-1543826173-70651703c5a4?q=80&w=500",
+        author: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
+        text: "The ultimate rice-killer Mapo Tofu tutorial is here! 🍛\nIngredients 🥬: 1 block of tofu, 50g minced meat, Doubanjiang (bean paste), Sichuan peppercorns, green onions, minced garlic, Thai chili. Check the video for steps! ~\n#ChineseFood #Foodie",
+        date: "2025.09.20", comments: "3 Comments",
         commentsList: [
-            { user: "Luna_99", avatar: "https://randomuser.me/api/portraits/women/44.jpg", text: "Babe, your luggage packing is so satisfying to look at!! My suitcase looks like a dumpster compared to this 😂", time: "2023-09-28" },
-            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "It's fine. I have all the itineraries planned out, just follow my lead.", time: "2023-09-28" }
+            { user: "SweetPascal", avatar: "", text: "Saved.", time: "2025.09.20" },
+            { user: "CzxKeeho", avatar: "", text: "👍👍", time: "2025.09.26" },
+            { user: "🌙 YUE 🌙", avatar: "https://randomuser.me/api/portraits/women/44.jpg", text: "Will this be super spicy? I can't handle too much heat 🌶️", time: "2025.10.03" }
+        
         ]
     },
-    "adam_post_2": {
-        img: "https://images.unsplash.com/photo-1554650635-c38f9b9646b9?q=80&w=500", // 机场停机坪夜景
-        author: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
-        text: "Three consecutive night shifts. T2 terminal has finally quieted down. Need a double espresso to survive. ☕️✈️",
-        date: "2023-09-10", comments: "2 Comments",
+    "adam_post_mango": {
+        img: "https://images.unsplash.com/photo-1626808642820-212d9b626027?q=80&w=500",
+        author: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
+        text: "Spent an hour making Mango Pomelo Sago （Yang Zhi Gan Lu）~ It's so sweet, refreshing, and delicious! But the prep takes way too long... I think I'll just stick to takeout next time. 😂",
+        date: "2025.10.05", comments: "2 Comments",
         commentsList: [
-            { user: "Chris", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "Working the night shift again bro? Is the ops center that busy?", time: "2023-09-10" },
-            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Lots of flights lately. Just wrapping up the last departure.", time: "2023-09-10" }
+            { user: "MangoLover", avatar: "", text: "The mangoes 🥭 look so tasty!", time: "2025.10.05" },
+            { user: "SweetTooth", avatar: "", text: "I want a sip! 🤩", time: "2025.10.06" }
         ]
     },
-    "adam_post_3": {
-        img: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=500", // 极度整洁的办公桌
-        author: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
-        text: "Weekend deep clean. A clear desk equals a clear mind. 🧹✨",
-        date: "2023-08-05", comments: "2 Comments",
+    "adam_post_laziji": {
+        isVideo: true, // 图片提到步骤看视频
+        videoSrc: "assets/laziji_tutorial.mp4",
+        img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=500",
+        author: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
+        text: "Another delicious way to cook chicken 🐔. Spicy Chicken (La Zi Ji) tutorial is here! 😄\nIngredients 🌶: Diced chicken breast, onion, dried chilies, minced garlic, green onions, Sichuan peppercorns... Check the video for steps! ~\n#ChineseFood #Foodie",
+        date: "2025.10.25", comments: "2 Comments",
         commentsList: [
-            { user: "Luna_99", avatar: "https://randomuser.me/api/portraits/women/44.jpg", text: "Wow... I don't think there's a single speck of dust in your room. Can you help organize my desk next time? 🥺", time: "2023-08-05" },
-            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Sure, next time I'm over, I'll throw away all your useless stuff. 😜", time: "2023-08-05" }
+            { user: "🌙 YUE 🌙", avatar: "https://randomuser.me/api/portraits/women/44.jpg", text: "My mouth is watering just looking at this! 😜", time: "2025.10.25" },
+            { user: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "This one just looks like it has a lot of chilies hahaha, but it's actually barely spicy.", time: "2025.10.25" }
         ]
     },
-    "adam_post_4": {
-        img: "https://images.unsplash.com/photo-1495474472204-51ea0d20dcd8?q=80&w=500", // 手冲咖啡特写
-        author: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
-        text: "15g light roast, 92°C water, 225ml extraction. A perfect morning starts with precise measurements. ☕️☀️",
-        date: "2023-05-12", comments: "2 Comments",
+    
+// === BasketballBoy (Lucas) 的主页帖子 (地道英文版) ===
+
+    "l_post_basketball_win": {
+        img: "https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=500",
+        author: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg",
+        text: "First place in the MingZhou University Basketball League! 🏅 Good work, brothers!!! 💗💗💗",
+        date: "2019.12.15", comments: "2 Comments",
         commentsList: [
-            { user: "CoffeeHolic", avatar: "https://randomuser.me/api/portraits/men/32.jpg", text: "Are those Ethiopian beans? That extraction color is absolutely perfect!", time: "2023-05-12" },
-            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Yes, Yirgacheffe.", time: "2023-05-12" }
+            { user: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Holy sh*t, let's goooo!!! 🔥🔥🔥", time: "2019.12.15" },
+            { user: "Deactivated Account", avatar: "", text: "Huge congrats! What an incredible game! 🏆", time: "2019.12.15" }
         ]
     },
+    "l_post_graduation": {
+        img: "https://images.unsplash.com/photo-152305085306e-88e4f6e0ad24?q=80&w=500",
+        author: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg",
+        text: "Stop planning, just go. Graduation trip in progress! 🎓 The only regret is that Xin couldn't make it 🥺\n#Youth #Graduation",
+        date: "2021.7.13", comments: "0 Comments",
+        commentsList: []
+    },
+    "l_post_thailand": {
+        img: "https://images.unsplash.com/photo-1528181304800-2f140819ad9c?q=80&w=500",
+        author: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg",
+        text: "Starting my new 'brick-moving' (hustle) life in a brand new country! 📌 Thailand",
+        date: "2023.09.30", comments: "0 Comments",
+        commentsList: []
+    },
+    "l_post_couple": {
+        img: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=500",
+        author: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg",
+        text: "Gotta do the challenge with my girl too 👫\n#CoupleChallenge",
+        date: "2024.6.16", comments: "1 Comments",
+        commentsList: [
+            { user: "HL_FOREVER", avatar: "", text: "💗", time: "2024.6.16" }
+        ]
+    },
+    "l_post_proposal": {
+        img: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=500",
+        author: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg",
+        text: "SHE SAID YESSSSS!! 💍❤️💍",
+        date: "2025.12.25", comments: "0 Comments",
+        commentsList: []
+    },
+
+    // === HL_FOREVER (Hope) 的主页帖子 (地道英文版) ===
+    "hl_post_dress": {
+        img: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=500",
+        author: "HL_FOREVER", avatar: "https://randomuser.me/api/portraits/women/65.jpg",
+        text: "This yellow dress from Brand C is so perfect for this season! 🌼✨\n#OOTD",
+        date: "2024.03.23", comments: "0 Comments",
+        commentsList: []
+    },
+    "hl_post_bday": {
+        img: "https://images.unsplash.com/photo-1530103043960-ef38714abb15?q=80&w=500",
+        author: "HL_FOREVER", avatar: "https://randomuser.me/api/portraits/women/65.jpg",
+        text: "Happy birthday babe 💖 @BasketballBoy",
+        date: "2024.07.22", comments: "1 Comments",
+        commentsList: [
+            { user: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "🎵 [Song Message] Listen to this for you! 🎤", time: "2024.07.22" }
+        ]
+    },
+    "hl_post_wedding": {
+        img: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=500",
+        author: "HL_FOREVER", avatar: "https://randomuser.me/api/portraits/women/65.jpg",
+        text: "Wedding planning is seriously so exhausting ⛪️~\n#WeddingPrep #Happiness",
+        date: "2026.02.19", comments: "1 Comments",
+        commentsList: [
+            { user: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "Babe, let's treat ourselves to a great dinner tonight! 😘", time: "2026.02.19" }
+        ]
+    },
+
+// === Luna 小号 (1_4_1_13_1010) 的帖子 (地道英文版) ===
+    "luna_burner_sos": {
+        img: "https://images.unsplash.com/photo-1584308666744-24d5e471956c?q=80&w=500", // 药瓶图片
+        author: "1_4_1_13_1010", avatar: "",
+        text: "Help: Found this in my friend's bag.\nThe label says 'Novacard', which I searched and it's for the heart condition. But the pills inside are plain white and round, completely different from the blue ones on the internet. \n\nDoes anyone have any idea what these are? ❓",
+        date: "2026.04.03", comments: "2 Comments",
+        commentsList: [
+            { 
+                user: "MedStudent_Anna", 
+                avatar: "https://randomuser.me/api/portraits/women/11.jpg", 
+                text: "Novacard pills are strictly blue and hexagonal. White round pills could be anything. Be careful!", 
+                time: "2026.04.03" 
+            },
+            { 
+                user: "HL_FOREVER", 
+                avatar: "https://randomuser.me/api/portraits/women/65.jpg", 
+                text: "CHECK YOUR DMs NOW!!!", 
+                time: "2026.04.03" 
+            }
+        ]
+    },
+
     "mock_post_1": {
         img: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=500",
         author: "CoffeeLover", avatar: "https://randomuser.me/api/portraits/women/12.jpg",
@@ -265,17 +422,7 @@ const xhsPostData = {
         text: "Who even invented 'Microcomputer Principles and Interface Technology'? Going blind staring at assembly language. 💻🔌 \n\n#EngineeringStudent #EE",
         date: "2015-12-02", comments: "0 Comments", commentsList: []
     },
-    "luna_burner_post": {
-        img: "https://images.unsplash.com/photo-1584308666744-24d5e471956c?q=80&w=500", // 药瓶图片
-        author: "Adam_1024", avatar: "",
-        text: "Help: Found this in my boyfriend's bag.\nThe label says 'Novacard', which I googled and it's for his heart condition. But the pills inside are plain white and round, completely different from the blue ones on the internet. We are on vacation in Bangkok right now, and tonight he was being super persistent about making me a glass of hot milk to help me sleep... I didn't drink it and poured it away. My heart is racing right now, what should I do?",
-        date: "Oct 22", comments: "3 Comments",
-        commentsList: [
-            { user: "MedStudent_Anna", avatar: "https://randomuser.me/api/portraits/women/11.jpg", text: "Sis, Novacard pills are strictly blue and hexagonal. White round pills could be anything. Be careful!", time: "Oct 22" },
-            { user: "TravelSafe", avatar: "https://randomuser.me/api/portraits/men/22.jpg", text: "Don't drink anything he gives you. Lock your door.", time: "Oct 22" },
-            { user: "Maya_in_BKK", avatar: "https://randomuser.me/api/portraits/women/33.jpg", text: "DO NOT DRINK IT!!! I know exactly what those pills are. CHECK YOUR DMs NOW!!!", time: "Oct 22" }
-        ]
-    },
+   
 };
 
 // xhs帖子转换函数
@@ -306,6 +453,13 @@ const chatData = {
             { type: "left", text: "Thanks, son!" },
             { type: "left", text: "Happy New Year to you too!" },
             { type: "left", text: "Hope you find a girlfriend soon~ 😜" },
+
+
+            { type: "sys", text: "Oct 10, 2025" },
+            { type: "left", text: "Happy Birthday, my dear son🎉🎉🎉" },
+            { type: "sys", text: "Mom sent you ￥1000.00." },
+            { type: "right", text: "Thanks, Mom! Love you❤️" },
+
 
             { type: "sys", text: "Mar 25, 2026" },
             { type: "right", text: "Mom, I'm heading to Thailand in a few days for a college buddy's wedding. I'll bring back some local treats for you! 😍" },
@@ -420,10 +574,10 @@ const chatData = {
         ]
     },
     "user_ryan": {
-        name: "木心（❤）", avatarColor: "#607d8b", avatarText: "Ry",
+        name: "木心（💗）", avatarColor: "#607d8b", avatarText: "Ry",
         messages: [
-            { type: "sys", text: "You transferred ¥100,000.00 to Ryan." },
-            { type: "sys", text: "Transfer returned by Ryan." }
+            { type: "sys", text: "You transferred ¥100,000.00 to 木心（💗）." },
+            { type: "sys", text: "Transfer returned by 木心（💗）." }
         ]
     }
 };
@@ -443,7 +597,7 @@ const contactsData = {
         signature: "Work hard, play hard." 
     },
     "user_ryan": { 
-        name: "木心（❤）", avatarColor: "#607d8b", avatarText: "Ry", wechatId: "XinWoodenHeart", 
+        name: "木心（💗）", avatarColor: "#607d8b", avatarText: "Ry", wechatId: "XinWoodenHeart", 
         signature: "Dragon in da house. 🐉" 
     },
     "user_mom": { 
@@ -787,23 +941,71 @@ function renderAdamProfileFeed() {
     });
 }
 
+// // --- 小红书私信对话数据 ---
+// const xhsDMs = {
+//     "ryan": {
+//         name: "Deactivated Account", avatar: "", // 空白代表默认灰色
+//         messages: [
+//             { type: "sys", text: "3 years ago" },
+//             { type: "right", text: "Please, just let me explain. I didn't mean for this to happen." },
+//             { type: "right", text: "I'm so sorry. Answer me." },
+//             { type: "left", text: "Don't ever contact me again. I will never forgive you." }
+//         ]
+//     },
+//     "luna": {
+//         name: "Luna_99", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+//         messages: [
+//             { type: "sys", text: "Today" },
+//             { type: "left", text: "Did you see my new post? 🥰" },
+//             { type: "right", text: "Yes babe, looks amazing." }
+//         ]
+//     }
+// };
 // --- 小红书私信对话数据 ---
 const xhsDMs = {
+    "luna": {
+        name: "🌙 YUE 🌙", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+        messages: [
+            { type: "sys", text: "2025.10.3" },
+            { type: "right", text: "You can try adding fewer Thai chilies first. Peppercorns just give that numbing sensation to your lips." },
+            { type: "right", text: "Feel free to ask me anything you don't understand." },
+            { type: "left", text: "Got it! 🙏" },
+            { type: "sys", text: "2025.10.6" },
+            { type: "right", text: "Did you try making the Mapo Tofu yet?" },
+            { type: "left", text: "Not yet, school has been so busy lately." },
+            { type: "right", text: "Oh, what's your major?" },
+            { type: "left", text: "Game Design" },
+            { type: "right", text: "Sounds interesting! 😊" },
+            { type: "left", text: "I also really love Chinese tea culture." },
+            { type: "right", text: "What kind of tea do you like? Our Mingzhou green tea is very famous~" },
+            { type: "left", text: "OMG~ You're from Mingzhou? I've always wanted to visit that city!" },
+            { type: "right", text: "Next time you come to Mingzhou, I'll show you around and we can grab some great food together~ 🥰" }
+        ]
+    },
+    "work_hard": {
+        name: "WORK_HARD", avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+        messages: [
+            { type: "sys", text: "2025.8.11" },
+            { type: "right", text: "Hey, where did you get the workout outfit in your latest post? They look great! 🤩" }
+        ]
+    },
+    "felin": {
+        name: "FELIN", avatar: "https://randomuser.me/api/portraits/women/22.jpg",
+        messages: [
+            { type: "sys", text: "2025.9.3" },
+            { type: "right", text: "Hey there, what camera model are you using? The photos have such a nice texture! 🥰" },
+            { type: "left", text: "Thanks~ It's the SOFU X56." },
+            { type: "right", text: "Wow, would you be down for a photoshoot together later?" },
+            { type: "right", text: "Hello?" }
+        ]
+    },
     "ryan": {
-        name: "Deactivated Account", avatar: "", // 空白代表默认灰色
+        name: "Deactivated Account", avatar: "", 
         messages: [
             { type: "sys", text: "3 years ago" },
             { type: "right", text: "Please, just let me explain. I didn't mean for this to happen." },
-            { type: "right", text: "I'm so sorry. Answer me." },
+            { type: "right", text: "I'm so sorry. Please answer me." },
             { type: "left", text: "Don't ever contact me again. I will never forgive you." }
-        ]
-    },
-    "luna": {
-        name: "Luna_99", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-        messages: [
-            { type: "sys", text: "Today" },
-            { type: "left", text: "Did you see my new post? 🥰" },
-            { type: "right", text: "Yes babe, looks amazing." }
         ]
     }
 };
@@ -837,20 +1039,27 @@ function openXhsDetail(postId) {
 
     const commentsContainer = document.getElementById('xhs-comments-list');
     commentsContainer.innerHTML = '';
-    if (data.commentsList && data.commentsList.length > 0) {
-        data.commentsList.forEach(c => {
-            const cAvatar = c.avatar ? `url('${c.avatar}') center/cover` : '#ccc';
-            commentsContainer.innerHTML += `
-                <div class="xhs-comment-item">
-                    <div class="xhs-msg-avatar" style="width:28px; height:28px; margin-right:0; background:${cAvatar};"></div>
-                    <div class="xhs-comment-right">
-                        <div class="xhs-comment-user">${c.user}</div>
-                        <div class="xhs-comment-text">${c.text}</div>
-                        <div class="xhs-comment-meta"><span>${c.time}</span></div>
-                    </div>
-                </div>`;
-        });
-    } else {
+// 在 openXhsDetail 函数内部找到渲染评论的循环部分，替换为以下代码：
+if (data.commentsList && data.commentsList.length > 0) {
+    data.commentsList.forEach(c => {
+        const cAvatar = c.avatar ? `url('${c.avatar}') center/cover` : '#ccc';
+        commentsContainer.innerHTML += `
+            <div class="xhs-comment-item">
+                <div class="xhs-msg-avatar" 
+                     onclick="jumpToUserFromComment('${c.user}')" 
+                     style="width:28px; height:28px; margin-right:10px; background:${cAvatar}; cursor:pointer; border-radius:50%;">
+                </div>
+                <div class="xhs-comment-right">
+                    <div class="xhs-comment-user" 
+                         onclick="jumpToUserFromComment('${c.user}')" 
+                         style="cursor:pointer; font-weight:600; color:#666; font-size:12px;">${c.user}</div>
+                    <div class="xhs-comment-text" style="color:#333; margin-bottom:4px;">${c.text}</div>
+                    <div class="xhs-comment-meta" style="font-size:10px; color:#bbb;"><span>${c.time}</span></div>
+                </div>
+            </div>`;
+    });
+}
+ else {
         commentsContainer.innerHTML = '<div style="color:#999; font-size:12px; text-align:center;">No comments yet.</div>';
     }
 
@@ -858,6 +1067,12 @@ function openXhsDetail(postId) {
     win.style.display = 'flex';
     win.style.zIndex = ++zIndex;
     document.getElementById('xhs-detail').style.display = 'flex';
+
+    const detailWin = document.getElementById('xhs-detail');
+    detailWin.style.display = 'flex';
+    // ✨ 核心修改：动态提升层级
+    detailWin.style.zIndex = ++zIndex;
+
 }
 
 
@@ -879,6 +1094,7 @@ function openXhsDm(userId) {
     const adamXhsAvatar = `background-image: url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150')`;
     const targetXhsAvatar = data.avatar ? `background-image: url('${data.avatar}')` : `background-color: #ccc;`;
 
+    
     data.messages.forEach(msg => {
         if(msg.type === 'sys') {
             container.innerHTML += `<div class="system-msg">${msg.text}</div>`;
@@ -903,7 +1119,10 @@ function openXhsDm(userId) {
         `;
     });
 
-    document.getElementById('xhs-dm-view').style.display = 'flex';
+    const dmView = document.getElementById('xhs-dm-view');
+    dmView.style.display = 'flex';
+    // ✨ 核心修改：动态提升层级，使其盖在当前页面之上
+    dmView.style.zIndex = ++zIndex; 
     container.scrollTop = container.scrollHeight;
 }
 
@@ -933,8 +1152,13 @@ function openXhsUser(userId) {
                 </div>`;
         }
     });
+   
+    const userWin = document.getElementById('xhs-external-user');
+    userWin.style.display = 'flex';
+    // ✨ 核心：确保它盖在最上面
+    userWin.style.zIndex = ++zIndex;
 
-    document.getElementById('xhs-external-user').style.display = 'flex';
+    // document.getElementById('xhs-external-user').style.display = 'flex';
 }
 
 function closeXhsUser() {
@@ -1087,10 +1311,10 @@ const browserData = {
                 clickAction: ""
             },
             { 
-                url: "www.xiaohongshu.com/explore/luna_burner_post", 
+                url: "www.xiaohongshu.com/explore/luna_burner_sos", 
                 title: "Is this normal? Found Novacard in his bag... - Xiaohongshu", 
                 snippet: "2 days ago — I found this <strong>Novacard</strong> bottle in my boyfriend's luggage. But the pills inside are white and round, not blue. He insisted on making me hot milk...",
-                clickAction: "jumpToXhsFromBrowser('luna_burner_post')" // 直接调用我们之前写的跨应用跳转函数
+                clickAction: "jumpToXhsFromBrowser('luna_burner_sos')" // 直接调用我们之前写的跨应用跳转函数
             },
             { 
                 url: "www.medforum.com/reviews/novacard", 
@@ -2041,6 +2265,70 @@ function closeFilePicker() {
 
 
 
+/**
+ * 辅助函数：通过评论区的用户名查找用户数据库 ID 并执行跳转
+ * @param {string} userName - 评论中显示的用户名
+ */
+
+
+// function jumpToUserFromComment(userName) {
+//     const userKey = Object.keys(xhsUsers).find(key => xhsUsers[key].name === userName);
+    
+//     if (userKey) {
+//         // ✨ 不要在这里调用 closeXhsDetail()，让它留在后台
+//         openXhsUser(userKey);
+//     } else {
+//         console.warn("User data not found for name:", userName);
+//     }
+// }
+
+
+// function jumpToUserFromComment(userName) {
+//     const userKey = Object.keys(xhsUsers).find(key => xhsUsers[key].name === userName);
+    
+//     if (userKey) {
+//         // ✨ 不要在这里调用 closeXhsDetail()，让它留在后台
+//         openXhsUser(userKey);
+//     } else {
+//         console.warn("User data not found for name:", userName);
+//     }
+// }
+
+function jumpToUserFromComment(userName) {
+    const userKey = Object.keys(xhsUsers).find(key => xhsUsers[key].name === userName);
+    if (userKey) {
+        // 直接打开，它会因为 zIndex 增加而盖在帖子上面
+        openXhsUser(userKey); 
+    }
+}
+
+
+// --- 新增：动态渲染小红书私信列表 ---
+function renderXhsMsgList() {
+    const container = document.getElementById('xhs-msg-list-container');
+    if (!container) return;
+    
+    container.innerHTML = ''; // 清空旧列表
+
+    // 遍历 xhsDMs 数据生成 HTML
+    for (const [userId, data] of Object.entries(xhsDMs)) {
+        const lastMsg = data.messages[data.messages.length - 1];
+        const previewText = lastMsg ? lastMsg.text : "No messages";
+        const avatarStyle = data.avatar ? `background: url('${data.avatar}') center/cover` : `background: #ccc`;
+        
+        container.innerHTML += `
+            <div class="xhs-msg-item" onclick="openXhsDm('${userId}')">
+                <div class="xhs-msg-avatar" style="${avatarStyle}"></div>
+                <div class="xhs-msg-info">
+                    <div class="xhs-msg-top">
+                        <span class="xhs-msg-name" style="${userId === 'ryan' ? 'color:#999' : ''}">${data.name}</span>
+                        <span class="xhs-msg-time">${lastMsg ? (lastMsg.time || 'Today') : ''}</span>
+                    </div>
+                    <div class="xhs-msg-text">${previewText}</div>
+                </div>
+            </div>`;
+    }
+}
 
 // --- 游戏初始化与恢复状态 ---
 function initGame() {
@@ -2069,6 +2357,7 @@ function initGame() {
     renderBookmarks(); 
     renderXhsHomeFeed();
     renderAdamProfileFeed();
+    renderXhsMsgList(); // ✨ 记得调用这个渲染函数
 
     navBrowser('home');
 

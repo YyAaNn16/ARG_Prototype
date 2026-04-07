@@ -360,29 +360,20 @@
                     </div>
                 </div>
             </div>
+
+
     
             <div id="xhs-msgs" class="xhs-page">
                 <div class="xhs-header">Messages</div>
-                <div class="xhs-msg-list">
-                    <div class="xhs-msg-item" onclick="openXhsDm('luna')">
-                        <div class="xhs-msg-avatar"
-                            style="background: url('https://randomuser.me/api/portraits/women/44.jpg') center/cover;"></div>
-                        <div class="xhs-msg-info">
-                            <div class="xhs-msg-top"><span class="xhs-msg-name">Luna_99</span><span
-                                    class="xhs-msg-time">10:05 AM</span></div>
-                            <div class="xhs-msg-text">Did you see my new post? 🥰</div>
-                        </div>
+                <div id="xhs-msg-list-container" class="xhs-msg-list">
                     </div>
-                    <div class="xhs-msg-item" onclick="openXhsDm('ryan')">
-                        <div class="xhs-msg-avatar" style="background: #ccc;"></div>
-                        <div class="xhs-msg-info">
-                            <div class="xhs-msg-top"><span class="xhs-msg-name" style="color:#999;">Deactivated
-                                    Account</span><span class="xhs-msg-time">3 years ago</span></div>
-                            <div class="xhs-msg-text">I will never forgive you.</div>
-                        </div>
-                    </div>
-                </div>
             </div>
+            <!-- <div id="xhs-msgs" class="xhs-page">
+                <div class="xhs-header">Messages</div>
+                <div class="xhs-msg-list" id="xhs-msg-list-container"></div> 
+            </div> -->
+
+
     
             <div id="xhs-profile" class="xhs-page">
                 <div class="xhs-header">Me</div>
@@ -406,7 +397,8 @@
                 </div>
             </div>
     
-            <div id="xhs-detail" class="xhs-detail-view" style="z-index: 160;">
+            <!-- <div id="xhs-detail" class="xhs-detail-view" style="z-index: 160;"> -->
+            <div id="xhs-detail" class="xhs-detail-view">
                 <div class="xhs-detail-close" onclick="closeXhsDetail()">✕</div>
                 <div class="xhs-detail-left">
                     <img id="xhs-detail-img" src="" alt="Post content">
@@ -439,7 +431,8 @@
                 </div>
             </div>
     
-            <div id="xhs-external-user" class="xhs-detail-view" style="flex-direction:column; z-index:150;">
+            <!-- <div id="xhs-external-user" class="xhs-detail-view" style="flex-direction:column; z-index:150;"> -->
+            <div id="xhs-external-user" class="xhs-detail-view" style="flex-direction:column;">
                 <div class="xhs-header"
                     style="text-align: left; padding: 0 15px; display: flex; align-items: center; background:#fff;">
                     <span style="font-size: 24px; cursor:pointer; margin-right: 15px;" onclick="closeXhsUser()">‹</span>
@@ -466,7 +459,7 @@
                 </div>
             </div>
     
-            <div id="xhs-dm-view" class="xhs-detail-view" style="flex-direction:column; z-index:140;">
+            <div id="xhs-dm-view" class="xhs-detail-view" style="flex-direction:column;">
                 <div class="xhs-header"
                     style="text-align: left; padding: 0 15px; display: flex; align-items: center; background:#fff;">
                     <span style="font-size: 24px; cursor:pointer; margin-right: 15px;"
