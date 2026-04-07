@@ -87,7 +87,7 @@ const xhsUsers = {
         posts: ["luna_burner_sos"] // 仅保留图片中的这条帖子
     },
     "work_hard": {
-        name: "WORK_HARD", id: "229103",
+        name: "KeepRunning", id: "229103",
         avatar: "https://randomuser.me/api/portraits/men/32.jpg",
         bio: "Fitness is a lifestyle. 💪",
         stats: { posts: 15, followers: 800, following: 200 },
@@ -983,7 +983,7 @@ const xhsDMs = {
         ]
     },
     "work_hard": {
-        name: "WORK_HARD", avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+        name: "KeepRunning", avatar: "https://randomuser.me/api/portraits/men/32.jpg",
         messages: [
             { type: "sys", text: "2025.8.11" },
             { type: "right", text: "Hey, where did you get the workout outfit in your latest post? They look great! 🤩" }
