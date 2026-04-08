@@ -52,7 +52,7 @@
                 <div class="dot min"></div>
                 <div class="dot max"></div>
             </div>
-            <div class="win-title">WeChat</div>
+            <div class="win-title">CallMe</div>
         </div>
     
         <div class="wechat-app-container">
@@ -341,7 +341,7 @@
                 <div class="dot min"></div>
                 <div class="dot max"></div>
             </div>
-            <div class="win-title">Xiaohongshu</div>
+            <div class="win-title">RedGram</div>
         </div>
     
         <div class="xhs-content">
@@ -717,6 +717,15 @@
                             </div>
                             
                             <button class="div-btn" onclick="runFaceRecognition()" style="margin-top:20px; background:#2c3e50;">Analyze Biometrics</button>
+                            
+                            <div id="face-history-area" style="margin-top: 25px; border-top: 1px solid #eee; padding-top: 15px;">
+                                <div
+                                    style="font-size: 12px; font-weight: bold; color: #666; margin-bottom: 10px; display: flex; align-items: center; gap: 5px;">
+                                    🕒 Recent Analysis History
+                                </div>
+                                <div id="face-history-list" style="display: flex; flex-direction: column; gap: 8px;">
+                                </div>
+                            </div>
                             
                             <div id="face-result" class="divination-result-box" style="display:none; margin-top: 15px;"></div>
                         </div>
@@ -1170,8 +1179,8 @@
     </div>
 
     <div id="dock">
-        <div class="dock-icon icon-chat" data-title="WeChat" onclick="openWindow('win-chat')">💬</div>
-        <div class="dock-icon icon-xhs" data-title="Xiaohongshu" onclick="openWindow('win-xhs')">📕</div>
+        <div class="dock-icon icon-chat" data-title="CallMe" onclick="openWindow('win-chat')">💬</div>
+        <div class="dock-icon icon-xhs" data-title="RedGram" onclick="openWindow('win-xhs')">📕</div>
         <div class="dock-icon icon-browser" data-title="Browser" onclick="openWindow('win-browser')">🌐</div>
         <div class="dock-icon icon-files" data-title="Files" onclick="openWindow('win-files')">📂</div>
         <!-- <div class="dock-icon icon-track" data-title="Tracking" onclick="openWindow('win-track')">📦</div> -->

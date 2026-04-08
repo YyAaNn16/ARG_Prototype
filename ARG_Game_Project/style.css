@@ -2268,3 +2268,21 @@ body {
     50% { top: 100%; } /* 来回扫描效果更好 */
     100% { top: 0%; } 
 }
+
+/* 人脸识别历史条目样式 */
+.face-history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f9fa;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 11px;
+    border: 1px solid #eee;
+    color: #555;
+}
+
+.history-sim-high {
+    color: #d93025;
+    font-weight: bold;
+}
