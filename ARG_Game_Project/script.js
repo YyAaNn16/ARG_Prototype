@@ -391,7 +391,7 @@ const xhsPostData = {
     "post_game_1": {
         img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=500",
         author: "Pixel_Joe", avatar: "https://randomuser.me/api/portraits/men/9.jpg",
-        text: "Review: 'Echoes of Mount Li' is a masterpiece. 🎮\nThe logic is flawless. The side plot about the missing student from years ago was haunting. 10/10.\n#Gaming #Mystery #IndieGame",
+        text: "Review: 'College Student Missing Hiking Case' is a masterpiece. 🎮\nThe logic is flawless. The side plot about the missing student from years ago was haunting. 10/10.\n#ARG #Mystery #IndieGame",
         date: "2026.03.18", comments: "210 Comments",
         commentsList: [{ user: "MysteryFan", avatar: "", text: "That ending left me speechless...", time: "1d ago" }]
     },
@@ -437,6 +437,22 @@ const xhsPostData = {
         date: "2026.04.07", comments: "245 Comments",
         commentsList: [{ user: "GiftFinder", avatar: "", text: "The balm is a lifesaver.", time: "1d ago" }]
     
+    },
+    "post_news_adam": {
+        img: "https://images.unsplash.com/photo-1541888086925-ebcfbdf3c2b8?q=80&w=500", 
+        author: "Bangkok Daily", 
+        avatar: "https://randomuser.me/api/portraits/men/82.jpg",
+        text: "[Bangkok News]\nOn April 8th, a Chinese man surnamed Lu (also known as Adam) tragically passed away after suddenly collapsing during a wedding ceremony at a Bangkok hotel. Preliminary reports suggest a possible heart condition, though the exact cause of death remains under investigation. Local authorities are currently collecting evidence and reviewing surveillance footage.\n#BangkokNews #BreakingNews",
+        date: "2026.04.10", 
+        comments: "26 Comments",
+        commentsList: [
+            { user: "CuriousCat", avatar: "", text: "I heard his girlfriend is a foreigner he met online. Could this be some sort of romance scam?", time: "2h ago" },
+            { user: "RationalThinker", avatar: "", text: "@CuriousCat  Are you serious right now? Please don't make malicious speculations before the police release their official findings.", time: "1h ago" },
+            { user: "BKK_Insider", avatar: "", text: "Ah, I was actually there. It looked like a heart attack... They gave him medicine right away, but it was too late.", time: "1h ago" },
+            { user: "Fragile", avatar: "", text: "Such a pity... he was so young. RIP.", time: "45m ago" },
+            { user: "Swimm", avatar: "", text: "My friend works at that hotel. They said the scene was pretty chaotic and it wasn't just a simple fainting spell... I shouldn't say too much.", time: "30m ago" },
+            { user: "Observer99", avatar: "", text: "Didn't they say he wasn't looking well even before the wedding? Someone saw him drinking heavily and arguing with someone.", time: "10m ago" }
+        ]
     },
     
 
@@ -1074,7 +1090,7 @@ function renderXhsHomeFeed() {
     const feedContainer = document.querySelector('#xhs-home .xhs-feed');
     if (!feedContainer) return;
     feedContainer.innerHTML = ''; 
-    const homePosts = ['post_work_1', 'post_heart_1', 'post_thai_3', 'post_photo_1', 'post_game_1', 'post_psych_1', 'post_thai_5', 'post_heart_3'];
+    const homePosts = ['post_work_1', 'post_heart_1', 'post_thai_3', 'post_photo_1', 'post_game_1', 'post_psych_1', 'post_news_adam','post_thai_5', 'post_heart_3'];
     homePosts.forEach(postId => {
         feedContainer.innerHTML += createXhsPostHTML(postId);
     });
@@ -1374,14 +1390,19 @@ const browserData = {
 
     // 预设的收藏夹
     bookmarks: [
-        { title: "Global Express Track", icon: "📦", id: "tracking", url: "www.global-express.com/track" },
-        { title: "FaceMatch AI", icon: "👤", isSearch: true, keyword: "face match" },
-        { title: "BKK Wedding Planners", icon: "💍", url: "www.bkk-weddings.th" },
-        { title: "Destiny Finder", icon: "☯️", id: "divination", url: "www.fate-unveiled.com" }
+        // 👇 就是这行，加一个健康百科的假书签
+        { title: "Health", icon: "🏥", url: "www.wikihealth.org" },
+       // 1. 食谱网站 (点击仅改变地址栏，无实际页面跳转)
+       { title: "Daily Recipes", icon: "🍳", url: "www.daily-recipes.com" },
+       // 2. 机场信息网站 (点击仅改变地址栏，无实际页面跳转)
+       { title: "Mingzhou Airport Info", icon: "✈️", url: "www.mz-airport.com" },
+       // 3. 算命网站 (保留不变)
+       { title: "Destiny Finder", icon: "☯️", id: "divination", url: "www.fate-unveiled.com" }
     ],
     
     // 搜索引擎关键词数据库 (可以配置多个关键词触发同一结果)
     searchDatabase: {
+
         "year of the monkey, monkey year": [
             {
                 // 直接在数据里插入卡片的 HTML
@@ -1500,6 +1521,25 @@ const browserData = {
                 clickAction: ""
             }
         ],
+
+        // ▼▼▼ 新增：SF Express 搜索结果 ▼▼▼
+        "sf express, sf-express, sf": [
+            { 
+                url: "www.global-express.com/track", 
+                title: "Global Express Track - Official Site", 
+                snippet: "Track your international and domestic shipments in real-time. Enter your tracking number (e.g., SF-1001) to check the latest logistics status.",
+                clickAction: "navBrowser('tracking')" // 点击直接跳转到你写好的物流查询页面
+            },
+            // 添加一个干扰项，增加真实感
+            {
+                url: "www.sf-logistics-forum.com/rates",
+                title: "Shipping Rates & Delivery Times - SF Express",
+                snippet: "Calculate shipping rates and estimated delivery times for your packages. Check our updated price list for Southeast Asia routes.",
+                clickAction: "" 
+            }
+        ],
+
+
     }
 };
 
