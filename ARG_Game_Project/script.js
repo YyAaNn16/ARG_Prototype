@@ -627,7 +627,7 @@ const chatData = {
         inChatList: false, // 👉 默认隐藏
         messages: [
             { type: "sys", text: "Oct 30, 2025" },
-            { type: "left", text: "I’m glad we finally moved to WeTalk 😄" },
+            { type: "left", text: "I’m glad we finally moved to CallMe 😄" },
             { type: "right", text: "yeah RG chat is too slow sometimes" },
             { type: "left", text: "Is the dish in your new post really made of lion meat? 😂" },
             { type: "right", text: "Hahaha no, 'Lion's Head' is just giant meatballs. It's mostly pork, it just looks like a lion's head." },
@@ -917,7 +917,7 @@ function showContactProfile(userId) {
         <div style="text-align:center; background:#fff; padding: 40px; border-radius:8px; box-shadow:0 2px 10px rgba(0,0,0,0.05); width: 320px;">
             <div style="width:80px; height:80px; background:${data.avatarColor}; color:white; font-size:32px; font-weight:bold; display:flex; align-items:center; justify-content:center; border-radius:8px; margin: 0 auto 15px auto;">${data.avatarText}</div>
             <h2 style="margin:0 0 5px 0; color:#333;">${data.name}</h2>
-            <p style="color:#999; font-size:13px; margin-bottom: 10px;">WeChat ID: ${data.wechatId}</p>
+            <p style="color:#999; font-size:13px; margin-bottom: 10px;">CallMe ID: ${data.wechatId}</p>
             <p style="color:#666; font-size:14px; margin-bottom: 30px; font-style: italic;">${signatureText}</p>
             <button onclick="jumpToChatFromContact('${userId}')" style="background:#07c160; color:white; border:none; padding:10px 40px; border-radius:4px; font-size:15px; font-weight:600; cursor:pointer; width: 100%;">Message</button>
         </div>
@@ -1630,8 +1630,8 @@ const browserData = {
                 clickAction: ""
             },
             { 
-                url: "www.xiaohongshu.com/explore/luna_burner_sos", 
-                title: "Is this normal? Found Novacard in his bag... - Xiaohongshu", 
+                url: "www.RedGram.com/explore/luna_burner_sos", 
+                title: "Is this normal? Found Novacard in his bag... - RedGram", 
                 snippet: "2 days ago — I found this <strong>Novacard</strong> bottle in my boyfriend's luggage. But the pills inside are white and round, not blue. He insisted on making me hot milk...",
                 clickAction: "jumpToXhsFromBrowser('luna_burner_sos')" // 直接调用我们之前写的跨应用跳转函数
             },
@@ -2301,6 +2301,11 @@ function checkCouplePassword() {
     }
 }
 
+const faceMatchHistory = [
+    { date: "2025-12-10", result: "6%", isHigh: false },
+    { date: "2026-01-15", result: "9%", isHigh: false },
+    { date: "2026-03-04", result: "59%", isHigh: true } // 重点线索
+];
 
 // --- 5. 算命网站核心逻辑 (1920-2027) ---
 const lunarNewYearDates = {
@@ -2440,7 +2445,22 @@ function runDivination() {
     res.style.display = 'block';
 }
 
-
+function renderFaceMatchHistory() {
+    const container = document.getElementById('face-history-list');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    faceMatchHistory.forEach(item => {
+        const resultClass = item.isHigh ? 'history-sim-high' : '';
+        // 删除了中间的 target，让日期居左，结果居右
+        container.innerHTML += `
+            <div class="face-history-item">
+                <span>📅 ${item.date}</span>
+                <span class="${resultClass}">Match: ${item.result}</span>
+            </div>
+        `;
+    });
+}
 
 // --- 桌面测试资源数据 (1920-2027 符合逻辑) ---
 const desktopFiles = [
@@ -2698,6 +2718,8 @@ function initGame() {
     renderXhsMsgList(); // ✨ 记得调用这个渲染函数
 
     updateXhsMsgView();
+
+    renderFaceMatchHistory();
 
     navBrowser('home');
 
