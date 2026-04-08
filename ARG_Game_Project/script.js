@@ -1,7 +1,11 @@
+// --- 小红书历史记录堆栈 ---
+let xhsHistoryStack = [];
+
 // --- 全局游戏状态 (核心) ---
 let gameState = {
     introWatched: false,       // 是否已经看过了开场剧情
     notesContent: "",          // 记录记事本里玩家写的字
+    xhsMsgUnlocked: false      // 👉 新增：记录小红书私信是否已解锁
     // 以后可以在这里随意添加剧情节点，比如：
     // unlockedHiddenFolder: false,
     // foundFaceMatch: false
@@ -28,6 +32,7 @@ function clearSave() {
     localStorage.removeItem('maya_save_data');
     location.reload(); // 刷新页面
 }
+
 
 
 // --- 小红书用户数据库 ---
@@ -317,7 +322,14 @@ const xhsPostData = {
         text: "Happy birthday babe 💖 @BasketballBoy",
         date: "2024.07.22", comments: "1 Comments",
         commentsList: [
-            { user: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "🎵 [Song Message] Listen to this for you! 🎤", time: "2024.07.22" }
+            { 
+                user: "BasketballBoy", 
+                avatar: "https://randomuser.me/api/portraits/men/45.jpg", 
+                text: "🎵 Listen to this for you! 🎤", 
+                time: "2024.07.22",
+                isAudio: true,                                       // 新增：标记为音频评论
+                audioSrc: "assets/falling_in_love.m4a"              // 新增：替换为你实际的音频文件路径
+            }
         ]
     },
     "hl_post_wedding": {
@@ -543,8 +555,34 @@ function generateXhsLinkMsg(postId, senderType = "left") {
 
 // --- 1. DATA: Chat History ---
 const chatData = {
+    "user_cousin": {
+        name: "陆白", avatarColor: "#4285f4", avatarText: "白",
+        inChatList: true,
+        unread: true,
+        messages: [
+            { type: "sys", text: "Aug 31, 2024" },
+            { type: "left", text: "Hey, the elective you recommended for next semester is so hard to get into." },
+            { type: "right", text: "That class is super popular. Maybe consider another elective in the same department." },
+            { type: "left", text: "Got it." },
+
+            { type: "sys", text: "Jun 05, 2025" },
+            { type: "right", text: "I'm heading back to campus next week for an alumni event." },
+            { type: "right", text: "Let's grab food together~" },
+            { type: "left", text: "Sounds good! I'm definitely going to make you treat me to a huge meal haha." },
+            { type: "right", text: "No problem, whatever you want to eat is on me hahaha 😊" },
+
+            { type: "sys", text: "Apr 09, 2026" },
+            { type: "sys", text: "The call could not be connected." },
+            { type: "left", text: "Hey?" },
+            { type: "left", text: "Auntie says she can't reach you at all." },
+            { type: "left", text: "Hit me back when you see this." }
+        ]
+    },
+
     "user_mom": {
         name: "Mom", avatarColor: "#e57373", avatarText: "Mom",
+        inChatList: true,
+        unread: true,
         messages: [
             { type: "sys", text: "Nov 12, 2024" },
             { type: "left", text: "How's work lately?" },
@@ -586,6 +624,7 @@ const chatData = {
 
     "user_luna": {
         name: "月 🌙", avatarColor: "#e91e63", avatarText: "🌙",
+        inChatList: false, // 👉 默认隐藏
         messages: [
             { type: "sys", text: "Oct 30, 2025" },
             { type: "left", text: "I’m glad we finally moved to WeTalk 😄" },
@@ -603,6 +642,18 @@ const chatData = {
             { type: "left", text: "Hehe" },
             { type: "left", text: "But I still can't handle the spice 😭" },
             { type: "right", text: "You're doing great just by trying it babe 💗" },
+
+            { type: "sys", text: "Dec 04, 2025" },
+            { type: "left", text: "I saw a post on RedGram about the Chinese zodiac. Does everyone have their own zodiac sign?" },
+            { type: "left", text: "I wonder what mine is." },
+            { type: "right", text: "Let me recommend a website to you, it's called Destiny Finder." },
+            { type: "right", text: "You can find out your zodiac sign and Five Elements based on your birthday." },
+            { type: "right", text: "I was born in the Year of the 🐰~" },
+            { type: "left", text: "Oh, let me go check it out." },
+            { type: "left", text: "Turns out I'm a Rooster." },
+            { type: "left", text: "I really wish I was a 🐉~" },
+            { type: "right", text: "Hahaha, I wish I was a Dragon too, a member of House Targaryen~" },
+            { type: "left", text: "I love Game of Thrones too!!" },
 
             { type: "sys", text: "Dec 21, 2025" },
             { type: "right", text: "Honey, did you get the birthday gift I prepared for you?" },
@@ -636,6 +687,7 @@ const chatData = {
 
     "user_lucas": {
         name: "程光", avatarColor: "#ff9800", avatarText: "Lu",
+        inChatList: false, // 👉 默认隐藏
         messages: [
             { type: "sys", text: "Apr 27, 2022" },
             { type: "right", text: "Hey Lucas, how've you been? Have you heard anything from Xin?" },
@@ -658,29 +710,9 @@ const chatData = {
         ]
     },
 
-    "user_cousin": {
-        name: "陆白", avatarColor: "#4285f4", avatarText: "白",
-        messages: [
-            { type: "sys", text: "Aug 31, 2024" },
-            { type: "left", text: "Hey, the elective you recommended for next semester is so hard to get into." },
-            { type: "right", text: "That class is super popular. Maybe consider another elective in the same department." },
-            { type: "left", text: "Got it." },
-
-            { type: "sys", text: "Jun 05, 2025" },
-            { type: "right", text: "I'm heading back to campus next week for an alumni event." },
-            { type: "right", text: "Let's grab food together~" },
-            { type: "left", text: "Sounds good! I'm definitely going to make you treat me to a huge meal haha." },
-            { type: "right", text: "No problem, whatever you want to eat is on me hahaha 😊" },
-
-            { type: "sys", text: "Apr 09, 2026" },
-            { type: "sys", text: "The call could not be connected." },
-            { type: "left", text: "Hey?" },
-            { type: "left", text: "Auntie says she can't reach you at all." },
-            { type: "left", text: "Hit me back when you see this." }
-        ]
-    },
     "user_ryan": {
         name: "木心（💗）", avatarColor: "#607d8b", avatarText: "Ry",
+        inChatList: false, // 👉 默认隐藏
         messages: [
             { type: "sys", text: "You transferred ¥100,000.00 to 木心（💗）." },
             { type: "sys", text: "Transfer returned by 木心（💗）." }
@@ -691,7 +723,7 @@ const chatData = {
 // --- 2. DATA: Contacts Directory (通讯录数据) ---
 const contactsData = {
     "user_cousin": { 
-        name: "Cousin", avatarColor: "#4285f4", avatarText: "Co", wechatId: "wxid_cousin88", 
+        name: "陆白", avatarColor: "#4285f4", avatarText: "白", wechatId: "wxid_cousin88", 
         signature: "Family first." 
     },
     "user_luna": { 
@@ -732,6 +764,9 @@ function renderChatList() {
     const listContainer = document.getElementById('chat-list-view');
     listContainer.innerHTML = ''; 
     for (const [id, data] of Object.entries(chatData)) {
+        // 👉 新增：如果被标记为隐藏，则跳过渲染
+        if (data.inChatList === false) continue;
+        
         const lastMsg = data.messages.length > 0 ? data.messages[data.messages.length - 1] : null;
         let preview = 'No messages yet';
         
@@ -742,8 +777,11 @@ function renderChatList() {
             else preview = lastMsg.text;
         }
 
+        // 👉 新增：判断是否未读，生成对应的 class 字符串
+        const unreadClass = data.unread ? ' unread' : '';
+
         listContainer.innerHTML += `
-            <div class="contact-item" id="contact-${id}" onclick="openChat('${id}')">
+            <div class="contact-item${unreadClass}" id="contact-${id}" onclick="openChat('${id}')">
                 <div class="avatar" style="background:${data.avatarColor}">${data.avatarText}</div>
                 <div class="contact-info">
                     <div class="contact-name">${data.name}</div>
@@ -755,6 +793,13 @@ function renderChatList() {
 
 function openChat(userId) {
     const data = chatData[userId];
+
+    // 👉 新增：如果当前对话是未读状态，标记为已读并刷新左侧列表
+    if (data.unread) {
+        data.unread = false;
+        renderChatList(); 
+    }
+
     const container = document.getElementById('chat-messages');
     document.getElementById('active-chat-name').innerText = data.name;
     container.innerHTML = '';
@@ -890,11 +935,15 @@ function jumpToChatFromContact(userId) {
             name: cData.name,
             avatarColor: cData.avatarColor,
             avatarText: cData.avatarText,
+            inChatList: true, // 👉 标记为显示
             messages: [] // 空聊天记录
         };
-        renderChatList(); // 刷新左侧的对话列表，把新建立的空对话加进去
+    } else {
+        // 👉 如果已经在 chatData 中，说明有历史记录，将其解锁显示
+        chatData[userId].inChatList = true;
     }
     
+    renderChatList(); // 刷新左侧的对话列表，被解锁的对话就会出现了
     openChat(userId); // 打开聊天记录
 }
 
@@ -985,6 +1034,35 @@ document.querySelectorAll('.window').forEach(win => {
         document.onmouseup = () => document.removeEventListener('mousemove', onMouseMove);
     });
 });
+
+// --- 小红书统一后退逻辑 ---
+function goXhsBack() {
+    // 1. 弹出当前页面状态
+    if (xhsHistoryStack.length > 0) {
+        xhsHistoryStack.pop();
+    }
+
+    // 2. 隐藏所有的详情与私信页面，防止层级遮挡
+    document.getElementById('xhs-detail').style.display = 'none';
+    document.getElementById('xhs-external-user').style.display = 'none';
+    document.getElementById('xhs-dm-view').style.display = 'none';
+
+    // 3. 暂停可能正在播放的视频
+    const vidEl = document.getElementById('xhs-detail-video');
+    if (vidEl) vidEl.pause();
+
+    // 4. 如果栈里还有页面，重新渲染栈顶页面
+    if (xhsHistoryStack.length > 0) {
+        const prevState = xhsHistoryStack[xhsHistoryStack.length - 1];
+        if (prevState.type === 'post') {
+            openXhsDetail(prevState.id, true);
+        } else if (prevState.type === 'user') {
+            openXhsUser(prevState.id, true);
+        } else if (prevState.type === 'dm') {
+            openXhsDm(prevState.id, true);
+        }
+    }
+}
 
 // --- 小红书标签切换逻辑 ---
 // function switchXhsTab(pageId, navElement) {
@@ -1203,24 +1281,28 @@ const xhsDMs = {
     }
 };
 
-function openXhsDetail(postId) {
+function openXhsDetail(postId, isBack = false) {
     const data = xhsPostData[postId];
     if (!data) return;
+
+    // 推入历史栈
+    if (!isBack) {
+        xhsHistoryStack.push({ type: 'post', id: postId });
+    }
 
     // 获取图片和视频的 DOM 元素
     const imgEl = document.getElementById('xhs-detail-img');
     const vidEl = document.getElementById('xhs-detail-video');
 
-    // === 核心逻辑：判断并切换媒体类型 ===
     if (data.isVideo) {
         imgEl.style.display = 'none';
         vidEl.style.display = 'block';
-        vidEl.src = data.videoSrc; // 加载视频源
+        vidEl.src = data.videoSrc; 
     } else {
         vidEl.style.display = 'none';
-        vidEl.pause(); // 如果之前在放视频，切换到图片时将其暂停
+        vidEl.pause(); 
         imgEl.style.display = 'block';
-        imgEl.src = data.img; // 加载图片源
+        imgEl.src = data.img; 
     }
 
     document.getElementById('xhs-detail-img').src = data.img;
@@ -1232,40 +1314,43 @@ function openXhsDetail(postId) {
 
     const commentsContainer = document.getElementById('xhs-comments-list');
     commentsContainer.innerHTML = '';
-// 在 openXhsDetail 函数内部找到渲染评论的循环部分，替换为以下代码：
-if (data.commentsList && data.commentsList.length > 0) {
-    data.commentsList.forEach(c => {
-        const cAvatar = c.avatar ? `url('${c.avatar}') center/cover` : '#ccc';
-        commentsContainer.innerHTML += `
-            <div class="xhs-comment-item">
-                <div class="xhs-msg-avatar" 
-                     onclick="jumpToUserFromComment('${c.user}')" 
-                     style="width:28px; height:28px; margin-right:10px; background:${cAvatar}; cursor:pointer; border-radius:50%;">
-                </div>
-                <div class="xhs-comment-right">
-                    <div class="xhs-comment-user" 
+    
+    if (data.commentsList && data.commentsList.length > 0) {
+        data.commentsList.forEach(c => {
+            const cAvatar = c.avatar ? `url('${c.avatar}') center/cover` : '#ccc';
+            let audioHTML = '';
+            if (c.isAudio && c.audioSrc) {
+                audioHTML = `<div style="margin-top: 6px;"><audio controls src="${c.audioSrc}" style="height: 32px; width: 100%; max-width: 220px; outline: none;"></audio></div>`;
+            }
+            commentsContainer.innerHTML += `
+                <div class="xhs-comment-item">
+                    <div class="xhs-msg-avatar" 
                          onclick="jumpToUserFromComment('${c.user}')" 
-                         style="cursor:pointer; font-weight:600; color:#666; font-size:12px;">${c.user}</div>
-                    <div class="xhs-comment-text" style="color:#333; margin-bottom:4px;">${c.text}</div>
-                    <div class="xhs-comment-meta" style="font-size:10px; color:#bbb;"><span>${c.time}</span></div>
-                </div>
-            </div>`;
-    });
-}
- else {
+                         style="width:28px; height:28px; margin-right:10px; background:${cAvatar}; cursor:pointer; border-radius:50%;">
+                    </div>
+                    <div class="xhs-comment-right">
+                        <div class="xhs-comment-user" 
+                             onclick="jumpToUserFromComment('${c.user}')" 
+                             style="cursor:pointer; font-weight:600; color:#666; font-size:12px;">${c.user}</div>
+                        <div class="xhs-comment-text" style="color:#333; margin-bottom:4px;">
+                            ${c.text}
+                            ${audioHTML}
+                        </div>
+                        <div class="xhs-comment-meta" style="font-size:10px; color:#bbb;"><span>${c.time}</span></div>
+                    </div>
+                </div>`;
+        });
+    } else {
         commentsContainer.innerHTML = '<div style="color:#999; font-size:12px; text-align:center;">No comments yet.</div>';
     }
 
     const win = document.getElementById('win-xhs');
     win.style.display = 'flex';
     win.style.zIndex = ++zIndex;
-    document.getElementById('xhs-detail').style.display = 'flex';
 
     const detailWin = document.getElementById('xhs-detail');
     detailWin.style.display = 'flex';
-    // ✨ 核心修改：动态提升层级
     detailWin.style.zIndex = ++zIndex;
-
 }
 
 
@@ -1274,11 +1359,14 @@ function closeXhsDetail() {
 }
 
 // 渲染私信对话 (蓝白气泡 + 圆头像)
-function openXhsDm(userId) {
+function openXhsDm(userId, isBack = false) {
     const data = xhsDMs[userId];
     if (!data) return;
 
-    // 点击顶部的对方名字也可以进入主页
+    if (!isBack) {
+        xhsHistoryStack.push({ type: 'dm', id: userId });
+    }
+
     document.getElementById('xhs-dm-name').innerHTML = `<span style="cursor:pointer;" onclick="openXhsUser('${userId}')">${data.name}</span>`;
     
     const container = document.getElementById('xhs-dm-messages');
@@ -1286,7 +1374,6 @@ function openXhsDm(userId) {
 
     const adamXhsAvatar = `background-image: url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150')`;
     const targetXhsAvatar = data.avatar ? `background-image: url('${data.avatar}')` : `background-color: #ccc;`;
-
     
     data.messages.forEach(msg => {
         if(msg.type === 'sys') {
@@ -1297,7 +1384,6 @@ function openXhsDm(userId) {
         const isLeft = msg.type === 'left';
         const avatarStyle = isLeft ? targetXhsAvatar : adamXhsAvatar;
         
-        // 关键：给左侧对方的头像加上 onclick 事件，点击跳转主页
         const clickAction = isLeft ? `onclick="openXhsUser('${userId}')" style="${avatarStyle}; cursor:pointer;"` : `style="${avatarStyle}"`;
         const avatarHTML = `<div class="xhs-dm-avatar" ${clickAction}></div>`;
         
@@ -1314,15 +1400,54 @@ function openXhsDm(userId) {
 
     const dmView = document.getElementById('xhs-dm-view');
     dmView.style.display = 'flex';
-    // ✨ 核心修改：动态提升层级，使其盖在当前页面之上
     dmView.style.zIndex = ++zIndex; 
     container.scrollTop = container.scrollHeight;
 }
 
+// 验证小红书私信密码
+function checkXhsMsgPassword() {
+    const input = document.getElementById('xhs-msg-pwd-input').value;
+    
+    // 如果你最后决定用1994，请在这里把 1999 改成 1994
+    if (input === '1999') {
+        // 密码正确：更新状态并存档
+        gameState.xhsMsgUnlocked = true;
+        saveGame();
+        
+        // 切换 UI
+        updateXhsMsgView();
+    } else {
+        // 密码错误：提示并震动
+        const error = document.getElementById('xhs-msg-pwd-error');
+        error.innerText = "Verification failed. Incorrect birth year.";
+        const inputField = document.getElementById('xhs-msg-pwd-input');
+        inputField.style.animation = "shake 0.3s";
+        setTimeout(() => inputField.style.animation = "", 300);
+    }
+}
+
+// 根据存档状态更新小红书私信界面的显示
+function updateXhsMsgView() {
+    const lockScreen = document.getElementById('xhs-msg-lock-screen');
+    const msgList = document.getElementById('xhs-msg-list-container');
+    
+    if (gameState.xhsMsgUnlocked) {
+        lockScreen.style.display = 'none';
+        msgList.style.display = 'block';
+    } else {
+        lockScreen.style.display = 'flex';
+        msgList.style.display = 'none';
+    }
+}
+
 // 新增：渲染并打开他人主页
-function openXhsUser(userId) {
+function openXhsUser(userId, isBack = false) {
     const user = xhsUsers[userId];
     if (!user) return;
+
+    if (!isBack) {
+        xhsHistoryStack.push({ type: 'user', id: userId });
+    }
 
     document.getElementById('xhs-up-name').innerText = user.name;
     document.getElementById('xhs-up-id').innerText = `ID: ${user.id}`;
@@ -1332,7 +1457,6 @@ function openXhsUser(userId) {
     document.getElementById('xhs-up-following').innerText = user.stats.following;
     document.getElementById('xhs-up-bio').innerHTML = user.bio;
 
-    // 渲染该用户的帖子
     const feedContainer = document.getElementById('xhs-up-feed');
     feedContainer.innerHTML = '';
     user.posts.forEach(postId => {
@@ -1341,17 +1465,14 @@ function openXhsUser(userId) {
             feedContainer.innerHTML += `
                 <div class="xhs-post" onclick="openXhsDetail('${postId}')">
                     <img src="${post.img}" alt="post">
-                    <div class="xhs-post-title">${post.text.substring(0, 30)}...</div>
+                    <div class="xhs-post-title">${post.text.split('\n')[0]}</div>
                 </div>`;
         }
     });
    
     const userWin = document.getElementById('xhs-external-user');
     userWin.style.display = 'flex';
-    // ✨ 核心：确保它盖在最上面
     userWin.style.zIndex = ++zIndex;
-
-    // document.getElementById('xhs-external-user').style.display = 'flex';
 }
 
 function closeXhsUser() {
@@ -2575,6 +2696,8 @@ function initGame() {
     renderXhsHomeFeed();
     renderAdamProfileFeed();
     renderXhsMsgList(); // ✨ 记得调用这个渲染函数
+
+    updateXhsMsgView();
 
     navBrowser('home');
 
