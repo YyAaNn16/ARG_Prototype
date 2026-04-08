@@ -352,6 +352,96 @@ const xhsPostData = {
         ]
     },
 
+         // 主页
+ "post_work_1": {
+        img: "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?q=80&w=500",
+        author: "Aero_Nav", avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+        text: "Midnight shift at the terminal. 🌙\nEverything is moving like clockwork. Watching the last flight land safely at 2 AM is the best relief. \n#Aviation #AirportDaily #ATC",
+        date: "2026.03.28", comments: "42 Comments",
+        commentsList: [{ user: "SkyWalker_99", avatar: "", text: "The tarmac looks beautiful tonight.", time: "1h ago" }]
+    },
+    "post_work_3": {
+        img: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=500",
+        author: "Smart_Traveler", avatar: "https://randomuser.me/api/portraits/men/21.jpg",
+        text: "Don't wait at the gate. ✈️\nTrack weather patterns yourself to predict delays before the airline even knows. Take control of your schedule.\n#TravelHacks #Aviation #Efficiency",
+        date: "2026.04.02", comments: "128 Comments",
+        commentsList: [{ user: "User_8821", avatar: "", text: "This actually saved me today!", time: "5h ago" }]
+    },
+    "post_heart_1": {
+        img: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=500",
+        author: "Matcha_Daily", avatar: "https://randomuser.me/api/portraits/women/11.jpg",
+        text: "100 days caffeine-free update. ☕\nThe heart palpitations have completely vanished. Switched to high-grade matcha for a cleaner boost.\n#HeartHealth #Biohacking #CleanEnergy",
+        date: "2026.03.15", comments: "85 Comments",
+        commentsList: [{ user: "Zen_Lover", avatar: "", text: "Switching was the best choice for me too.", time: "3d ago" }]
+    },
+    "post_heart_3": {
+        img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=500",
+        author: "Clean_Kitchen", avatar: "https://randomuser.me/api/portraits/women/63.jpg",
+        text: "Heart-Friendly Meal: Steamed Seabass with Ginger. 🥗\nLow sodium, zero oil, high protein. Keeping things light.\n#CleanEating #HealthyRecipes #Wellness",
+        date: "2026.03.25", comments: "16 Comments",
+        commentsList: [{ user: "Foodie_Fan", avatar: "", text: "Looks simple and delicious.", time: "2d ago" }]
+    },
+    "post_photo_1": {
+        img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=500",
+        author: "Tech_Hobbyist", avatar: "https://randomuser.me/api/portraits/men/7.jpg",
+        text: "Is the SOFU X56 worth it? 📸\nThe mechanical tactile feedback is incredible. Perfect compact companion for my trip to Thailand.\n#CameraGear #SOFUX56 #Photography",
+        date: "2026.04.01", comments: "94 Comments",
+        commentsList: [{ user: "ShutterBug", avatar: "", text: "The color science on this is amazing.", time: "1h ago" }]
+    },
+    "post_game_1": {
+        img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=500",
+        author: "Pixel_Joe", avatar: "https://randomuser.me/api/portraits/men/9.jpg",
+        text: "Review: 'Echoes of Mount Li' is a masterpiece. 🎮\nThe logic is flawless. The side plot about the missing student from years ago was haunting. 10/10.\n#Gaming #Mystery #IndieGame",
+        date: "2026.03.18", comments: "210 Comments",
+        commentsList: [{ user: "MysteryFan", avatar: "", text: "That ending left me speechless...", time: "1d ago" }]
+    },
+    "post_psych_1": {
+        img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=500",
+        author: "Alpha_Logic", avatar: "https://randomuser.me/api/portraits/women/10.jpg",
+        text: "The Power of 'Silent Quitting' in Relationships. 🚪\nIf someone doesn't align with your trajectory, remove them quietly. Efficiency over emotion.\n#SuccessMindset #Boundaries #Growth",
+        date: "2026.04.02", comments: "532 Comments",
+        commentsList: [{ user: "Success_Seeker", avatar: "", text: "Brutal but true.", time: "3h ago" }]
+    },
+    "post_psych_2": {
+        img: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=500",
+        author: "Social_Strategist", avatar: "https://randomuser.me/api/portraits/men/11.jpg",
+        text: "Control the frame, control the outcome. ♟️\nThe person who sets the rules wins. Use psychological gaps to lead the rhythm.\n#Psychology #SocialStrategy #Influence",
+        date: "2026.04.05", comments: "76 Comments",
+        commentsList: [{ user: "ThinkDeep", avatar: "", text: "A vital skill for any professional.", time: "2h ago" }]
+    },
+    "post_thai_2": {
+        img: "https://images.unsplash.com/photo-1552611052-d59a0d9741bc?q=80&w=500",
+        author: "Thai_Kitchen", avatar: "https://randomuser.me/api/portraits/women/13.jpg",
+        text: "Real Tom Yum doesn't need milk. 🦐\nAuthentic herbs are enough to create a complex, spicy, and sour soup. This is the real deal.\n#ThaiCooking #Foodie #Travel",
+        date: "2026.04.01", comments: "58 Comments",
+        commentsList: [{ user: "Chef_Ron", avatar: "", text: "Finally! No milk is the traditional way.", time: "1d ago" }]
+    },
+    "post_thai_3": {
+        img: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?q=80&w=500",
+        author: "Street_Guide", avatar: "https://randomuser.me/api/portraits/men/14.jpg",
+        text: "Holy grail of Boat Noodles in BKK. 🍜\nTiny roadside stall, rich broth, and a local crowd. Skip the tourist traps.\n#HiddenGems #BKK #FoodGuide",
+        date: "2026.04.03", comments: "39 Comments",
+        commentsList: [{ user: "Sam_Travels", avatar: "", text: "Where exactly is this located?", time: "1d ago" }]
+    },
+    "post_thai_4": {
+        img: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=500",
+        author: "BKK_Events", avatar: "https://randomuser.me/api/portraits/women/15.jpg",
+        text: "The Glass Chapel is absolutely stunning. ⛪\nThe way sunlight filters through is calculated for pure perfection.\n#Architecture #BKK #WeddingVibes",
+        date: "2026.04.05", comments: "12 Comments",
+        commentsList: [{ user: "Dream_Day", avatar: "", text: "Stunning venue.", time: "1d ago" }]
+    },
+    "post_thai_5": {
+        img: "https://images.unsplash.com/photo-1584308666744-24d5e471956c?q=80&w=500",
+        author: "Shopaholic_BKK", avatar: "https://randomuser.me/api/portraits/women/16.jpg",
+        text: "BKK Souvenirs: Don't leave without these! 🎁\nTraditional Herbal Balm for everything and sleep-well spray. Practical and local.\n#ShoppingList #Thailand #TravelGifts",
+        date: "2026.04.07", comments: "245 Comments",
+        commentsList: [{ user: "GiftFinder", avatar: "", text: "The balm is a lifesaver.", time: "1d ago" }]
+    
+    },
+    
+
+
+    // 原本的帖子内容
     "mock_post_1": {
         img: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=500",
         author: "CoffeeLover", avatar: "https://randomuser.me/api/portraits/women/12.jpg",
@@ -503,7 +593,7 @@ const chatData = {
             { type: "left", text: "Ahhh!!! It's way too expensive baby!!" },
             { type: "right", text: "This bag perfectly matches your style." },
             { type: "right", text: "I wanted to buy it for you the second I saw it!" },
-            generateXhsLinkMsg("luna_post_unboxing", "left"),
+            generateXhsLinkMsg("luna_post_unboxing_2025", "left"),
             { type: "left", text: "❤️❤️❤️ Love you babe~ But seriously, don't get me anything this expensive next time 😘" },
             { type: "right", text: "I just thought it suited you so well~ But alright, I'll listen to you. Won't go this 'crazy' next time 🥺" },
             { type: "sys", text: "☎️ Video Call ended (01:12:05)" },
@@ -881,65 +971,152 @@ document.querySelectorAll('.window').forEach(win => {
 });
 
 // --- 小红书标签切换逻辑 ---
-function switchXhsTab(pageId, navElement) {
-    // 隐藏所有页面
-    document.querySelectorAll('.xhs-page').forEach(p => p.classList.remove('active'));
-    // 取消所有导航激活状态
-    document.querySelectorAll('.xhs-nav-item').forEach(n => n.classList.remove('active'));
+// function switchXhsTab(pageId, navElement) {
+//     // 隐藏所有页面
+//     document.querySelectorAll('.xhs-page').forEach(p => p.classList.remove('active'));
+//     // 取消所有导航激活状态
+//     document.querySelectorAll('.xhs-nav-item').forEach(n => n.classList.remove('active'));
     
-    // 激活当前选中的页面和导航
-    document.getElementById(pageId).classList.add('active');
+//     // 激活当前选中的页面和导航
+//     document.getElementById(pageId).classList.add('active');
+//     navElement.classList.add('active');
+// }
+
+function switchXhsTab(pageId, navElement) {
+    // 1. 隐藏所有页面（移除 active 类）
+    document.querySelectorAll('.xhs-page').forEach(p => {
+        p.classList.remove('active');
+    });
+    
+    // 2. 取消所有导航图标的高亮
+    document.querySelectorAll('.xhs-nav-item').forEach(n => {
+        n.classList.remove('active');
+    });
+    
+    // 3. 显示目标页面并高亮对应图标
+    const targetPage = document.getElementById(pageId);
+    if (targetPage) {
+        targetPage.classList.add('active');
+    }
     navElement.classList.add('active');
 }
 
 
+// function renderXhsHomeFeed() {
+//     const feedContainer = document.querySelector('#xhs-home .xhs-feed');
+//     feedContainer.innerHTML = ''; // 清空原本写死的HTML结构
+
+//     // 定义你想在首页展示的帖子 ID 数组（可以随意调整顺序或增减）
+//     const homePosts = [
+//         'luna_post_1', 
+//         'luna_post_unboxing', 
+//         'mock_post_1', 
+//         'mock_post_2', 
+//         'mock_post_3', 
+//         'mock_post_4', 
+//         'mock_post_5'
+//     ];
+
+//     homePosts.forEach(postId => {
+//         const post = xhsPostData[postId];
+//         if (post) {
+//             feedContainer.innerHTML += `
+//                 <div class="xhs-post" onclick="openXhsDetail('${postId}')">
+//                     <img src="${post.img}" alt="post">
+//                     <div class="xhs-post-title">${post.text.substring(0, 35)}...</div>
+//                 </div>
+//             `;
+//         }
+//     });
+// }
+
+// function renderXhsHomeFeed() {
+//     const feedContainer = document.querySelector('#xhs-home .xhs-feed');
+//     if (!feedContainer) return;
+//     feedContainer.innerHTML = ''; 
+
+//     const homePosts = [
+//         'post_work_1', 'post_work_3', 'post_heart_1', 'post_heart_3',
+//         'post_photo_1', 'post_game_1', 'post_psych_1', 'post_psych_2',
+//         'post_thai_2', 'post_thai_3', 'post_thai_4', 'post_thai_5'
+//     ];
+
+//     homePosts.forEach(postId => {
+//         const post = xhsPostData[postId];
+//         if (post) {
+//             // 获取正文第一行作为标题
+//             const titleText = post.text.split('\n')[0]; 
+            
+//             feedContainer.innerHTML += `
+//                 <div class="xhs-post" onclick="openXhsDetail('${postId}')">
+//                     <img src="${post.img}" alt="post">
+//                     <div class="xhs-post-title">${titleText}</div>
+//                 </div>
+//             `;
+//         }
+//     });
+// }
+// 辅助函数：统一生成帖子 HTML 结构
+function createXhsPostHTML(postId) {
+    const post = xhsPostData[postId];
+    if (!post) return '';
+    // 统一取第一行作为标题
+    const titleText = post.text.split('\n')[0]; 
+    return `
+        <div class="xhs-post" onclick="openXhsDetail('${postId}')">
+            <img src="${post.img}" alt="post">
+            <div class="xhs-post-title">${titleText}</div>
+        </div>`;
+}
+
+// 1. 修改首页渲染
 function renderXhsHomeFeed() {
     const feedContainer = document.querySelector('#xhs-home .xhs-feed');
-    feedContainer.innerHTML = ''; // 清空原本写死的HTML结构
-
-    // 定义你想在首页展示的帖子 ID 数组（可以随意调整顺序或增减）
-    const homePosts = [
-        'luna_post_1', 
-        'luna_post_unboxing', 
-        'mock_post_1', 
-        'mock_post_2', 
-        'mock_post_3', 
-        'mock_post_4', 
-        'mock_post_5'
-    ];
-
+    if (!feedContainer) return;
+    feedContainer.innerHTML = ''; 
+    const homePosts = ['post_work_1', 'post_heart_1', 'post_thai_3', 'post_photo_1', 'post_game_1', 'post_psych_1', 'post_thai_5', 'post_heart_3'];
     homePosts.forEach(postId => {
-        const post = xhsPostData[postId];
-        if (post) {
-            feedContainer.innerHTML += `
-                <div class="xhs-post" onclick="openXhsDetail('${postId}')">
-                    <img src="${post.img}" alt="post">
-                    <div class="xhs-post-title">${post.text.substring(0, 35)}...</div>
-                </div>
-            `;
-        }
+        feedContainer.innerHTML += createXhsPostHTML(postId);
     });
 }
 
-// --- 渲染 Adam 自己的个人主页帖子 ---
+// 2. 修改“我”的页面渲染
 function renderAdamProfileFeed() {
     const feedContainer = document.getElementById('xhs-my-feed');
     if (!feedContainer) return;
-    
     feedContainer.innerHTML = '';
     const adamData = xhsUsers["adam"];
-    
     adamData.posts.forEach(postId => {
-        const post = xhsPostData[postId];
-        if (post) {
-            feedContainer.innerHTML += `
-                <div class="xhs-post" onclick="openXhsDetail('${postId}')">
-                    <img src="${post.img}" alt="post">
-                    <div class="xhs-post-title">${post.text.substring(0, 30)}...</div>
-                </div>`;
-        }
+        feedContainer.innerHTML += createXhsPostHTML(postId);
     });
 }
+
+
+
+
+// --- 渲染 Adam 自己的个人主页帖子 ---
+// function renderAdamProfileFeed() {
+//     const feedContainer = document.getElementById('xhs-my-feed');
+//     if (!feedContainer) return;
+    
+//     feedContainer.innerHTML = '';
+//     const adamData = xhsUsers["adam"];
+    
+//     adamData.posts.forEach(postId => {
+//         const post = xhsPostData[postId];
+//         if (post) {
+//             feedContainer.innerHTML += `
+//                 <div class="xhs-post" onclick="openXhsDetail('${postId}')">
+//                     <img src="${post.img}" alt="post">
+//                     <div class="xhs-post-title">${post.text.substring(0, 30)}...</div>
+//                 </div>`;
+//         }
+//     });
+// }
+// --- 渲染 "我" (Adam) 的个人主页 Feed ---
+
+
+
 
 // // --- 小红书私信对话数据 ---
 // const xhsDMs = {
