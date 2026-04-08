@@ -362,16 +362,31 @@
             </div>
 
 
-    
             <div id="xhs-msgs" class="xhs-page">
+                <div class="xhs-header">Messages</div>
+            
+                <div id="xhs-msg-lock-screen"
+                    style="display:flex; flex-direction:column; align-items:center; justify-content:center; flex:1; background:#f9f9f9; padding: 20px;">
+                    <div style="font-size: 40px; margin-bottom: 10px;">🔒</div>
+                    <div style="font-size: 14px; font-weight: bold; margin-bottom: 15px; color:#333; text-align:center;">
+                        For security reasons, please enter the user's birth year for verification.
+                    </div>
+                    <input type="password" id="xhs-msg-pwd-input" placeholder="YYYY" maxlength="4"
+                        style="padding:10px; border:1px solid #ccc; border-radius:4px; margin-bottom:10px; outline:none; text-align:center; font-size:16px; width: 150px;">
+                    <button onclick="checkXhsMsgPassword()"
+                        style="padding:8px 25px; cursor:pointer; background:#ff2442; color:white; border:none; border-radius:20px; font-weight:bold;">Verify</button>
+                    <p id="xhs-msg-pwd-error" style="color:red; font-size:12px; margin-top:10px; height:14px;"></p>
+                </div>
+            
+                <div id="xhs-msg-list-container" class="xhs-msg-list" style="display:none;"></div>
+            </div>
+
+            <!-- <div id="xhs-msgs" class="xhs-page">
                 <div class="xhs-header">Messages</div>
                 <div id="xhs-msg-list-container" class="xhs-msg-list">
                     </div>
-            </div>
-            <!-- <div id="xhs-msgs" class="xhs-page">
-                <div class="xhs-header">Messages</div>
-                <div class="xhs-msg-list" id="xhs-msg-list-container"></div> 
             </div> -->
+
 
 
     
@@ -399,7 +414,7 @@
     
             <!-- <div id="xhs-detail" class="xhs-detail-view" style="z-index: 160;"> -->
             <div id="xhs-detail" class="xhs-detail-view">
-                <div class="xhs-detail-close" onclick="closeXhsDetail()">✕</div>
+                <div class="xhs-detail-close" onclick="goXhsBack()">✕</div>
                 <div class="xhs-detail-left">
                     <img id="xhs-detail-img" src="" alt="Post content">
 
@@ -435,7 +450,7 @@
             <div id="xhs-external-user" class="xhs-detail-view" style="flex-direction:column;">
                 <div class="xhs-header"
                     style="text-align: left; padding: 0 15px; display: flex; align-items: center; background:#fff;">
-                    <span style="font-size: 24px; cursor:pointer; margin-right: 15px;" onclick="closeXhsUser()">‹</span>
+                    <span style="font-size: 24px; cursor:pointer; margin-right: 15px;" onclick="goXhsBack()">‹</span>
                     <span id="xhs-up-title"
                         style="flex:1; text-align:center; padding-right: 30px; font-weight: bold; color: #333;">Profile</span>
                 </div>
@@ -462,8 +477,7 @@
             <div id="xhs-dm-view" class="xhs-detail-view" style="flex-direction:column;">
                 <div class="xhs-header"
                     style="text-align: left; padding: 0 15px; display: flex; align-items: center; background:#fff;">
-                    <span style="font-size: 24px; cursor:pointer; margin-right: 15px;"
-                        onclick="document.getElementById('xhs-dm-view').style.display='none'">‹</span>
+                    <span style="font-size: 24px; cursor:pointer; margin-right: 15px;" onclick="goXhsBack()">‹</span>
                     <span id="xhs-dm-name"
                         style="flex:1; text-align:center; padding-right: 30px; font-weight: bold; color: #333;">User</span>
                 </div>
