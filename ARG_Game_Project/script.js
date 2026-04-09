@@ -73,7 +73,7 @@ const xhsUsers = {
         bio: "Ball is life. 🏀 | MUST Class of 2016",
         stats: { posts: 5, followers: 310, following: 215 },
         // 按时间倒序排列：2025 -> 2019
-        posts: ["l_post_proposal", "l_post_couple", "l_post_thailand", "l_post_graduation", "l_post_basketball_win"] 
+        posts: ["l_post_proposal", "l_post_couple", "l_post_valentines_2024", "l_post_thailand", "l_post_graduation", "l_post_basketball_win"] 
     },
     "hl_forever": {
         name: "HL_FOREVER", id: "5201314",
@@ -271,7 +271,7 @@ const xhsPostData = {
         img: "https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=500",
         author: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg",
         text: "First place in the MingZhou University Basketball League! 🏅 Good work, brothers!!! 💗💗💗",
-        date: "2019.12.15", comments: "2 Comments",
+        date: "2019.12.15", comments: "20 Comments",
         commentsList: [
             { user: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Holy sh*t, let's goooo!!! 🔥🔥🔥", time: "2019.12.15" },
             { user: "Deactivated Account", avatar: "", text: "Huge congrats! What an incredible game! 🏆", time: "2019.12.15" }
@@ -281,21 +281,30 @@ const xhsPostData = {
         img: "https://images.unsplash.com/photo-152305085306e-88e4f6e0ad24?q=80&w=500",
         author: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg",
         text: "Stop planning, just go. Graduation trip in progress! 🎓 The only regret is that Xin couldn't make it 🥺\n#Youth #Graduation",
-        date: "2021.7.13", comments: "0 Comments",
+        date: "2021.7.13", comments: "8 Comments",
         commentsList: []
     },
     "l_post_thailand": {
         img: "https://images.unsplash.com/photo-1528181304800-2f140819ad9c?q=80&w=500",
         author: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg",
         text: "Starting my new 'brick-moving' (hustle) life in a brand new country! 📌 Thailand",
-        date: "2023.09.30", comments: "0 Comments",
+        date: "2023.09.30", comments: "3 Comments",
         commentsList: []
+    },
+    "l_post_valentines_2024": {
+        img: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=500", // 找了一张浪漫晚餐的配图
+        author: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg",
+        text: "Officially together! 🎉 Celebrating our first Valentine's Day. 🥩🍷🍷\n#ValentinesDay #Couple",
+        date: "2024.02.14", comments: "5 Comments",
+        commentsList: [
+            { user: "HL_FOREVER", avatar: "https://randomuser.me/api/portraits/women/65.jpg", text: "🌹", time: "2024.02.14" }
+        ]
     },
     "l_post_couple": {
         img: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=500",
         author: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg",
         text: "Gotta do the challenge with my girl too 👫\n#CoupleChallenge",
-        date: "2024.6.16", comments: "1 Comments",
+        date: "2024.6.16", comments: "28 Comments",
         commentsList: [
             { user: "HL_FOREVER", avatar: "", text: "💗", time: "2024.6.16" }
         ]
@@ -304,8 +313,10 @@ const xhsPostData = {
         img: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=500",
         author: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg",
         text: "SHE SAID YESSSSS!! 💍❤️💍",
-        date: "2025.12.25", comments: "0 Comments",
-        commentsList: []
+        date: "2025.12.25", comments: "8 Comments",
+        commentsList: [{ user: "HL_FOREVER", avatar: "", text: "The aurora tonight is our witness❤️", time: "2025.12.25" }
+
+        ]
     },
 
     // === HL_FOREVER (Hope) 的主页帖子 (地道英文版) ===
@@ -1502,9 +1513,10 @@ const browserData = {
 
 
     history: [
-        { time: "Yesterday 22:10", title: "Our Eternal Aurora - C&L", url: "www.aurora-love-forever.com", clickAction: "navBrowser('couple-login')" },
-        { time: "Yesterday 18:45", title: "Bangkok Expats Forum", url: "www.bkk-expats.com/thread/7721" },
-        { time: "Yesterday 14:20", title: "Currency Converter (THB/CNY)", url: "www.xe.com/currencyconverter" }
+        { time: "04.05 14:20", title: "Currency Converter (THB/CNY)", url: "www.xe.com/currencyconverter" },
+        { time: "04.03 22:10", title: "Our Eternal Aurora - H&L", url: "www.aurora-love-forever.com", clickAction: "navBrowser('couple-login')" },
+        { time: "04.02 18:45", title: "Bangkok Expats Forum", url: "www.bkk-expats.com/thread/7721" },
+        
     ],
 
 
@@ -1621,27 +1633,54 @@ const browserData = {
                 clickAction: "" 
             }
         ],
-        // Gemini编了一个药物“Novacard”，我们在搜索结果里埋了一个线索（小红书帖子），点击后直接跳转到小红书的对应帖子详情页
-        "novacard": [
-            { 
-                url: "www.wikihealth.org/novacard", 
-                title: "Novacard (Medication) - WikiHealth", 
-                snippet: "Novacard is a prescription medication primarily used to treat chronic cardiac arrhythmias. <strong>Warning:</strong> The authentic pills are small, blue, and hexagonal. Do not crush or chew...",
-                clickAction: ""
-            },
-            { 
-                url: "www.RedGram.com/explore/luna_burner_sos", 
-                title: "Is this normal? Found Novacard in his bag... - RedGram", 
-                snippet: "2 days ago — I found this <strong>Novacard</strong> bottle in my boyfriend's luggage. But the pills inside are white and round, not blue. He insisted on making me hot milk...",
-                clickAction: "jumpToXhsFromBrowser('luna_burner_sos')" // 直接调用我们之前写的跨应用跳转函数
-            },
-            { 
-                url: "www.medforum.com/reviews/novacard", 
-                title: "Novacard Side Effects and Reviews - MedForum", 
-                snippet: "User discussions on the side effects of Novacard. Many users report mild drowsiness during the first week of usage...",
-                clickAction: ""
-            }
-        ],
+       // 普通搜索 "novacard" 的结果（隐藏真实线索，提供背景设定）
+       "novacard": [
+        { 
+            url: "www.wikihealth.org/novacard", 
+            title: "Novacard (Medication) - MikiHealth", 
+            snippet: "Novacard is a prescription medication primarily used to treat chronic cardiac arrhythmias. <strong>Warning:</strong> The authentic pills are small, blue, and hexagonal.",
+            clickAction: ""
+        },
+        // 新增脑洞1：药店购买页面（强调它作为心脏病药的常规属性）
+        { 
+            url: "www.cardio-care-pharmacy.com/products/novacard", 
+            title: "Order Novacard Online | CardioCare Pharmacy", 
+            snippet: "Buy Novacard with a valid prescription. Learn about dosage instructions, precautions, and drug interactions. Always consult your cardiologist before starting treatment.",
+            clickAction: ""
+        },
+        // 新增脑洞2：医药论坛的普通讨论（强调正版药是蓝色的，降低防备）
+        { 
+            url: "www.medforum.com/discussions/heart-health/novacard-questions", 
+            title: "Anyone else taking Novacard? Side effects? - MedForum", 
+            snippet: "I recently started taking Novacard for my irregular heartbeat. Does anyone else get mild headaches in the first week? Also, the blue pills are kind of hard to swallow.",
+            clickAction: ""
+        }
+    ],
+
+    // 进阶搜索 "novacard white" 的结果（核心真相爆发）
+    "novacard white, white novacard, novacard white pill": [
+        // 原有的小红书线索（移到这里）
+        { 
+            url: "www.RedGram.com/explore/luna_burner_sos", 
+            title: "Is this normal? Found Novacard in my friend's bag... - RedGram", 
+            snippet: "2 days ago — I found this <strong>Novacard</strong> bottle in my friend's bag. But the pills inside are white and round, not blue.",
+            clickAction: "jumpToXhsFromBrowser('luna_burner_sos')"
+        },
+        // 新增：点击跳转假新闻页面（假药的致命警告）
+        { 
+            url: "www.medical-times.com/alerts/counterfeit-novacard-warning", 
+            title: "WARNING: Counterfeit 'White Novacard' Linked to Fatalities", 
+            snippet: "Authorities warn of a dangerous counterfeit drug disguised as Novacard. These round white pills contain a potent sedative causing severe dizziness, coma, and death...",
+            clickAction: ""
+        },
+        // 新增脑洞3：药品识别网的查无此药（从侧面印证这根本不是治疗药，而是毒药）
+        { 
+            url: "www.pill-identifier.org/search?color=white&shape=round&imprint=novacard", 
+            title: "Pill Identifier: White Round Pill 'Novacard' - 0 Matches", 
+            snippet: "Search Results for 'White, Round, Novacard'. <strong>0 matches found.</strong> If you possess a white round pill labeled as Novacard, DO NOT consume it. Authentic Novacard is strictly blue.",
+            clickAction: ""
+        }
+    ],
 
         // ▼▼▼ 新增：SF Express 搜索结果 ▼▼▼
         "sf express, sf-express, sf": [
@@ -2271,33 +2310,62 @@ function startProgress() {
 }
 
 
-function checkCouplePassword() {
-    const pwd = document.getElementById('couple-pwd-input').value;
-    const errorMsg = document.getElementById('couple-login-error');
+// function checkCouplePassword() {
+//     const pwd = document.getElementById('couple-pwd-input').value;
+//     const errorMsg = document.getElementById('couple-login-error');
     
-    // if (pwd === "LC20220808") {
-    //     navBrowser('couple-main'); // 密码正确，调用导航函数去主页
-    // } 
+//     // if (pwd === "LC20220808") {
+//     //     navBrowser('couple-main'); // 密码正确，调用导航函数去主页
+//     // } 
     
 
-    if (pwd === "LC20220808") {
-        // [新增] 成功登录后，向历史记录最前面添加一条“主页”记录
+//     if (pwd === "LC20220808") {
+//         // [新增] 成功登录后，向历史记录最前面添加一条“主页”记录
+//         browserData.history.unshift({ 
+//             time: "Just now", 
+//             title: "Our Eternal Aurora - C&L", 
+//             url: "www.aurora-love-forever.com/home",
+//             clickAction: "navBrowser('couple-main')" 
+//         });
+//         navBrowser('couple-main'); // 进入主页
+//     }
+
+    
+//     else {
+//         // 密码错误逻辑
+//         errorMsg.innerText = "Only for those who remember the beginning.";
+//         const inputField = document.getElementById('couple-pwd-input');
+//         inputField.style.animation = "shake 0.3s";
+//         setTimeout(() => inputField.style.animation = "", 300);
+//     }
+// }
+
+function checkCouplePassword() {
+    // 获取两个输入框的值
+    const lyricsInput = document.getElementById('couple-pwd-lyrics').value.trim().toLowerCase();
+    const dateInput = document.getElementById('couple-pwd-date').value.trim();
+    const errorMsg = document.getElementById('couple-login-error');
+    
+    // 校验逻辑：歌词（忽略大小写）和日期
+    if (lyricsInput === "only fools" && dateInput === "2024.02.14") {
+        // 成功登录
         browserData.history.unshift({ 
             time: "Just now", 
-            title: "Our Eternal Aurora - C&L", 
+            title: "Our Eternal Aurora - H&L", 
             url: "www.aurora-love-forever.com/home",
             clickAction: "navBrowser('couple-main')" 
         });
-        navBrowser('couple-main'); // 进入主页
-    }
-
-    
-    else {
-        // 密码错误逻辑
+        navBrowser('couple-main'); 
+    } else {
+        // 失败逻辑
         errorMsg.innerText = "Only for those who remember the beginning.";
-        const inputField = document.getElementById('couple-pwd-input');
-        inputField.style.animation = "shake 0.3s";
-        setTimeout(() => inputField.style.animation = "", 300);
+        
+        // 给两个输入框都加上震动效果
+        const fields = [document.getElementById('couple-pwd-lyrics'), document.getElementById('couple-pwd-date')];
+        fields.forEach(f => {
+            f.style.animation = "shake 0.3s";
+            setTimeout(() => f.style.animation = "", 300);
+        });
     }
 }
 
