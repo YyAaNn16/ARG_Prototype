@@ -5,10 +5,11 @@ let xhsHistoryStack = [];
 let gameState = {
     introWatched: false,       // 是否已经看过了开场剧情
     notesContent: "",          // 记录记事本里玩家写的字
-    xhsMsgUnlocked: false      // 👉 新增：记录小红书私信是否已解锁
+    xhsMsgUnlocked: false,      // 记录小红书私信是否已解锁
+    foundFaceMatch: false,       // 记录是否已经找到人脸匹配的线索
     // 以后可以在这里随意添加剧情节点，比如：
     // unlockedHiddenFolder: false,
-    // foundFaceMatch: false
+
 };
 
 // --- 存读档核心功能 ---
@@ -33,7 +34,35 @@ function clearSave() {
     location.reload(); // 刷新页面
 }
 
+// --- OS 系统通知功能 ---
+function showNotification(title, message, icon = "💬", onClickCallback = null) {
+    const container = document.getElementById('os-notification-container');
+    const toast = document.createElement('div');
+    toast.className = 'os-toast';
+    
+    toast.innerHTML = `
+        <div class="os-toast-title"><span>${icon}</span> ${title}</div>
+        <div class="os-toast-body">${message}</div>
+    `;
+    
+    // 点击通知的逻辑：执行回调并向右滑出移除
+    const dismissToast = () => {
+        toast.style.animation = 'fadeOutRight 0.3s forwards';
+        setTimeout(() => toast.remove(), 300);
+    };
 
+    toast.onclick = () => {
+        if (onClickCallback) onClickCallback();
+        dismissToast();
+    };
+
+    container.appendChild(toast);
+    
+    // 6秒后自动消失
+    setTimeout(() => {
+        if (toast.parentElement) dismissToast();
+    }, 6000);
+}
 
 // --- 小红书用户数据库 ---
 const xhsUsers = {
@@ -1027,6 +1056,13 @@ function openWindow(id) {
 }
 
 function closeWindow(id) {
+
+    // 如果是加密信息窗口，直接拦截，不执行关闭逻辑
+    if (id === 'win-secret-msg' && gameState.foundFaceMatch) {
+        console.log("System error: Process 'sys_enc_ch.exe' cannot be terminated.");
+        return; 
+    }
+
     document.getElementById(id).style.display = 'none';
 }
 
@@ -1633,54 +1669,54 @@ const browserData = {
                 clickAction: "" 
             }
         ],
-       // 普通搜索 "novacard" 的结果（隐藏真实线索，提供背景设定）
-       "novacard": [
-        { 
-            url: "www.wikihealth.org/novacard", 
-            title: "Novacard (Medication) - MikiHealth", 
-            snippet: "Novacard is a prescription medication primarily used to treat chronic cardiac arrhythmias. <strong>Warning:</strong> The authentic pills are small, blue, and hexagonal.",
-            clickAction: ""
-        },
-        // 新增脑洞1：药店购买页面（强调它作为心脏病药的常规属性）
-        { 
-            url: "www.cardio-care-pharmacy.com/products/novacard", 
-            title: "Order Novacard Online | CardioCare Pharmacy", 
-            snippet: "Buy Novacard with a valid prescription. Learn about dosage instructions, precautions, and drug interactions. Always consult your cardiologist before starting treatment.",
-            clickAction: ""
-        },
-        // 新增脑洞2：医药论坛的普通讨论（强调正版药是蓝色的，降低防备）
-        { 
-            url: "www.medforum.com/discussions/heart-health/novacard-questions", 
-            title: "Anyone else taking Novacard? Side effects? - MedForum", 
-            snippet: "I recently started taking Novacard for my irregular heartbeat. Does anyone else get mild headaches in the first week? Also, the blue pills are kind of hard to swallow.",
-            clickAction: ""
-        }
-    ],
+        // 普通搜索 "novacard" 的结果（隐藏真实线索，提供背景设定）
+        "novacard": [
+            { 
+                url: "www.wikihealth.org/novacard", 
+                title: "Novacard (Medication) - MikiHealth", 
+                snippet: "Novacard is a prescription medication primarily used to treat chronic cardiac arrhythmias. <strong>Warning:</strong> The authentic pills are small, blue, and hexagonal.",
+                clickAction: ""
+            },
+            // 新增脑洞1：药店购买页面（强调它作为心脏病药的常规属性）
+            { 
+                url: "www.cardio-care-pharmacy.com/products/novacard", 
+                title: "Order Novacard Online | CardioCare Pharmacy", 
+                snippet: "Buy Novacard with a valid prescription. Learn about dosage instructions, precautions, and drug interactions. Always consult your cardiologist before starting treatment.",
+                clickAction: ""
+            },
+            // 新增脑洞2：医药论坛的普通讨论（强调正版药是蓝色的，降低防备）
+            { 
+                url: "www.medforum.com/discussions/heart-health/novacard-questions", 
+                title: "Anyone else taking Novacard? Side effects? - MedForum", 
+                snippet: "I recently started taking Novacard for my irregular heartbeat. Does anyone else get mild headaches in the first week? Also, the blue pills are kind of hard to swallow.",
+                clickAction: ""
+            }
+        ],
 
-    // 进阶搜索 "novacard white" 的结果（核心真相爆发）
-    "novacard white, white novacard, novacard white pill": [
-        // 原有的小红书线索（移到这里）
-        { 
-            url: "www.RedGram.com/explore/luna_burner_sos", 
-            title: "Is this normal? Found Novacard in my friend's bag... - RedGram", 
-            snippet: "2 days ago — I found this <strong>Novacard</strong> bottle in my friend's bag. But the pills inside are white and round, not blue.",
-            clickAction: "jumpToXhsFromBrowser('luna_burner_sos')"
-        },
-        // 新增：点击跳转假新闻页面（假药的致命警告）
-        { 
-            url: "www.medical-times.com/alerts/counterfeit-novacard-warning", 
-            title: "WARNING: Counterfeit 'White Novacard' Linked to Fatalities", 
-            snippet: "Authorities warn of a dangerous counterfeit drug disguised as Novacard. These round white pills contain a potent sedative causing severe dizziness, coma, and death...",
-            clickAction: ""
-        },
-        // 新增脑洞3：药品识别网的查无此药（从侧面印证这根本不是治疗药，而是毒药）
-        { 
-            url: "www.pill-identifier.org/search?color=white&shape=round&imprint=novacard", 
-            title: "Pill Identifier: White Round Pill 'Novacard' - 0 Matches", 
-            snippet: "Search Results for 'White, Round, Novacard'. <strong>0 matches found.</strong> If you possess a white round pill labeled as Novacard, DO NOT consume it. Authentic Novacard is strictly blue.",
-            clickAction: ""
-        }
-    ],
+        // 进阶搜索 "novacard white" 的结果（核心真相爆发）
+        "novacard white, white novacard, novacard white pill": [
+            // 原有的小红书线索（移到这里）
+            { 
+                url: "www.RedGram.com/explore/luna_burner_sos", 
+                title: "Is this normal? Found Novacard in my friend's bag... - RedGram", 
+                snippet: "2 days ago — I found this <strong>Novacard</strong> bottle in my friend's bag. But the pills inside are white and round, not blue.",
+                clickAction: "jumpToXhsFromBrowser('luna_burner_sos')"
+            },
+            // 新增：点击跳转假新闻页面（假药的致命警告）
+            { 
+                url: "www.medical-times.com/alerts/counterfeit-novacard-warning", 
+                title: "WARNING: Counterfeit 'White Novacard' Linked to Fatalities", 
+                snippet: "Authorities warn of a dangerous counterfeit drug disguised as Novacard. These round white pills contain a potent sedative causing severe dizziness, coma, and death...",
+                clickAction: ""
+            },
+            // 新增脑洞3：药品识别网的查无此药（从侧面印证这根本不是治疗药，而是毒药）
+            { 
+                url: "www.pill-identifier.org/search?color=white&shape=round&imprint=novacard", 
+                title: "Pill Identifier: White Round Pill 'Novacard' - 0 Matches", 
+                snippet: "Search Results for 'White, Round, Novacard'. <strong>0 matches found.</strong> If you possess a white round pill labeled as Novacard, DO NOT consume it. Authentic Novacard is strictly blue.",
+                clickAction: ""
+            }
+        ],
 
         // ▼▼▼ 新增：SF Express 搜索结果 ▼▼▼
         "sf express, sf-express, sf": [
@@ -1695,6 +1731,50 @@ const browserData = {
                 url: "www.sf-logistics-forum.com/rates",
                 title: "Shipping Rates & Delivery Times - SF Express",
                 snippet: "Calculate shipping rates and estimated delivery times for your packages. Check our updated price list for Southeast Asia routes.",
+                clickAction: "" 
+            }
+        ],
+
+        // ▼▼▼ 第一层：只搜名字 (获得社会身份和干扰项) ▼▼▼
+        "lucas cheng, lucas": [
+            // 剧情关联：大学官网校友访谈
+            { 
+                url: "www.mingzhou.edu.cn/alumni/lucas-cheng", 
+                title: "Alumni Spotlight: Lucas Cheng ('16) - MUST", 
+                snippet: "Rebuilding Lives through Architecture: An Interview with Lucas Cheng ('16). MUST provided the structural foundation for my mind...",
+                // 注意：记得在 HTML 里把你原本写的 chris 访谈页面 ID/文字改成 lucas
+                clickAction: "navBrowser('uni-chris-interview')" 
+            },
+            // 干扰项：同名房产经纪人
+            { 
+                url: "www.zillow.com/profile/LucasChengRealEstate", 
+                title: "Lucas Cheng - Real Estate Agent in Seattle, WA", 
+                snippet: "Looking for your dream home? Lucas Cheng has over 10 years of experience in the Seattle real estate market. Contact me today for a free consultation.",
+                clickAction: "" 
+            },
+            // 干扰项：同名学术教授
+            { 
+                url: "scholar.google.com/citations?user=lucascheng", 
+                title: "Lucas Cheng - Google Scholar Citations", 
+                snippet: "Professor of Materials Science. Carbon Nanotubes, Graphene, Nanomaterials. Cited by 12,405. 'Synthesis of high-quality graphene...', Nature, 2018.",
+                clickAction: "" 
+            }
+        ],
+
+        // ▼▼▼ 第二层：名字 + 极光 (触发核心隐藏线索) ▼▼▼
+        "lucas cheng aurora, lucas aurora, aurora lucas": [
+            // 核心线索：情侣博客网站
+            { 
+                url: "www.aurora-love-forever.com", 
+                title: "Our Eternal Aurora - H&L", 
+                snippet: "Est. 2024.02.14. Welcome to our digital diary. A place where Hope and Lucas keep their most precious memories, from Bangkok to Iceland...",
+                clickAction: "navBrowser('couple-login')" 
+            },
+            // 伪装的干扰项：让搜索结果看起来像一个真实的页面合集
+            { 
+                url: "www.travel-blog.com/iceland-aurora-guide", 
+                title: "Chasing the Aurora in Iceland - Travel Guide", 
+                snippet: "Tips for photographing the Northern Lights. Recommended by architect and travel enthusiast Lucas Cheng. Make sure to check the weather forecast...",
                 clickAction: "" 
             }
         ],
@@ -2006,9 +2086,13 @@ const ryanFolderData = {
 // --- 2. 新增功能函数 ---
 
 // 显示密码输入框
-function showRyanPasswordPrompt() {
+function showRyanPasswordPrompt(element) {
     document.getElementById('files-main-view').style.display = 'none';
     document.getElementById('ryan-password-screen').style.display = 'flex';
+
+    // 新增：更新路径显示
+    const folderName = element.querySelector('.icon-name').innerText;
+    document.getElementById('current-folder-path').innerText = "My Documents > " + folderName;
 }
 
 // 返回主文件夹视图
@@ -2123,7 +2207,96 @@ function openDiaryPreview(title, content) {
 }
 
 
+// --- Hands 文件夹逻辑 ---
+let currentT9Input = "";
+const handsPassword = "42637"; // 对应 H-A-N-D-S
 
+// 打开键盘界面
+function showHandsPasswordPrompt(element) {
+    document.getElementById('files-main-view').style.display = 'none';
+    document.getElementById('hands-password-screen').style.display = 'flex';
+    t9Clear(); // 每次打开都清空输入
+
+    // 新增：更新路径显示
+    const folderName = element.querySelector('.icon-name').innerText;
+    document.getElementById('current-folder-path').innerText = "My Documents > " + folderName;
+}
+
+// 返回主文件夹
+function backToFilesMainFromHands() {
+    document.getElementById('hands-password-screen').style.display = 'none';
+    document.getElementById('hands-content-view').style.display = 'none';
+    document.getElementById('files-main-view').style.display = 'flex';
+}
+
+// 点击数字键
+function t9Input(num) {
+    if (currentT9Input.length < 8) { // 限制输入长度
+        currentT9Input += num;
+        updateT9Display();
+    }
+}
+
+// 清除输入 (CLR)
+function t9Clear() {
+    currentT9Input = "";
+    updateT9Display();
+    document.getElementById('hands-pwd-error').innerText = '';
+}
+
+// 更新显示框
+function updateT9Display() {
+    // 你可以选择显示明文数字，或者替换成星号 "*"
+    document.getElementById('t9-input-display').innerText = currentT9Input; 
+}
+
+// 提交验证 (OK)
+function t9Submit() {
+    if (currentT9Input === handsPassword) {
+        // 密码正确
+        document.getElementById('hands-password-screen').style.display = 'none';
+        const contentView = document.getElementById('hands-content-view');
+        contentView.style.display = 'flex';
+    } else {
+        // 密码错误：震动效果并清空
+        const error = document.getElementById('hands-pwd-error');
+        error.innerText = "Incorrect sequence.";
+        const display = document.getElementById('t9-input-display');
+        display.style.animation = "shake 0.3s";
+        setTimeout(() => display.style.animation = "", 300);
+        
+        // 错误后稍微延迟自动清空，方便玩家重新输入
+        setTimeout(t9Clear, 600); 
+    }
+}
+
+function universalFileBack() {
+    // 1. 隐藏所有子界面
+    document.getElementById('ryan-password-screen').style.display = 'none';
+    document.getElementById('ryan-content-view').style.display = 'none';
+    
+    const handsPwd = document.getElementById('hands-password-screen');
+    if (handsPwd) handsPwd.style.display = 'none';
+    
+    const handsContent = document.getElementById('hands-content-view');
+    if (handsContent) handsContent.style.display = 'none';
+
+    // 2. 显示根目录
+    document.getElementById('files-main-view').style.display = 'flex';
+    
+    // 3. 恢复路径文本
+    const pathText = document.getElementById('current-folder-path');
+    if (pathText) pathText.innerText = "My Documents";
+
+    // 4. 清理输入残留
+    document.getElementById('ryan-pwd-input').value = '';
+    document.getElementById('ryan-pwd-error').innerText = '';
+    
+    // 如果 hands 的键盘函数存在，也顺便清理
+    if (typeof t9Clear === 'function') {
+        t9Clear();
+    }
+}
 
 // --- 1. 新增数据：音乐列表 ---
 // 修改 likedSongs 数据，增加 url 字段
@@ -2633,6 +2806,26 @@ function runFaceRecognition() {
                 </p>
             </div>`;
         faceResultBox.style.display = 'block';
+
+
+        if (sim >= 55) {
+            if (!gameState.foundFaceMatch) {
+                gameState.foundFaceMatch = true;
+                saveGame(); 
+                
+                setTimeout(() => {
+                    showNotification(
+                        "System Alert", // 标题变得冰冷
+                        "Encrypted protocol triggered. New message received.", // 提示语显得很神秘
+                        "👁️", // 用眼睛的 emoji 增加教派监视的诡异感
+                        () => {
+                            // 玩家点击通知时，不再打开微信，而是打开那个黑色终端
+                            openWindow('win-secret-msg');
+                        }
+                    );
+                }, 1000);
+            }
+        }
     }, 2000);
 }
 
@@ -2771,6 +2964,12 @@ function initGame() {
         if (notesArea) notesArea.value = gameState.notesContent || "";
         
         // 刷新后不再自动打开窗口，让玩家自己点开，避免UI渲染Bug
+
+        // ✨ 新增：如果存档中已经触发了人脸对比成功，则自动打开加密窗口
+        if (gameState.foundFaceMatch) {
+            // 这里直接调用 openWindow，由于 HTML 里去掉了关闭按钮，窗口一旦打开就无法关闭
+            openWindow('win-secret-msg');
+        }
         
     } else {
         // --- 全新游戏 (无存档) ---
