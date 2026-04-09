@@ -2316,3 +2316,109 @@ body {
     color: #d93025;
     font-weight: bold;
 }
+
+/* --- 九键键盘样式 --- */
+.t9-keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 60px);
+    gap: 12px;
+}
+
+.t9-key {
+    width: 60px;
+    height: 60px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    /* 变成圆形 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    user-select: none;
+    transition: all 0.1s;
+}
+
+.t9-key:active {
+    background: #e4e6e9;
+    transform: scale(0.95);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.t9-key .num {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    line-height: 1;
+    margin-top: 4px;
+}
+
+.t9-key .letters {
+    font-size: 9px;
+    color: #888;
+    margin-top: 2px;
+    letter-spacing: 1px;
+    min-height: 12px;
+    /* 保证数字1下方即使没有字母也占位 */
+}
+
+.t9-key.action-key {
+    font-size: 15px;
+    font-weight: bold;
+    color: #555;
+    border-radius: 8px;
+    /* 动作键做成方圆角区分一下 */
+}
+
+/* --- 系统通知弹窗 (OS Toast) --- */
+.os-toast {
+    background: rgba(40, 40, 40, 0.85);
+    backdrop-filter: blur(10px);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    width: 260px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transform: translateX(120%);
+    animation: slideInRight 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.os-toast:hover {
+    background: rgba(50, 50, 50, 0.95);
+}
+
+.os-toast-title {
+    font-weight: 600;
+    font-size: 13px;
+    color: #4285f4;
+    /* 提示语高亮颜色，可改 */
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.os-toast-body {
+    font-size: 12px;
+    color: #ddd;
+    line-height: 1.4;
+}
+
+@keyframes slideInRight {
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeOutRight {
+    to {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+}

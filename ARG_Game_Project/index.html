@@ -102,7 +102,7 @@
         </div>
     </div>
 
-    <div id="win-files" class="window" style="width: 480px; height: 350px; top: 100px; left: 450px;">
+    <div id="win-files" class="window" style="width: 500px; height: 520px; top: 100px; left: 450px;">
         <div class="title-bar">
             <div class="traffic-lights">
                 <div class="dot close" onclick="closeWindow('win-files')"></div>
@@ -111,17 +111,35 @@
             </div>
             <div class="win-title">My Documents</div>
         </div>
-        
+
+        <div class="browser-controls"
+            style="display: flex; gap: 8px; align-items: center; padding: 5px 10px; background: #f1f3f4; border-bottom: 1px solid #ccc; flex-shrink: 0;">
+            <button onclick="universalFileBack()"
+                style="border:none; background:transparent; font-size:16px; cursor:pointer; padding: 4px 8px; border-radius: 4px;"
+                onmouseover="this.style.background='#e4e6e9'" onmouseout="this.style.background='transparent'">
+                🔙
+            </button>
+            <span style="font-size: 12px; color: #555; margin-left: 5px; font-weight: 500;" id="current-folder-path">My
+                Documents</span>
+        </div>
+
         <div id="files-main-view" class="file-grid">
             <div class="icon-item"><span class="file-visual">📁</span>
                 <div class="icon-name">Work</div>
             </div>
-            <div class="icon-item" onclick="showRyanPasswordPrompt()">
+        
+            <div class="icon-item" onclick="showRyanPasswordPrompt(this)">
                 <span class="file-visual">🔒</span>
                 <div class="icon-name">Ryan</div>
             </div>
+        
             <div class="icon-item"><span class="file-visual">📁</span>
                 <div class="icon-name">Games</div>
+            </div>
+        
+            <div class="icon-item" onclick="showHandsPasswordPrompt(this)">
+                <span class="file-visual">🔒</span>
+                <div class="icon-name">Data_Recovered</div>
             </div>
         </div>
     
@@ -132,13 +150,74 @@
                    style="padding:8px; border:1px solid #ccc; border-radius:4px; margin-bottom:10px; outline:none; text-align:center;">
             <div style="display:flex; gap:10px;">
                 <button onclick="checkRyanPassword()" style="padding:5px 15px; cursor:pointer; background:#2c3e50; color:white; border:none; border-radius:4px;">Unlock</button>
-                <button onclick="backToFilesMain()" style="padding:5px 15px; cursor:pointer; background:#ccc; border:none; border-radius:4px;">Cancel</button>
+                <button onclick="universalFileBack()" style="padding:5px 15px; cursor:pointer; background:#ccc; border:none; border-radius:4px;">Cancel</button>
             </div>
             <p id="ryan-pwd-error" style="color:red; font-size:11px; margin-top:10px; height:12px;"></p>
         </div>
     
         <div id="ryan-content-view" class="file-grid" style="display:none; background:#fff; flex:1; overflow-y:auto;">
             </div>
+
+        <div id="hands-password-screen"
+            style="display:none; flex-direction:column; align-items:center; justify-content:center; flex:1; background:#f5f7fa;">
+        
+            <div style="font-size: 14px; font-weight: bold; margin-bottom: 15px; color: #555; letter-spacing: 1px;">
+                "My love is in my..."
+            </div>
+        
+            <div id="t9-input-display"
+                style="width: 200px; height: 36px; background: white; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 20px; text-align: center; line-height: 36px; font-size: 20px; letter-spacing: 8px; font-weight: bold; color: #333; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);">
+            </div>
+        
+            <div class="t9-keypad">
+                <div class="t9-key" onclick="t9Input('1')"><span class="num">1</span><span class="letters"></span></div>
+                <div class="t9-key" onclick="t9Input('2')"><span class="num">2</span><span class="letters">ABC</span></div>
+                <div class="t9-key" onclick="t9Input('3')"><span class="num">3</span><span class="letters">DEF</span></div>
+                <div class="t9-key" onclick="t9Input('4')"><span class="num">4</span><span class="letters">GHI</span></div>
+                <div class="t9-key" onclick="t9Input('5')"><span class="num">5</span><span class="letters">JKL</span></div>
+                <div class="t9-key" onclick="t9Input('6')"><span class="num">6</span><span class="letters">MNO</span></div>
+                <div class="t9-key" onclick="t9Input('7')"><span class="num">7</span><span class="letters">PQRS</span></div>
+                <div class="t9-key" onclick="t9Input('8')"><span class="num">8</span><span class="letters">TUV</span></div>
+                <div class="t9-key" onclick="t9Input('9')"><span class="num">9</span><span class="letters">WXYZ</span></div>
+                <div class="t9-key action-key" onclick="t9Clear()">CLR</div>
+                <div class="t9-key" onclick="t9Input('0')"><span class="num">0</span></div>
+                <div class="t9-key action-key" onclick="t9Submit()" style="color: #27c93f;">OK</div>
+            </div>
+        
+            <div style="display:flex; gap:10px; margin-top: 20px;">
+                <button onclick="universalFileBack()"
+                    style="padding:6px 20px; cursor:pointer; background:#ccc; border:none; border-radius:4px; font-weight:bold; color:#333;">Cancel</button>
+            </div>
+            <p id="hands-pwd-error" style="color:#ff5f56; font-size:12px; margin-top:10px; height:14px; font-weight:bold;"></p>
+        </div>
+        
+        <div id="hands-content-view" class="photo-grid" style="display:none; background:#fff; flex:1; overflow-y:auto;">
+        
+            <div class="photo-item">
+                <span class="file-visual"
+                    style="font-size: 40px; background: #eee; border-radius: 4px; display: flex; align-items: center; justify-content: center; height: 100%;">🖼️</span>
+                <div class="photo-name">RECOVERY_IMG_001.JPG</div>
+            </div>
+        
+            <div class="photo-item">
+                <span class="file-visual"
+                    style="font-size: 40px; background: #eee; border-radius: 4px; display: flex; align-items: center; justify-content: center; height: 100%;">🖼️</span>
+                <div class="photo-name">CCTV_FRAME_42637.JPG</div>
+            </div>
+        
+            <div class="photo-item">
+                <span class="file-visual"
+                    style="font-size: 40px; background: #eee; border-radius: 4px; display: flex; align-items: center; justify-content: center; height: 100%;">📄</span>
+                <div class="photo-name">ACCESS_LOG_FRAGMENT.PDF</div>
+            </div>
+        
+            <div class="photo-item">
+                <span class="file-visual"
+                    style="font-size: 40px; background: #eee; border-radius: 4px; display: flex; align-items: center; justify-content: center; height: 100%;">🖼️</span>
+                <div class="photo-name">TIMESTAMP_PROOF.JPG</div>
+            </div>
+        
+        </div>
     </div>
 
 
@@ -739,7 +818,10 @@
                                 </div>
                             </div>
                             
-                            <button class="div-btn" onclick="runFaceRecognition()" style="margin-top:20px; background:#2c3e50;">Analyze Biometrics</button>
+                            <button class="div-btn" onclick="runFaceRecognition()" style="margin-top:20px; background:#2c3e50;">Analyze
+                                Biometrics</button>
+                            
+                            <div id="face-result" class="divination-result-box" style="display:none; margin-top: 25px;"></div>
                             
                             <div id="face-history-area" style="margin-top: 25px; border-top: 1px solid #eee; padding-top: 15px;">
                                 <div
@@ -749,8 +831,6 @@
                                 <div id="face-history-list" style="display: flex; flex-direction: column; gap: 8px;">
                                 </div>
                             </div>
-                            
-                            <div id="face-result" class="divination-result-box" style="display:none; margin-top: 15px;"></div>
                         </div>
                     </div>
             
@@ -1201,6 +1281,51 @@
         </div>
     </div>
 
+    // Secret message window (initially hidden)
+    <div id="win-secret-msg" class="window"
+        style="width: 420px; height: 280px; top: 150px; left: 300px; border: 1px solid #333; background: #050505;">
+    
+        <div class="title-bar" style="background: #111; border-bottom: 1px solid #333;">
+            <div class="traffic-lights">
+                <div class="dot" style="background: #444; cursor: default;"></div>
+                <div class="dot" style="background: #444; cursor: default;"></div>
+                <div class="dot" style="background: #444; cursor: default;"></div>
+            </div>
+            <div class="win-title" style="color: #0f0; font-family: 'Courier Prime', monospace; letter-spacing: 1px;">
+                sys_enc_ch.exe</div>
+        </div>
+    
+        <div
+            style="background: #050505; flex: 1; padding: 25px; font-family: 'Courier Prime', monospace; display: flex; flex-direction: column;">
+    
+            <div style="font-size: 11px; color: #0f0; opacity: 0.6; margin-bottom: 15px;">
+                [ ENCRYPTED P2P CONNECTION ESTABLISHED ]<br>
+                [ HOST: UNKNOWN | IP: MASKED ]
+            </div>
+    
+            <div style="font-size: 13px; margin-bottom: 5px; color: #888;">
+                From: <span style="color: #d93025; font-weight: bold;">The Ascended</span>
+            </div>
+            <div style="font-size: 13px; margin-bottom: 20px; color: #888;">
+                To: Adam
+            </div>
+    
+            <div
+                style="font-size: 14px; line-height: 1.6; color: #ddd; border-left: 2px solid #d93025; padding-left: 12px;">
+                The cleansing continues as fate dictates. <br><br>
+                I've secured a fresh batch of <span
+                    style="background: #eee; color: #000; padding: 0 4px; font-weight: bold;">Nova White</span>.<br>
+                Do you still need them for the next phase?
+            </div>
+    
+            <div
+                style="margin-top: auto; font-size: 11px; color: #555; text-align: center; border-top: 1px dashed #333; padding-top: 10px;">
+                -- Reply feature disabled for security --
+            </div>
+    
+        </div>
+    </div>
+
     <div id="dock">
         <div class="dock-icon icon-chat" data-title="CallMe" onclick="openWindow('win-chat')">💬</div>
         <div class="dock-icon icon-xhs" data-title="RedGram" onclick="openWindow('win-xhs')">📕</div>
@@ -1216,7 +1341,9 @@
 
     <div id="desktop-icons" class="desktop-icons"></div>
 
-
+    <div id="os-notification-container"
+        style="position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 9999;">
+    </div>
 
     <script src="script.js"></script>
 </body>
