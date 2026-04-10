@@ -1320,7 +1320,51 @@
     </div>
 
     // Secret message window (initially hidden)
+
     <div id="win-secret-msg" class="window"
+    style="width: 500px; height: 280px; top: 150px; left: 300px; display: none; background: #000; border: 1px solid #333;">
+
+    <div class="title-bar" style="background: #1a1a1a; border-bottom: 1px solid #333;">
+        <div class="traffic-lights">
+            <div class="dot close"></div>
+            <div class="dot min"></div>
+            <div class="dot max"></div>
+        </div>
+        <div class="win-title" style="color: #888; font-family: sans-serif;">sys_enc_ch.exe</div>
+    </div>
+
+    <div style="flex: 1; overflow-y: auto; padding: 20px; font-family: 'Courier New', monospace; color: #d1d1d1; line-height: 1.6;">
+        
+        <div style="font-size: 11px; color: #007226; margin-bottom: 15px; border-bottom: 1px solid #222; padding-bottom: 5px;">
+            SECURE_LINK // P2P_ENCRYPTED<br>
+            NODE: AD-09 // TERMINAL_ID: 8832910
+        </div>
+
+        <div style="margin-bottom: 5px;">
+            <span style="color: #555;">From:</span> <span style="color: #00ff1e; font-weight: bold;">Anonymous</span>
+        </div>
+        <div style="margin-bottom: 20px;">
+            <span style="color: #555;">To:</span> Adam
+        </div>
+
+        <div style="font-size: 13px; color: #666; border-left: 2px solid #9d1a00; padding-left: 12px; margin-bottom: 20px; font-style: italic;">
+            "The misunderstood define the truth of the world."
+        </div>
+
+        <div style="padding: 12px; background: rgba(255,255,255,0.03); border: 1px solid #222; border-radius: 4px;">
+            A new iteration of <span style="color: #fff; background: #9d1a00; padding: 0 4px; font-weight: bold;">Nova White</span> is now available. <br><br>
+            Field reports indicate enhanced efficacy and optimized synchronization for the final phase integration.<br><br>
+            Do you require a shipment for the upcoming deployment?</span>
+        </div>
+
+        <div style="margin-top: 30px; font-size: 10px; color: #7b7b7b; text-align: center;">
+            [ Reply feature disabled for security ]
+        </div>
+    </div>
+</div>
+
+
+    <!-- <div id="win-secret-msg" class="window"
         style="width: 420px; height: 280px; top: 150px; left: 300px; border: 1px solid #333; background: #050505;">
     
         <div class="title-bar" style="background: #111; border-bottom: 1px solid #333;">
@@ -1362,7 +1406,7 @@
             </div>
     
         </div>
-    </div>
+    </div> -->
 
     <div id="dock">
         <div class="dock-icon icon-chat" data-title="CallMe" onclick="openWindow('win-chat')">💬</div>
