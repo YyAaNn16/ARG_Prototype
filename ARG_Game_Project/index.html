@@ -801,7 +801,7 @@
             
                     <hr style="border: 0; border-top: 1px solid #eee; margin: 40px 0;">
             
-                    <div class="divination-section">
+                    <!-- <div class="divination-section">
                         <div class="divination-header">
                             <h1 style="color: #2c3e50;">🔍 Biometric Similarity Analysis</h1>
                             <p style="font-size:11px; color:#999; font-style:italic;">Internal Testing.</p>
@@ -832,8 +832,42 @@
                                 </div>
                             </div>
                         </div>
+                    </div> -->
+            
+                </div>
+            </div>
+
+
+            <div id="browser-facematch" class="browser-page" style="background: #f0f2f5;">
+                <div style="max-width: 600px; margin: 0 auto; padding: 40px 20px;">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <h1 style="color: #2c3e50; font-family: 'Inter', sans-serif;">DeepScan AI</h1>
+                        <p style="font-size: 13px; color: #666;">Professional Biometric Similarity Analysis v4.2</p>
                     </div>
             
+                    <div style="background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+                        <div class="face-compare-container">
+                            <div class="face-slot" onclick="selectGamePhoto('A')" style="border-radius: 12px; border: 2px dashed #cbd5e0;">
+                                <div id="preview-a" class="face-preview-box"><span>+ Target A</span></div>
+                            </div>
+                            <div class="compare-vs" style="font-style: italic; color: #a0aec0;">VS</div>
+                            <div class="face-slot" onclick="selectGamePhoto('B')" style="border-radius: 12px; border: 2px dashed #cbd5e0;">
+                                <div id="preview-b" class="face-preview-box"><span>+ Target B</span></div>
+                            </div>
+                        </div>
+                        
+                        <button class="div-btn" onclick="runFaceRecognition()" style="margin-top:25px; background:#2d3748; border-radius: 8px;">Run Biometric Comparison</button>
+                        
+                        <div id="face-result" class="divination-result-box" style="display:none; margin-top: 25px; background: #f8fafc;"></div>
+                        
+                        <div style="margin-top: 30px; border-top: 1px solid #edf2f7; padding-top: 20px;">
+                            <div style="font-size: 12px; font-weight: 600; color: #718096; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                                🕒 RECENT ACTIVITY LOG
+                            </div>
+                            <div id="face-history-list" style="display: flex; flex-direction: column; gap: 10px;"></div>
+                        </div>
+                    </div>
+                    <p style="text-align: center; font-size: 11px; color: #a0aec0; margin-top: 20px;">© 2026 DeepScan Biometrics. Authorized use only.</p>
                 </div>
             </div>
 
