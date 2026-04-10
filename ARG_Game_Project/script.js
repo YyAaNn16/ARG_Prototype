@@ -1540,18 +1540,11 @@ function jumpToXhsFromBrowser(postId) {
 // --- 浏览器数据 ---
 const browserData = {
     // 预设的历史记录 (埋藏剧情线索)
-  /*  history: [
-        { time: "Today 09:15", title: "Bangkok weather", url: "www.google.com/search?q=bangkok+weather" },
-        { time: "Yesterday 23:40", title: "FaceMatch AI - Compare Faces", url: "www.facematch-ai.com/demo", isClue: true },
-        { time: "Yesterday 23:35", title: "Ryan Maya face match", url: "www.google.com/search?q=ryan+maya+face+match" }
-    ],
-*/
-
 
     history: [
         { time: "04.05 14:20", title: "Currency Converter (THB/CNY)", url: "www.xe.com/currencyconverter" },
-        { time: "04.03 22:10", title: "Our Eternal Aurora - H&L", url: "www.aurora-love-forever.com", clickAction: "navBrowser('couple-login')" },
         { time: "04.02 18:45", title: "Bangkok Expats Forum", url: "www.bkk-expats.com/thread/7721" },
+        { time: "03.04 23:45", title: "DeepScan AI - Face Comparison", url: "www.deepscan-ai.com/biometrics", clickAction: "navBrowser('facematch')" },
         
     ],
 
@@ -1854,6 +1847,13 @@ function navBrowser(viewId, isBack = false) {
         urlBar.value = "www.fate-unveiled.com";
         currentTitle = "Destiny Finder";
     }
+
+    // 在 navBrowser 函数内部的 if/else 链中添加
+    else if (viewId === 'facematch') {
+        urlBar.value = "www.deepscan-ai.com/biometrics";
+        currentTitle = "DeepScan AI - Biometric Analysis";
+    }
+
     else if (viewId === 'uni') {
         urlBar.value = "www.mingzhou.edu.cn";
         currentTitle = "Mingzhou University of Science and Technology";
