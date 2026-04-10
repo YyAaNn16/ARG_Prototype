@@ -2201,8 +2201,15 @@ function openImagePreview(url) {
 // 同时也建议修复一下 openDiaryPreview 确保它也不会破坏结构
 function openDiaryPreview(title, content) {
     const previewWin = document.getElementById('win-preview');
+
+    // 原来是 340px，我们把它改成 600px 或者你喜欢的宽度
+    previewWin.style.width = '600px';
+
     const contentArea = previewWin.querySelector('.title-bar').nextElementSibling;
     
+
+
+
     contentArea.innerHTML = '';
     contentArea.style = "background:#333; flex:1; overflow:auto; display:flex; justify-content:center; padding:20px;";
     
@@ -2220,6 +2227,169 @@ function openDiaryPreview(title, content) {
 // --- Hands 文件夹逻辑 ---
 let currentT9Input = "";
 const handsPassword = "42637"; // 对应 H-A-N-D-S
+
+// --- [更新] Data_Recovered 文件夹内容，增加了开场 Motto ---
+const handsFolderData = {
+    files: [
+        { type: "img", name: "RECOVERY_01.JPG", url: "https://images.unsplash.com/photo-1542553458-79a13aebfda6?q=80&w=200" }, 
+        { type: "img", name: "RECOVERY_02.JPG", url: "https://images.unsplash.com/photo-1516195851888-6f1a981a8a2a?q=80&w=200" },
+        { type: "img", name: "RECOVERY_03.JPG", url: "https://images.unsplash.com/photo-1583005825000-85f750739906?q=80&w=200" },
+        { 
+            type: "txt", 
+            name: "My Diary.txt", 
+            content: `The misunderstood carry the vision of the future.
+The misunderstood define the truth of the world.
+
+17-09-15
+University classes are more interesting than I expected.
+Everything feels just right—almost surreal.
+My roommates get along perfectly. Xin is especially kind to me; he always seems to sense my thoughts before I even speak a word.
+Lucas is the life of the party, as if he doesn't have a single care in the world.
+Sometimes I think to myself: so this is what it feels like to be understood.
+
+18-11-20
+Went to the library with Xin tonight to study.
+I didn’t actually get much work done, but it didn’t matter.
+What I loved more was the walk back to the dorm, talking about things that had absolutely nothing to do with exams.
+Xin always knows exactly how to respond to everything I say.
+In that moment, I felt like the world wasn't actually that complicated.
+As long as someone truly understands you, that’s enough.
+
+19-08-15
+A friend dragged me to an event held by an organization.
+I went in with an indifferent attitude, but their words felt like they had been prepared specifically for me.
+The experience was a total mental breakthrough; I feel reborn.
+Originality and truth are often labeled as madness by the sleeping masses.
+I finally realize that all this time, it wasn’t me who was misunderstood—it was the world.
+
+19-11-20
+I’ve tested it a few times now, and the results are quite promising.
+They say this is a "tool," not a "means."
+If the truth cannot be understood, then it must be guided.
+I’m beginning to understand what they mean.
+
+20-02-25
+I think I’ve mastered the proper dosage for this medication now.
+Different people require different "ways of awakening."
+But I still can’t bring myself to actually go through with it.
+Perhaps I’m still not determined enough.
+
+21-03-03
+Xin has been gradually distancing himself from me lately.
+He says I’ve changed.
+He’s starting to become weak.
+He can’t see the things that I see.
+I am the one tasked with the responsibility to carry him.
+Even if he doesn’t understand, I must lead him toward the right direction.
+
+21-06-05
+Xin completely misunderstood my intentions.
+He’s even starting to fear me.
+Ridiculous.
+He doesn’t realize that I am saving him.
+
+22-04-27
+I’ve lost track of Xin entirely.
+He just fled.
+No goodbye, no explanation.
+Just like those who choose to stay asleep.
+
+23-09-30
+Why did Lucas go to Thailand for work?
+Xin’s last exit record was also Thailand.
+Are they still in contact?
+
+26-03-04
+Received Lucas’s wedding invitation.
+So that’s how it is.
+She is him.
+
+26-03-25
+Xin belongs to me.
+I was the one by his side through all his doubt, pain, and struggle.
+How could he choose him?
+He doesn't understand Xin at all.
+I have prepared the Novacard white pills.
+This time, there is no need for hesitation.
+If the world misunderstands me again—
+Then I will define its truth with my own hands.
+I am going to destroy this wedding.` 
+        }
+    ]
+};
+
+// --- [新增] 动态渲染函数：让图标变小并复用样式 ---
+// --- [修改版] 动态渲染函数：使用索引确保点击有效 ---
+// function renderHandsContent() {
+//     const container = document.getElementById('hands-content-view');
+//     if (!container) return;
+//     container.innerHTML = ''; 
+
+//     handsFolderData.files.forEach((file, index) => {
+//         let html = '';
+//         if (file.type === 'img') {
+//             html = `
+//                 <div class="ryan-item" onclick="openImagePreview('${file.url}')">
+//                     <img src="${file.url}" class="ryan-photo-thumb">
+//                     <div class="icon-name" style="font-size:10px;">${file.name}</div>
+//                 </div>`;
+//         } else {
+//             // ✨ 关键修改：不再传递 file.content，而是传递 index
+//             html = `
+//                 <div class="ryan-item" onclick="handleHandsFileClick(${index})">
+//                     <span class="ryan-file-icon">📄</span>
+//                     <div class="icon-name" style="font-size:10px;">${file.name}</div>
+//                 </div>`;
+//         }
+//         container.innerHTML += html;
+//     });
+// }
+function renderHandsContent() {
+    const container = document.getElementById('hands-content-view');
+    if (!container) return;
+    container.innerHTML = ''; 
+
+    handsFolderData.files.forEach((file, index) => { // 注意这里加了 index
+        let html = '';
+        if (file.type === 'img') {
+            html = `
+                <div class="ryan-item" onclick="openImagePreview('${file.url}')">
+                    <img src="${file.url}" class="ryan-photo-thumb">
+                    <div class="icon-name" style="font-size:10px;">${file.name}</div>
+                </div>`;
+        } else {
+            // ✨ 重点修改：onclick 只传数字 index，彻底避开文字冲突
+            html = `
+                <div class="ryan-item" onclick="openHandsDiaryByIndex(${index})">
+                    <div class="ryan-photo-thumb">
+                        <span class="ryan-file-icon">📄</span>
+                    </div>
+                    <div class="icon-name" style="font-size:10px;">${file.name}</div>
+                </div>`;
+        }
+        container.innerHTML += html;
+    });
+}
+// 这个函数专门负责根据索引打开 Data_Recovered 里的日记
+function openHandsDiaryByIndex(index) {
+    const file = handsFolderData.files[index];
+    if (file) {
+        // 调用你之前写好的、宽 600px 的预览函数
+        openDiaryPreview(file.name, file.content);
+    }
+}
+
+// --- [新增] 处理 Data_Recovered 文件夹内的点击事件 ---
+function handleHandsFileClick(index) {
+    const file = handsFolderData.files[index];
+    if (file && file.type === 'txt') {
+        // 调用你已有的预览窗口函数
+        openDiaryPreview(file.name, file.content);
+    }
+}
+
+
+
 
 // 打开键盘界面
 function showHandsPasswordPrompt(element) {
@@ -2267,6 +2437,10 @@ function t9Submit() {
         document.getElementById('hands-password-screen').style.display = 'none';
         const contentView = document.getElementById('hands-content-view');
         contentView.style.display = 'flex';
+
+        // ✨ 在这里添加这一行，触发渲染
+        renderHandsContent();
+
     } else {
         // 密码错误：震动效果并清空
         const error = document.getElementById('hands-pwd-error');

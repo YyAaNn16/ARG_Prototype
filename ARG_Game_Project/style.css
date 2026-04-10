@@ -1639,7 +1639,7 @@ body {
     cursor: pointer;
 }
 
-.ryan-photo-thumb {
+/* .ryan-photo-thumb {
     width: 70px;
     height: 70px;
     object-fit: cover;
@@ -1651,6 +1651,27 @@ body {
 .ryan-file-icon {
     font-size: 40px;
     display: block;
+} */
+
+/* 修改后的样式，确保图片和文档方块大小完全一致 */
+.ryan-photo-thumb {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    background: #f9f9f9; /* 给文档图标加个浅色底色 */
+    display: flex;       /* 新增：为了让里面的图标居中 */
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box; /* 确保边框不撑大方块 */
+}
+
+/* 调整文档图标的大小，使其在方块内合适 */
+.ryan-file-icon {
+    font-size: 32px; /* 稍微缩小一点，在70px的方块里更和谐 */
+    line-height: 1;
 }
 
 
