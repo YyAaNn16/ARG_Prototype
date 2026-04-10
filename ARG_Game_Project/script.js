@@ -796,7 +796,7 @@ const contactsData = {
     },
     "user_adam": { 
         name: "陆原", avatarColor: "#333", avatarText: "Ad", wechatId: "Adam_99", 
-        signature: "Carry the vision of the future" 
+        signature: "The misunderstood carry the vision of the future" 
     }
 };
 
@@ -959,7 +959,7 @@ function showContactProfile(userId) {
             <h2 style="margin:0 0 5px 0; color:#333;">${data.name}</h2>
             <p style="color:#999; font-size:13px; margin-bottom: 10px;">CallMe ID: ${data.wechatId}</p>
             <p style="color:#666; font-size:14px; margin-bottom: 30px; font-style: italic;">${signatureText}</p>
-            <button onclick="jumpToChatFromContact('${userId}')" style="background:#07c160; color:white; border:none; padding:10px 40px; border-radius:4px; font-size:15px; font-weight:600; cursor:pointer; width: 100%;">Message</button>
+            <button onclick="jumpToChatFromContact('${userId}')" style="background:#07c160; color:white; border:none; padding:10px 40px; border-radius:4px; font-size:15px; font-weight:600; cursor:pointer; width: 100%;">Call Me</button>
         </div>
     `;
 }
