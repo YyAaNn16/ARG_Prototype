@@ -1754,8 +1754,8 @@ const browserData = {
             }
         ],
 
-        // ▼▼▼ 第二层：名字 + 极光 (触发核心隐藏线索) ▼▼▼
-        "lucas cheng aurora, lucas aurora, aurora lucas": [
+        // ▼▼▼ 第二层：极光 (触发核心隐藏线索) ▼▼▼
+        "Our Eternal Aurora": [
             // 核心线索：情侣博客网站
             { 
                 url: "www.aurora-love-forever.com", 
@@ -2782,6 +2782,23 @@ function runFaceRecognition() {
         else if ((isRyan(nameA) && isLuna(nameB)) || (isLuna(nameA) && isRyan(nameB))) {
             sim = Math.floor(Math.random() * 11) + 55; // 55%-65%
             verdict = "Significant Genetic Correlation";
+
+                if (!gameState.foundFaceMatch) {
+                gameState.foundFaceMatch = true;
+                saveGame(); 
+                
+                setTimeout(() => {
+                    showNotification(
+                        "System Alert", // 标题变得冰冷
+                        "Encrypted protocol triggered. New message received.", // 提示语显得很神秘
+                        "👁️", // 用眼睛的 emoji 增加教派监视的诡异感
+                        () => {
+                            // 玩家点击通知时，不再打开微信，而是打开那个黑色终端
+                            openWindow('win-secret-msg');
+                        }
+                    );
+                }, 1000);
+            }
         }
         // 4. 跨人配对 (完全无血缘)
         else {
@@ -2807,25 +2824,6 @@ function runFaceRecognition() {
             </div>`;
         faceResultBox.style.display = 'block';
 
-
-        if (sim >= 55) {
-            if (!gameState.foundFaceMatch) {
-                gameState.foundFaceMatch = true;
-                saveGame(); 
-                
-                setTimeout(() => {
-                    showNotification(
-                        "System Alert", // 标题变得冰冷
-                        "Encrypted protocol triggered. New message received.", // 提示语显得很神秘
-                        "👁️", // 用眼睛的 emoji 增加教派监视的诡异感
-                        () => {
-                            // 玩家点击通知时，不再打开微信，而是打开那个黑色终端
-                            openWindow('win-secret-msg');
-                        }
-                    );
-                }, 1000);
-            }
-        }
     }, 2000);
 }
 
