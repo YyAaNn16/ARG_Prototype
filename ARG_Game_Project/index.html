@@ -136,11 +136,20 @@
             <div class="icon-item"><span class="file-visual">📁</span>
                 <div class="icon-name">Games</div>
             </div>
+
+            <div class="icon-item" onclick="openDownloadsFolder('Downloads')">
+                <span class="file-visual">⬇️</span>
+                <div class="icon-name">Downloads</div>
+            </div>
         
             <div class="icon-item" onclick="showHandsPasswordPrompt(this)">
                 <span class="file-visual">🔒</span>
                 <div class="icon-name">Data_Recovered</div>
             </div>
+        </div>
+
+        <div id="downloads-content-view" class="file-grid"
+            style="display:none; background:#fff; flex:1; overflow-y:auto; padding: 15px;">
         </div>
     
         <div id="ryan-password-screen" style="display:none; flex-direction:column; align-items:center; justify-content:center; flex:1; background:#f0f0f0;">

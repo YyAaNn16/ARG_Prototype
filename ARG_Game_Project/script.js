@@ -2062,7 +2062,17 @@ document.querySelector('.notes-textarea').addEventListener('input', function(e) 
     saveGame();
 });
 
-
+// --- 打开 Downloads 文件夹 ---
+function openDownloadsFolder(folderName) {
+    // 隐藏主视图
+    document.getElementById('files-main-view').style.display = 'none';
+    
+    // 显示下载文件夹的内容
+    document.getElementById('downloads-content-view').style.display = 'flex';
+    
+    // 更新顶部的地址栏
+    document.getElementById('current-folder-path').innerText = "My Documents > " + folderName;
+}
 // --- 1. 新增数据：Ryan 文件夹内容 ---
 const ryanFolderData = {
     password: "Ryan20001218",
@@ -2280,6 +2290,10 @@ function universalFileBack() {
     
     const handsContent = document.getElementById('hands-content-view');
     if (handsContent) handsContent.style.display = 'none';
+
+    // ✨ 新增：隐藏 Downloads 文件夹内容
+    const downloadsContent = document.getElementById('downloads-content-view');
+    if (downloadsContent) downloadsContent.style.display = 'none';
 
     // 2. 显示根目录
     document.getElementById('files-main-view').style.display = 'flex';
@@ -2704,7 +2718,7 @@ function renderFaceMatchHistory() {
 }
 
 // --- 桌面测试资源数据 (1920-2027 符合逻辑) ---
-const desktopFiles = [
+const downloadsFiles = [
     { name: "ryan_school.jpg", url: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?q=80&w=200%22%20" },
     { name: "adam_school.jpg", url: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200" },
     { name: "chris_school.jpg", url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200" },
@@ -2713,16 +2727,19 @@ const desktopFiles = [
     { name: "chris_now.jpg", url: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200" }
 ];
 
-// 渲染桌面图标函数
-function renderDesktop() {
-    const container = document.getElementById('desktop-icons');
+// 渲染 Downloads 文件夹内容函数
+function renderDownloads() {
+    // 这里将渲染目标指向我们新建的 Downloads 容器
+    const container = document.getElementById('downloads-content-view');
     if (!container) return;
+    
     container.innerHTML = '';
-    desktopFiles.forEach(file => {
+    downloadsFiles.forEach(file => {
+        // ✨ 修改这里：复用 ryan-item 和 ryan-photo-thumb 样式限制图片大小 ✨
         container.innerHTML += `
-            <div class="desktop-item" onclick="openImagePreview('${file.url}')">
-                <img src="${file.url}" class="desktop-icon-img">
-                <div class="icon-name">${file.name}</div>
+            <div class="ryan-item" onclick="openImagePreview('${file.url}')">
+                <img src="${file.url}" class="ryan-photo-thumb" alt="${file.name}">
+                <div class="icon-name" style="font-size:10px; word-break: break-all; margin-top: 5px;">${file.name}</div>
             </div>`;
     });
 }
@@ -2851,7 +2868,7 @@ function selectGamePhoto(slot) {
     listContainer.innerHTML = '';
     
     // 渲染桌面上的图片作为选项
-    desktopFiles.forEach(file => {
+    downloadsFiles.forEach(file => {
         const item = document.createElement('div');
         item.style = "cursor:pointer; text-align:center; border:1px solid #eee; padding:5px;";
         item.innerHTML = `
@@ -2976,7 +2993,7 @@ function initGame() {
     }
 
     // 初始化其他组件
-    renderDesktop();
+    renderDownloads();
     renderBookmarks(); 
     renderXhsHomeFeed();
     renderAdamProfileFeed();
