@@ -754,6 +754,7 @@ const chatData = {
         name: "木心（💗）", avatarColor: "#607d8b", avatarText: "Ry",
         inChatList: false, // 👉 默认隐藏
         messages: [
+            { type: "sys", text: "Jun 05, 2021" },
             { type: "sys", text: "You transferred ¥100,000.00 to 木心（💗）." },
             { type: "sys", text: "Transfer returned by 木心（💗）." }
         ]
@@ -993,10 +994,12 @@ function renderWallet() {
     
     // 预设交易记录，完美契合剧情时间线：给Ryan的转账以及给Luna买包的消费
     const records = [
-        { title: "Transfer to Ryan", time: "Oct 20, 2023 14:30", amount: "-100,000.00", type: "negative", status: "Returned" },
-        { title: "Refund from Ryan", time: "Oct 21, 2023 09:15", amount: "+100,000.00", type: "positive", status: "Success" },
-        { title: "Guangzhou Logistics Center (Hermes)", time: "Oct 01, 2023 11:00", amount: "-800,000.00", type: "negative", status: "Success" },
-        { title: "Salary Incoming", time: "Sep 30, 2023 18:00", amount: "+25,000.00", type: "positive", status: "Success" }
+        { title: "Salary Incoming", time: "Aug 10, 2025 18:00", amount: "+25,000.00", type: "positive", status: "Success" },
+        { title: "Transfer to Mon", time: "Jan 29, 2025 09:15", amount: "-5,000.00", type: "negative", status: "Success" },
+        { title: "Salary Incoming", time: "Sep 10, 2023 18:00", amount: "+15,000.00", type: "positive", status: "Success" },
+        { title: "Salary Incoming", time: "Oct 10, 2022 18:00", amount: "+7,500.00", type: "positive", status: "Success" },
+        { title: "Refund from Xin", time: "Jun 06, 2021 09:15", amount: "+100,000.00", type: "positive", status: "Success" },
+        { title: "Transfer to Xin", time: "Jun 05, 2021 14:30", amount: "-100,000.00", type: "negative", status: "Returned" },
     ];
 
     list.innerHTML = '';
@@ -1320,7 +1323,7 @@ const xhsDMs = {
     "ryan": {
         name: "Deactivated Account", avatar: "", 
         messages: [
-            { type: "sys", text: "3 years ago" },
+            { type: "sys", text: "5 years ago" },
             { type: "right", text: "Please, just let me explain. I didn't mean for this to happen." },
             { type: "right", text: "I'm so sorry. Please answer me." },
             { type: "left", text: "Don't ever contact me again. I will never forgive you." }
