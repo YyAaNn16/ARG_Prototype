@@ -70,7 +70,7 @@ const xhsUsers = {
 
     "luna": {
         name: "🌙 YUE 🌙", id: "994021",
-        avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+        avatar: "assets/Luna1.png",
         bio: "Exploring the world one spicy dish at a time 🌶️",
         stats: { posts: 6, followers: "1.2k", following: 892 },
         // 按时间倒序排列
@@ -144,15 +144,15 @@ const xhsPostData = {
 // === Luna 的主页帖子 (地道英文版) ===
 
     "luna_post_hello": {
-        img: "assets/Luna.png",
-        author: "🌙 YUE 🌙", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+        img: "assets/Luna1.png",
+        author: "🌙 YUE 🌙", avatar: "assets/Luna1.png",
         text: "Hello RedGram! ✌️\nMy previous TickTock account got banned out of nowhere, was really sad about it for a long time, lost so many memories.\nBut that's okay, considering this as a fresh start! From now on, I'll be sharing my daily life, travels, and random moments here. Nice to meet you all! 🥰\n#NewHere #TickTockrefugee #HelloRG",
         date: "2025.8.20", comments: "1 Comments",
         commentsList: [{ user: "DailyVibes", avatar: "", text: "Welcome! Hope you enjoy it here! 😊", time: "2025.8.20" }]
     },
     "luna_post_tomato_egg": {
         img: "assets/fanqiechaodan.png",
-        author: "🌙 YUE 🌙", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+        author: "🌙 YUE 🌙", avatar: "assets/Luna1.png",
         text: "My first time making Chinese food! ~ 🍳\nTomato and egg stir-fry is so tasty and easy. It's hands-down the best companion for a bowl of rice, no competition! \n#TomatoEggStirFry #ChineseStomach #ILoveTomatoes #ChineseFood",
         date: "2025.09.15", comments: "2 Comments",
         commentsList: [
@@ -162,7 +162,7 @@ const xhsPostData = {
     },
     "luna_post_cola_chicken": {
         img: "assets/kelejichi.png",
-        author: "🌙 YUE 🌙", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+        author: "🌙 YUE 🌙", avatar: "assets/Luna1.png",
         text: "So many people recommended I try Cola Chicken Wings~ \nThanks for the suggestions, I finally got to taste this perfection! What Chinese dish should I challenge next? 🍗\n#ColaChickenWings #Foodie",
         date: "2025.09.28", comments: "2 Comments",
         commentsList: [
@@ -172,7 +172,7 @@ const xhsPostData = {
     },
     "luna_post_luosifen": {
         img: "assets/luosifen.png",
-        author: "🌙 YUE 🌙", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+        author: "🌙 YUE 🌙", avatar: "assets/Luna1.png",
         text: "Food Share 🍜\nBravely took on the 'mild spicy' Luosifen (Snail Rice Noodles) challenge! How can something be so smelly yet so delicious at the same time? Such a unique flavor! \n#LuosifenChallenge",
         date: "2025.10.13", comments: "2 Comments",
         commentsList: [
@@ -182,7 +182,7 @@ const xhsPostData = {
     },
     "luna_post_unboxing_2025": {
         img: "assets/unboxing.png",
-        author: "🌙 YUE 🌙", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+        author: "🌙 YUE 🌙", avatar: "assets/Luna1.png",
         text: "Unboxing! ✨\nAbsolutely in love with the gift from my babe 🎁",
         date: "2025.12.21", comments: "1 Comments",
         commentsList: [
@@ -191,7 +191,7 @@ const xhsPostData = {
     },
     "luna_post_bkk_2026": {
         img: "https://images.unsplash.com/photo-1563492065599-3520f775eeed?q=80&w=500",
-        author: "🌙 YUE 🌙", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+        author: "🌙 YUE 🌙", avatar: "assets/Luna1.png",
         text: "Thailand🇹🇭\nThe weather is amazing here ☀️ So many street food choices~ The Tom Yum soup is so sour and spicy, it's the perfect appetizer! 🤩",
         date: "2026.4.1", comments: "0 Comments",
         commentsList: []
@@ -225,7 +225,7 @@ const xhsPostData = {
         date: "2019-03-15", comments: "2 Comments",
         commentsList: [
             { user: "BasketballBoy", avatar: "assets/Lucas.png", text: "Happy Birthday! 🤩", time: "2019-03-15" },
-            { user: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Happy Birthday🥳 Hope you finally catch that Live House show soon!", time: "2019-03-15" }
+            { user: "Augenster", avatar: "assets/Adam.png", text: "Happy Birthday🥳 Hope you finally catch that Live House show soon!", time: "2019-03-15" }
         ]
     },
     "ryan_post_4": {
@@ -234,7 +234,7 @@ const xhsPostData = {
         text: "Not sure why, but I've been feeling so lightheaded lately. Maybe winter is just made for sleeping... 🥱",
         date: "2019-11-21", comments: "2 Comments",
         commentsList: [
-            { user: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Time to save up some energy for hibernation~", time: "2019-11-21" },
+            { user: "Augenster", avatar: "assets/Adam.png", text: "Time to save up some energy for hibernation~", time: "2019-11-21" },
             { user: "BasketballBoy", avatar: "assets/Lucas.png", text: "Get up and play a round of hoops with me! 💪", time: "2019-11-21" }
         ]
     },
@@ -252,26 +252,26 @@ const xhsPostData = {
     // === Adam (Augenster) 的主页帖子 (地道英文版) ===
     "adam_post_cooking_start": {
         img: "assets/kitchen.png",
-        author: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
+        author: "Augenster", avatar: "assets/Adam.png",
         text: "Lately I've been obsessed with cooking 🥘 Planning to share my culinary journey with everyone here. 😋",
         date: "2025.09.18", comments: "0 Comments",
         commentsList: []
     },
     "adam_post_mapo": {
         img: "assets/mapodoufu2.png",
-        author: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
+        author: "Augenster", avatar: "assets/Adam.png",
         text: "The ultimate rice-killer Mapo Tofu tutorial is here! 🍛\nIngredients 🥬: 1 block of tofu, 50g minced meat, Doubanjiang (bean paste), Sichuan peppercorns, green onions, minced garlic, Thai chili. Check the video for steps! ~\n#ChineseFood #Foodie",
         date: "2025.09.20", comments: "3 Comments",
         commentsList: [
             { user: "SweetPascal", avatar: "", text: "Saved.", time: "2025.09.20" },
             { user: "CzxKeeho", avatar: "", text: "👍👍", time: "2025.09.26" },
-            { user: "🌙 YUE 🌙", avatar: "https://randomuser.me/api/portraits/women/44.jpg", text: "Will this be super spicy? I can't handle too much heat 🌶️", time: "2025.10.03" }
+            { user: "🌙 YUE 🌙", avatar: "assets/Luna1.png", text: "Will this be super spicy? I can't handle too much heat 🌶️", time: "2025.10.03" }
         
         ]
     },
     "adam_post_mango": {
         img: "assets/yangzhi-ganlu.png",
-        author: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
+        author: "Augenster", avatar: "assets/Adam.png",
         text: "Spent an hour making Mango Pomelo Sago （Yang Zhi Gan Lu）~ It's so sweet, refreshing, and delicious! But the prep takes way too long... I think I'll just stick to takeout next time. 😂",
         date: "2025.10.05", comments: "2 Comments",
         commentsList: [
@@ -281,11 +281,11 @@ const xhsPostData = {
     },
     "adam_post_laziji": {
         img: "assets/laziji2.png",
-        author: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
+        author: "Augenster", avatar: "assets/Adam.png",
         text: "Another delicious way to cook chicken 🐔. Spicy Chicken (La Zi Ji) tutorial is here! 😄\nIngredients 🌶: Diced chicken breast, onion, dried chilies, minced garlic, green onions, Sichuan peppercorns... Check the video for steps! ~\n#ChineseFood #Foodie",
         date: "2025.10.25", comments: "2 Comments",
         commentsList: [
-            { user: "🌙 YUE 🌙", avatar: "https://randomuser.me/api/portraits/women/44.jpg", text: "My mouth is watering just looking at this! 😜", time: "2025.10.25" },
+            { user: "🌙 YUE 🌙", avatar: "assets/Luna1.png", text: "My mouth is watering just looking at this! 😜", time: "2025.10.25" },
             { user: "Augenster", avatar: "assets/Adam.png", text: "This one just looks like it has a lot of chilies hahaha, but it's actually barely spicy.", time: "2025.10.25" }
         ]
     },
@@ -567,7 +567,7 @@ const xhsPostData = {
         date: "2015-11-20", comments: "2 Comments",
         commentsList: [
             { user: "Chris", avatar: "assets/Lucas.png", text: "You should go see a doctor man, that doesn't sound normal.", time: "2015-11-21" },
-            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Take it easy, I'll bring you some hot soup later.", time: "2015-11-21" }
+            { user: "Adam", avatar: "assets/Adam.png", text: "Take it easy, I'll bring you some hot soup later.", time: "2015-11-21" }
         ]
     },
     "ryan_post_eng2": {
@@ -1216,7 +1216,7 @@ function renderAdamProfileFeed() {
 //         ]
 //     },
 //     "luna": {
-//         name: "Luna_99", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+//         name: "Luna_99", avatar: "assets/Luna1.png",
 //         messages: [
 //             { type: "sys", text: "Today" },
 //             { type: "left", text: "Did you see my new post? 🥰" },
@@ -1227,7 +1227,7 @@ function renderAdamProfileFeed() {
 // --- 小红书私信对话数据 ---
 const xhsDMs = {
     "luna": {
-        name: "🌙 YUE 🌙", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+        name: "🌙 YUE 🌙", avatar: "assets/Luna1.png",
         messages: [
             { type: "sys", text: "2025.10.3" },
             { type: "right", text: "You can try adding fewer Thai chilies first. Peppercorns just give that numbing sensation to your lips." },
@@ -2020,21 +2020,15 @@ function openDownloadsFolder(folderName) {
 }
 // --- 1. 新增数据：Ryan 文件夹内容 ---
 const ryanFolderData = {
-    password: "Ryan20001218",
+    password: "20000315",
     files: [
-        { type: "img", name: "IMG_0821.jpg", url: "https://images.unsplash.com/photo-1516195851888-6f1a981a8a2a?q=80&w=200" }, // 偷拍的手1
-        { type: "img", name: "IMG_0822.jpg", url: "https://images.unsplash.com/photo-1583005825000-85f750739906?q=80&w=200" }, // 偷拍的手2
-        { type: "img", name: "IMG_0910.jpg", url: "https://images.unsplash.com/photo-1542553458-79a13aebfda6?q=80&w=200" }, // 偷拍的手3
-        { 
-            type: "txt", 
-            name: "Diary_20231001.txt", 
-            content: "Oct 1st. Ryan looks perfect today. He thinks he can just exist without my permission. I captured 12 shots of his hands while he was distracted. He is a masterpiece that only I deserve to own. Every finger, every movement... it all belongs to me. He is nothing without my eyes on him." 
-        },
-        { 
-            type: "txt", 
-            name: "Note_to_Self.txt", 
-            content: "He tried to talk to that girl again. Pathetic. He doesn't realize that I am the only one who truly sees him. I've spent years curating his life, and he will never escape this frame. My collection is growing. He is mine, forever and always." 
-        }
+        { type: "img", name: "IMG_0821.jpg", url: "assets/hands/hand1.jpg" }, 
+        { type: "img", name: "IMG_0822.jpg", url: "assets/hands/hand2.jpg" }, 
+        { type: "img", name: "IMG_0910.jpg", url: "assets/hands/hand3.jpg" }, 
+        { type: "img", name: "IMG_1105.jpg", url: "assets/hands/hand4.jpg" }, 
+        { type: "img", name: "IMG_0518.jpg", url: "assets/hands/hand5.jpg" }, 
+        { type: "img", name: "IMG_0210.jpg", url: "assets/hands/hand6.jpg" }, 
+        { type: "img", name: "IMG_0309.jpg", url: "assets/hands/hand7.jpg" }, 
     ]
 };
 
