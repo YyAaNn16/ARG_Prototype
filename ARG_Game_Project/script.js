@@ -98,7 +98,7 @@ const xhsUsers = {
 
     "basketball_boy": {
         name: "BasketballBoy", id: "772105",
-        avatar: "https://randomuser.me/api/portraits/men/45.jpg",
+        avatar: "assets/Lucas.png",
         bio: "Ball is life. 🏀 | MUST Class of 2016",
         stats: { posts: 5, followers: 310, following: 215 },
         // 按时间倒序排列：2025 -> 2019
@@ -144,7 +144,7 @@ const xhsPostData = {
 // === Luna 的主页帖子 (地道英文版) ===
 
     "luna_post_hello": {
-        img: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=500",
+        img: "assets/Luna.png",
         author: "🌙 YUE 🌙", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
         text: "Hello RedGram! ✌️\nMy previous TickTock account got banned out of nowhere, was really sad about it for a long time, lost so many memories.\nBut that's okay, considering this as a fresh start! From now on, I'll be sharing my daily life, travels, and random moments here. Nice to meet you all! 🥰\n#NewHere #TickTockrefugee #HelloRG",
         date: "2025.8.20", comments: "1 Comments",
@@ -201,7 +201,7 @@ const xhsPostData = {
 // === Ryan 的旧账帖子 (核心剧情线索) ===
 // === Ryan 的旧帖：地道英文版 ===
     "ryan_post_1": {
-        img: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=500",
+        img: "assets/biandang.png",
         author: "Deactivated Account", avatar: "",
         text: "Met the absolute best roommate ever! 🥺 Another day of them grabbing me food. Blessed.",
         date: "2017-09-10", comments: "1 Comments",
@@ -215,7 +215,7 @@ const xhsPostData = {
         text: "Perfect weather to just get lost in music today. ☀️🎵",
         date: "2018-03-24", comments: "1 Comments",
         commentsList: [
-            { user: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "Great taste! 👍", time: "2018-03-24" }
+            { user: "BasketballBoy", avatar: "assets/Lucas.png", text: "Great taste! 👍", time: "2018-03-24" }
         ]
     },
     "ryan_post_3": {
@@ -224,7 +224,7 @@ const xhsPostData = {
         text: "Another year older, wishing to be even happier than yesterday. Thanks for all the wishes and gifts! ~",
         date: "2019-03-15", comments: "2 Comments",
         commentsList: [
-            { user: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "Happy Birthday! 🤩", time: "2019-03-15" },
+            { user: "BasketballBoy", avatar: "assets/Lucas.png", text: "Happy Birthday! 🤩", time: "2019-03-15" },
             { user: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Happy Birthday🥳 Hope you finally catch that Live House show soon!", time: "2019-03-15" }
         ]
     },
@@ -235,7 +235,7 @@ const xhsPostData = {
         date: "2019-11-21", comments: "2 Comments",
         commentsList: [
             { user: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Time to save up some energy for hibernation~", time: "2019-11-21" },
-            { user: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "Get up and play a round of hoops with me! 💪", time: "2019-11-21" }
+            { user: "BasketballBoy", avatar: "assets/Lucas.png", text: "Get up and play a round of hoops with me! 💪", time: "2019-11-21" }
         ]
     },
     "ryan_post_5": {
@@ -244,23 +244,21 @@ const xhsPostData = {
         text: "Quick Room Tour of the Dorm Culture Fest winner! Honestly, it's just way too cozy for sleeping. 😴",
         date: "2020-02-18", comments: "1 Comments",
         commentsList: [
-            { user: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "Damn, Augenster's desk is way too tidy! 🐱", time: "2020-02-18" }
+            { user: "BasketballBoy", avatar: "assets/Lucas.png", text: "Damn, Augenster's desk is way too tidy! 🐱", time: "2020-02-18" }
         ]
     },
 
     // === Adam 大号帖子 (按时间倒序) ===
     // === Adam (Augenster) 的主页帖子 (地道英文版) ===
     "adam_post_cooking_start": {
-        img: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=500",
+        img: "assets/kitchen.png",
         author: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
         text: "Lately I've been obsessed with cooking 🥘 Planning to share my culinary journey with everyone here. 😋",
         date: "2025.09.18", comments: "0 Comments",
         commentsList: []
     },
     "adam_post_mapo": {
-        isVideo: true, // 图片提到步骤看视频
-        videoSrc: "assets/mapo_tofu_tutorial.mp4",
-        img: "https://images.unsplash.com/photo-1543826173-70651703c5a4?q=80&w=500",
+        img: "assets/mapodoufu2.png",
         author: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
         text: "The ultimate rice-killer Mapo Tofu tutorial is here! 🍛\nIngredients 🥬: 1 block of tofu, 50g minced meat, Doubanjiang (bean paste), Sichuan peppercorns, green onions, minced garlic, Thai chili. Check the video for steps! ~\n#ChineseFood #Foodie",
         date: "2025.09.20", comments: "3 Comments",
@@ -272,7 +270,7 @@ const xhsPostData = {
         ]
     },
     "adam_post_mango": {
-        img: "https://images.unsplash.com/photo-1626808642820-212d9b626027?q=80&w=500",
+        img: "assets/yangzhi-ganlu.png",
         author: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
         text: "Spent an hour making Mango Pomelo Sago （Yang Zhi Gan Lu）~ It's so sweet, refreshing, and delicious! But the prep takes way too long... I think I'll just stick to takeout next time. 😂",
         date: "2025.10.05", comments: "2 Comments",
@@ -282,9 +280,7 @@ const xhsPostData = {
         ]
     },
     "adam_post_laziji": {
-        isVideo: true, // 图片提到步骤看视频
-        videoSrc: "assets/laziji_tutorial.mp4",
-        img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=500",
+        img: "assets/laziji2.png",
         author: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
         text: "Another delicious way to cook chicken 🐔. Spicy Chicken (La Zi Ji) tutorial is here! 😄\nIngredients 🌶: Diced chicken breast, onion, dried chilies, minced garlic, green onions, Sichuan peppercorns... Check the video for steps! ~\n#ChineseFood #Foodie",
         date: "2025.10.25", comments: "2 Comments",
@@ -298,7 +294,7 @@ const xhsPostData = {
 
     "l_post_basketball_win": {
         img: "https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=500",
-        author: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg",
+        author: "BasketballBoy", avatar: "assets/Lucas.png",
         text: "First place in the MingZhou University Basketball League! 🏅 Good work, brothers!!! 💗💗💗",
         date: "2019.12.15", comments: "20 Comments",
         commentsList: [
@@ -307,22 +303,22 @@ const xhsPostData = {
         ]
     },
     "l_post_graduation": {
-        img: "https://images.unsplash.com/photo-152305085306e-88e4f6e0ad24?q=80&w=500",
-        author: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg",
+        img: "assets/graduation-biketrip.png",
+        author: "BasketballBoy", avatar: "assets/Lucas.png",
         text: "Stop planning, just go. Graduation trip in progress! 🎓 The only regret is that Xin couldn't make it 🥺\n#Youth #Graduation",
         date: "2021.7.13", comments: "8 Comments",
         commentsList: []
     },
     "l_post_thailand": {
-        img: "https://images.unsplash.com/photo-1528181304800-2f140819ad9c?q=80&w=500",
-        author: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg",
+        img: "assets/Bangkok-work.jpeg",
+        author: "BasketballBoy", avatar: "assets/Lucas.png",
         text: "Starting my new 'brick-moving' (hustle) life in a brand new country! 📌 Thailand",
         date: "2023.09.30", comments: "3 Comments",
         commentsList: []
     },
     "l_post_valentines_2024": {
-        img: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=500", // 找了一张浪漫晚餐的配图
-        author: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg",
+        img: "assets/zhuguangwancan.png", // 找了一张浪漫晚餐的配图
+        author: "BasketballBoy", avatar: "assets/Lucas.png",
         text: "Officially together! 🎉 Celebrating our first Valentine's Day. 🥩🍷🍷\n#ValentinesDay #Couple",
         date: "2024.02.14", comments: "5 Comments",
         commentsList: [
@@ -330,8 +326,8 @@ const xhsPostData = {
         ]
     },
     "l_post_couple": {
-        img: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=500",
-        author: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg",
+        img: "assets/cha.png",
+        author: "BasketballBoy", avatar: "assets/Lucas.png",
         text: "Gotta do the challenge with my girl too 👫\n#CoupleChallenge",
         date: "2024.6.16", comments: "28 Comments",
         commentsList: [
@@ -340,7 +336,7 @@ const xhsPostData = {
     },
     "l_post_proposal": {
         img: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=500",
-        author: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg",
+        author: "BasketballBoy", avatar: "assets/Lucas.png",
         text: "SHE SAID YESSSSS!! 💍❤️💍",
         date: "2025.12.25", comments: "8 Comments",
         commentsList: [{ user: "HL_FOREVER", avatar: "", text: "The aurora tonight is our witness❤️", time: "2025.12.25" }
@@ -350,21 +346,21 @@ const xhsPostData = {
 
     // === HL_FOREVER (Hope) 的主页帖子 (地道英文版) ===
     "hl_post_dress": {
-        img: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=500",
+        img: "assets/yellowdress-beiying.png",
         author: "HL_FOREVER", avatar: "https://randomuser.me/api/portraits/women/65.jpg",
         text: "This yellow dress from Brand C is so perfect for this season! 🌼✨\n#OOTD",
         date: "2024.03.23", comments: "0 Comments",
         commentsList: []
     },
     "hl_post_bday": {
-        img: "https://images.unsplash.com/photo-1530103043960-ef38714abb15?q=80&w=500",
+        img: "assets/HL-beiying.png",
         author: "HL_FOREVER", avatar: "https://randomuser.me/api/portraits/women/65.jpg",
         text: "Happy birthday babe 💖 @BasketballBoy",
         date: "2024.07.22", comments: "1 Comments",
         commentsList: [
             { 
                 user: "BasketballBoy", 
-                avatar: "https://randomuser.me/api/portraits/men/45.jpg", 
+                avatar: "assets/Lucas.png", 
                 text: "🎵 Listen to this for you! 🎤", 
                 time: "2024.07.22",
                 isAudio: true,                                       // 新增：标记为音频评论
@@ -378,7 +374,7 @@ const xhsPostData = {
         text: "Wedding planning is seriously so exhausting ⛪️~\n#WeddingPrep #Happiness",
         date: "2026.02.19", comments: "1 Comments",
         commentsList: [
-            { user: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "Babe, let's treat ourselves to a great dinner tonight! 😘", time: "2026.02.19" }
+            { user: "BasketballBoy", avatar: "assets/Lucas.png", text: "Babe, let's treat ourselves to a great dinner tonight! 😘", time: "2026.02.19" }
         ]
     },
 
@@ -570,7 +566,7 @@ const xhsPostData = {
         text: "Been feeling so dizzy lately, my brain feels like mush. Sleeping 12 hours a day and still feeling exhausted. Finals week is killing me. 😵‍💫📚 Need more coffee. \n\n#StudyGrind #AllNighter",
         date: "2015-11-20", comments: "2 Comments",
         commentsList: [
-            { user: "Chris", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "You should go see a doctor man, that doesn't sound normal.", time: "2015-11-21" },
+            { user: "Chris", avatar: "assets/Lucas.png", text: "You should go see a doctor man, that doesn't sound normal.", time: "2015-11-21" },
             { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Take it easy, I'll bring you some hot soup later.", time: "2015-11-21" }
         ]
     },
@@ -742,7 +738,7 @@ const chatData = {
             { type: "left", text: "Nice, let's hit the courts at MUST next time you're back!" },
 
             { type: "sys", text: "Mar 04, 2026" },
-            { type: "left", isImg: true, src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=200" },
+            { type: "left", isImg: true, src: "assets/wedding.png" },
             { type: "left", text: "Hey Adam, I'm getting married in Thailand next month!" },
             { type: "left", text: "Would love to invite you and your partner to the wedding~" },
             { type: "right", text: "Omggg, congrats bro! Didn't expect you to be the first one to tie the knot out of the three of us!!" },
