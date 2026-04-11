@@ -106,7 +106,7 @@ const xhsUsers = {
     },
     "hl_forever": {
         name: "HL_FOREVER", id: "5201314",
-        avatar: "https://randomuser.me/api/portraits/women/65.jpg",
+        avatar: "assets/Hope2.png",
         bio: "Happily preparing for the next chapter of life. ✨",
         stats: { posts: 3, followers: 890, following: 156 },
         // 按时间倒序排列：2026 -> 2024
@@ -322,7 +322,7 @@ const xhsPostData = {
         text: "Officially together! 🎉 Celebrating our first Valentine's Day. 🥩🍷🍷\n#ValentinesDay #Couple",
         date: "2024.02.14", comments: "5 Comments",
         commentsList: [
-            { user: "HL_FOREVER", avatar: "https://randomuser.me/api/portraits/women/65.jpg", text: "🌹", time: "2024.02.14" }
+            { user: "HL_FOREVER", avatar: "assets/Hope2.png", text: "🌹", time: "2024.02.14" }
         ]
     },
     "l_post_couple": {
@@ -331,7 +331,7 @@ const xhsPostData = {
         text: "Gotta do the challenge with my girl too 👫\n#CoupleChallenge",
         date: "2024.6.16", comments: "28 Comments",
         commentsList: [
-            { user: "HL_FOREVER", avatar: "", text: "💗", time: "2024.6.16" }
+            { user: "HL_FOREVER", avatar: "assets/Hope2.png", text: "💗", time: "2024.6.16" }
         ]
     },
     "l_post_proposal": {
@@ -339,7 +339,7 @@ const xhsPostData = {
         author: "BasketballBoy", avatar: "assets/Lucas.png",
         text: "SHE SAID YESSSSS!! 💍❤️💍",
         date: "2025.12.25", comments: "8 Comments",
-        commentsList: [{ user: "HL_FOREVER", avatar: "", text: "The aurora tonight is our witness❤️", time: "2025.12.25" }
+        commentsList: [{ user: "HL_FOREVER", avatar: "assets/Hope2.png", text: "The aurora tonight is our witness❤️", time: "2025.12.25" }
 
         ]
     },
@@ -347,14 +347,14 @@ const xhsPostData = {
     // === HL_FOREVER (Hope) 的主页帖子 (地道英文版) ===
     "hl_post_dress": {
         img: "assets/yellowdress-beiying.png",
-        author: "HL_FOREVER", avatar: "https://randomuser.me/api/portraits/women/65.jpg",
+        author: "HL_FOREVER", avatar: "assets/Hope2.png",
         text: "This yellow dress from Brand C is so perfect for this season! 🌼✨\n#OOTD",
         date: "2024.03.23", comments: "0 Comments",
         commentsList: []
     },
     "hl_post_bday": {
         img: "assets/HL-beiying.png",
-        author: "HL_FOREVER", avatar: "https://randomuser.me/api/portraits/women/65.jpg",
+        author: "HL_FOREVER", avatar: "assets/Hope2.png",
         text: "Happy birthday babe 💖 @BasketballBoy",
         date: "2024.07.22", comments: "1 Comments",
         commentsList: [
@@ -370,7 +370,7 @@ const xhsPostData = {
     },
     "hl_post_wedding": {
         img: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=500",
-        author: "HL_FOREVER", avatar: "https://randomuser.me/api/portraits/women/65.jpg",
+        author: "HL_FOREVER", avatar: "assets/Hope2.png",
         text: "Wedding planning is seriously so exhausting ⛪️~\n#WeddingPrep #Happiness",
         date: "2026.02.19", comments: "1 Comments",
         commentsList: [
@@ -393,7 +393,7 @@ const xhsPostData = {
             },
             { 
                 user: "HL_FOREVER", 
-                avatar: "https://randomuser.me/api/portraits/women/65.jpg", 
+                avatar: "assets/Hope2.png", 
                 text: "CHECK YOUR DMs NOW!!!", 
                 time: "2026.04.03" 
             }
@@ -2176,9 +2176,12 @@ const handsPassword = "42637"; // 对应 H-A-N-D-S
 // --- [更新] Data_Recovered 文件夹内容，增加了开场 Motto ---
 const handsFolderData = {
     files: [
-        { type: "img", name: "RECOVERY_01.JPG", url: "assets/immigration_record.png" }, 
-        { type: "img", name: "RECOVERY_02.JPG", url: "https://images.unsplash.com/photo-1516195851888-6f1a981a8a2a?q=80&w=200" },
-        { type: "img", name: "RECOVERY_03.JPG", url: "https://images.unsplash.com/photo-1583005825000-85f750739906?q=80&w=200" },
+        { type: "img", name: "xin💗.JPG", url: "assets/xin.png" }, 
+        { type: "img", name: "Xin💗💗.JPG", url: "assets/xin2.png" },
+        { type: "img", name: "Xin💗💗💗.JPG", url: "assets/xin3.png" },
+        { type: "img", name: "Xin💗💗💗💗.JPG", url: "assets/xin4.png" },
+        { type: "img", name: "Xin💗💗💗💗💗.JPG", url: "assets/xin5.png" },
+      
         { 
             type: "txt", 
             name: "My Diary.txt", 
