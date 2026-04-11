@@ -88,7 +88,7 @@ const xhsUsers = {
     
     "adam": {
         name: "Augenster", id: "8832910",
-        avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
+        avatar: "assets/Adam.png",
         bio: "Less is more.",
         stats: { posts: 4, followers: 45, following: 128 },
         // 按时间倒序排列：10.25 -> 09.18
@@ -167,7 +167,7 @@ const xhsPostData = {
         date: "2025.09.28", comments: "2 Comments",
         commentsList: [
             { user: "HomeCook_Sam", avatar: "", text: "Stir-fried potato shreds! 🥔", time: "2025.09.28" },
-            { user: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Mapo Tofu is also great for beginners. You can check the recipe on my page~", time: "2025.09.29" }
+            { user: "Augenster", avatar: "assets/Adam.png", text: "Mapo Tofu is also great for beginners. You can check the recipe on my page~", time: "2025.09.29" }
         ]
     },
     "luna_post_luosifen": {
@@ -186,7 +186,7 @@ const xhsPostData = {
         text: "Unboxing! ✨\nAbsolutely in love with the gift from my babe 🎁",
         date: "2025.12.21", comments: "1 Comments",
         commentsList: [
-            { user: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Looks sooooo good on you. 😍", time: "2025.12.21" }
+            { user: "Augenster", avatar: "assets/Adam.png", text: "Looks sooooo good on you. 😍", time: "2025.12.21" }
         ]
     },
     "luna_post_bkk_2026": {
@@ -206,7 +206,7 @@ const xhsPostData = {
         text: "Met the absolute best roommate ever! 🥺 Another day of them grabbing me food. Blessed.",
         date: "2017-09-10", comments: "1 Comments",
         commentsList: [
-            { user: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Still gotta remember to eat on time, buddy!", time: "2017-09-10" }
+            { user: "Augenster", avatar: "assets/Adam.png", text: "Still gotta remember to eat on time, buddy!", time: "2017-09-10" }
         ]
     },
     "ryan_post_2": {
@@ -225,7 +225,7 @@ const xhsPostData = {
         date: "2019-03-15", comments: "2 Comments",
         commentsList: [
             { user: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "Happy Birthday! 🤩", time: "2019-03-15" },
-            { user: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Happy Birthday🥳 Hope you finally catch that Live House show soon!", time: "2019-03-15" }
+            { user: "Augenster", avatar: "assets/Adam.png", text: "Happy Birthday🥳 Hope you finally catch that Live House show soon!", time: "2019-03-15" }
         ]
     },
     "ryan_post_4": {
@@ -234,7 +234,7 @@ const xhsPostData = {
         text: "Not sure why, but I've been feeling so lightheaded lately. Maybe winter is just made for sleeping... 🥱",
         date: "2019-11-21", comments: "2 Comments",
         commentsList: [
-            { user: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Time to save up some energy for hibernation~", time: "2019-11-21" },
+            { user: "Augenster", avatar: "assets/Adam.png", text: "Time to save up some energy for hibernation~", time: "2019-11-21" },
             { user: "BasketballBoy", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "Get up and play a round of hoops with me! 💪", time: "2019-11-21" }
         ]
     },
@@ -252,7 +252,7 @@ const xhsPostData = {
     // === Adam (Augenster) 的主页帖子 (地道英文版) ===
     "adam_post_cooking_start": {
         img: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=500",
-        author: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
+        author: "Augenster", avatar: "assets/Adam.png",
         text: "Lately I've been obsessed with cooking 🥘 Planning to share my culinary journey with everyone here. 😋",
         date: "2025.09.18", comments: "0 Comments",
         commentsList: []
@@ -261,7 +261,7 @@ const xhsPostData = {
         isVideo: true, // 图片提到步骤看视频
         videoSrc: "assets/mapo_tofu_tutorial.mp4",
         img: "https://images.unsplash.com/photo-1543826173-70651703c5a4?q=80&w=500",
-        author: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
+        author: "Augenster", avatar: "assets/Adam.png",
         text: "The ultimate rice-killer Mapo Tofu tutorial is here! 🍛\nIngredients 🥬: 1 block of tofu, 50g minced meat, Doubanjiang (bean paste), Sichuan peppercorns, green onions, minced garlic, Thai chili. Check the video for steps! ~\n#ChineseFood #Foodie",
         date: "2025.09.20", comments: "3 Comments",
         commentsList: [
@@ -273,7 +273,7 @@ const xhsPostData = {
     },
     "adam_post_mango": {
         img: "https://images.unsplash.com/photo-1626808642820-212d9b626027?q=80&w=500",
-        author: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
+        author: "Augenster", avatar: "assets/Adam.png",
         text: "Spent an hour making Mango Pomelo Sago （Yang Zhi Gan Lu）~ It's so sweet, refreshing, and delicious! But the prep takes way too long... I think I'll just stick to takeout next time. 😂",
         date: "2025.10.05", comments: "2 Comments",
         commentsList: [
@@ -285,12 +285,12 @@ const xhsPostData = {
         isVideo: true, // 图片提到步骤看视频
         videoSrc: "assets/laziji_tutorial.mp4",
         img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=500",
-        author: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150",
+        author: "Augenster", avatar: "assets/Adam.png",
         text: "Another delicious way to cook chicken 🐔. Spicy Chicken (La Zi Ji) tutorial is here! 😄\nIngredients 🌶: Diced chicken breast, onion, dried chilies, minced garlic, green onions, Sichuan peppercorns... Check the video for steps! ~\n#ChineseFood #Foodie",
         date: "2025.10.25", comments: "2 Comments",
         commentsList: [
             { user: "🌙 YUE 🌙", avatar: "https://randomuser.me/api/portraits/women/44.jpg", text: "My mouth is watering just looking at this! 😜", time: "2025.10.25" },
-            { user: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "This one just looks like it has a lot of chilies hahaha, but it's actually barely spicy.", time: "2025.10.25" }
+            { user: "Augenster", avatar: "assets/Adam.png", text: "This one just looks like it has a lot of chilies hahaha, but it's actually barely spicy.", time: "2025.10.25" }
         ]
     },
     
@@ -302,7 +302,7 @@ const xhsPostData = {
         text: "First place in the MingZhou University Basketball League! 🏅 Good work, brothers!!! 💗💗💗",
         date: "2019.12.15", comments: "20 Comments",
         commentsList: [
-            { user: "Augenster", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Holy sh*t, let's goooo!!! 🔥🔥🔥", time: "2019.12.15" },
+            { user: "Augenster", avatar: "assets/Adam.png", text: "Holy sh*t, let's goooo!!! 🔥🔥🔥", time: "2019.12.15" },
             { user: "Deactivated Account", avatar: "", text: "Huge congrats! What an incredible game! 🏆", time: "2019.12.15" }
         ]
     },
@@ -559,7 +559,7 @@ const xhsPostData = {
         text: "AutoCAD just crashed, and I didn't save. Three hours of gear reducer modeling just vanished into thin air. I need a moment. ⚙️📐 \n\n#MechanicalEngineering #FinalsWeek #EngineeringStruggles",
         date: "2015-11-10", comments: "1 Comments",
         commentsList: [
-            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Bro, always remember to Ctrl+S. Let's go, I'll buy you a drink.", time: "2015-11-10" }
+            { user: "Adam", avatar: "assets/Adam.png", text: "Bro, always remember to Ctrl+S. Let's go, I'll buy you a drink.", time: "2015-11-10" }
         ]
     },
     "ryan_post_video_clue": {
@@ -571,7 +571,7 @@ const xhsPostData = {
         date: "2015-11-20", comments: "2 Comments",
         commentsList: [
             { user: "Chris", avatar: "https://randomuser.me/api/portraits/men/45.jpg", text: "You should go see a doctor man, that doesn't sound normal.", time: "2015-11-21" },
-            { user: "Adam", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150", text: "Take it easy, I'll bring you some hot soup later.", time: "2015-11-21" }
+            { user: "Adam", avatar: "assets/Adam.png", text: "Take it easy, I'll bring you some hot soup later.", time: "2015-11-21" }
         ]
     },
     "ryan_post_eng2": {
@@ -1368,7 +1368,7 @@ function openXhsDm(userId, isBack = false) {
     const container = document.getElementById('xhs-dm-messages');
     container.innerHTML = '';
 
-    const adamXhsAvatar = `background-image: url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150')`;
+    const adamXhsAvatar = `background-image: url('assets/Adam.png')`;
     const targetXhsAvatar = data.avatar ? `background-image: url('${data.avatar}')` : `background-color: #ccc;`;
     
     data.messages.forEach(msg => {
