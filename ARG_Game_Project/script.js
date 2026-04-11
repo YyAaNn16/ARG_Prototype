@@ -151,7 +151,7 @@ const xhsPostData = {
         commentsList: [{ user: "DailyVibes", avatar: "", text: "Welcome! Hope you enjoy it here! 😊", time: "2025.8.20" }]
     },
     "luna_post_tomato_egg": {
-        img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=500",
+        img: "assets/fanqiechaodan.png",
         author: "🌙 YUE 🌙", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
         text: "My first time making Chinese food! ~ 🍳\nTomato and egg stir-fry is so tasty and easy. It's hands-down the best companion for a bowl of rice, no competition! \n#TomatoEggStirFry #ChineseStomach #ILoveTomatoes #ChineseFood",
         date: "2025.09.15", comments: "2 Comments",
@@ -161,7 +161,7 @@ const xhsPostData = {
         ]
     },
     "luna_post_cola_chicken": {
-        img: "https://images.unsplash.com/photo-1527477396000-e27163b481c2?q=80&w=500",
+        img: "assets/kelejichi.png",
         author: "🌙 YUE 🌙", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
         text: "So many people recommended I try Cola Chicken Wings~ \nThanks for the suggestions, I finally got to taste this perfection! What Chinese dish should I challenge next? 🍗\n#ColaChickenWings #Foodie",
         date: "2025.09.28", comments: "2 Comments",
@@ -171,7 +171,7 @@ const xhsPostData = {
         ]
     },
     "luna_post_luosifen": {
-        img: "https://images.unsplash.com/photo-1552611052-33e04de081de?q=80&w=500",
+        img: "assets/luosifen.png",
         author: "🌙 YUE 🌙", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
         text: "Food Share 🍜\nBravely took on the 'mild spicy' Luosifen (Snail Rice Noodles) challenge! How can something be so smelly yet so delicious at the same time? Such a unique flavor! \n#LuosifenChallenge",
         date: "2025.10.13", comments: "2 Comments",
@@ -181,7 +181,7 @@ const xhsPostData = {
         ]
     },
     "luna_post_unboxing_2025": {
-        img: "https://cdn.shopify.com/s/files/1/0879/1520/0785/files/30_1024x1024.jpg?v=1726396117",
+        img: "assets/unboxing.png",
         author: "🌙 YUE 🌙", avatar: "https://randomuser.me/api/portraits/women/44.jpg",
         text: "Unboxing! ✨\nAbsolutely in love with the gift from my babe 🎁",
         date: "2025.12.21", comments: "1 Comments",
@@ -219,7 +219,7 @@ const xhsPostData = {
         ]
     },
     "ryan_post_3": {
-        img: "https://images.unsplash.com/photo-1530103043960-ef38714abb15?q=80&w=500",
+        img: "assets/birthday_.png",
         author: "Deactivated Account", avatar: "",
         text: "Another year older, wishing to be even happier than yesterday. Thanks for all the wishes and gifts! ~",
         date: "2019-03-15", comments: "2 Comments",
@@ -229,7 +229,7 @@ const xhsPostData = {
         ]
     },
     "ryan_post_4": {
-        img: "https://images.unsplash.com/photo-1550534731-2e673f4e2f4a?q=80&w=500",
+        img: "assets/sleeping.png",
         author: "Deactivated Account", avatar: "",
         text: "Not sure why, but I've been feeling so lightheaded lately. Maybe winter is just made for sleeping... 🥱",
         date: "2019-11-21", comments: "2 Comments",
@@ -405,7 +405,7 @@ const xhsPostData = {
     },
 
          // 主页
- "post_work_1": {
+    "post_work_1": {
         img: "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?q=80&w=500",
         author: "Aero_Nav", avatar: "https://randomuser.me/api/portraits/men/32.jpg",
         text: "Midnight shift at the terminal. 🌙\nEverything is moving like clockwork. Watching the last flight land safely at 2 AM is the best relief. \n#Aviation #AirportDaily #ATC",
@@ -427,7 +427,7 @@ const xhsPostData = {
         commentsList: [{ user: "Zen_Lover", avatar: "", text: "Switching was the best choice for me too.", time: "3d ago" }]
     },
     "post_heart_3": {
-        img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=500",
+        img: "assets/hailuyu.png",
         author: "Clean_Kitchen", avatar: "https://randomuser.me/api/portraits/women/63.jpg",
         text: "Heart-Friendly Meal: Steamed Seabass with Ginger. 🥗\nLow sodium, zero oil, high protein. Keeping things light.\n#CleanEating #HealthyRecipes #Wellness",
         date: "2026.03.25", comments: "16 Comments",
@@ -469,21 +469,21 @@ const xhsPostData = {
         commentsList: [{ user: "Chef_Ron", avatar: "", text: "Finally! No milk is the traditional way.", time: "1d ago" }]
     },
     "post_thai_3": {
-        img: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?q=80&w=500",
+        img: "assets/chuanmian.png",
         author: "Street_Guide", avatar: "https://randomuser.me/api/portraits/men/14.jpg",
         text: "Holy grail of Boat Noodles in BKK. 🍜\nTiny roadside stall, rich broth, and a local crowd. Skip the tourist traps.\n#HiddenGems #BKK #FoodGuide",
         date: "2026.04.03", comments: "39 Comments",
         commentsList: [{ user: "Sam_Travels", avatar: "", text: "Where exactly is this located?", time: "1d ago" }]
     },
     "post_thai_4": {
-        img: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=500",
+        img: "assets/qingcaogao.png",
         author: "BKK_Events", avatar: "https://randomuser.me/api/portraits/women/15.jpg",
         text: "The Glass Chapel is absolutely stunning. ⛪\nThe way sunlight filters through is calculated for pure perfection.\n#Architecture #BKK #WeddingVibes",
         date: "2026.04.05", comments: "12 Comments",
         commentsList: [{ user: "Dream_Day", avatar: "", text: "Stunning venue.", time: "1d ago" }]
     },
     "post_thai_5": {
-        img: "https://images.unsplash.com/photo-1584308666744-24d5e471956c?q=80&w=500",
+        img: "assets/qingcaogao.png",
         author: "Shopaholic_BKK", avatar: "https://randomuser.me/api/portraits/women/16.jpg",
         text: "BKK Souvenirs: Don't leave without these! 🎁\nTraditional Herbal Balm for everything and sleep-well spray. Practical and local.\n#ShoppingList #Thailand #TravelGifts",
         date: "2026.04.07", comments: "245 Comments",
@@ -491,7 +491,7 @@ const xhsPostData = {
     
     },
     "post_news_adam": {
-        img: "https://images.unsplash.com/photo-1541888086925-ebcfbdf3c2b8?q=80&w=500", 
+        img: "assets/BreakingNews.png", 
         author: "Bangkok Daily", 
         avatar: "https://randomuser.me/api/portraits/men/82.jpg",
         text: "[Bangkok News]\nOn April 8th, a Chinese man surnamed Lu (also known as Adam) tragically passed away after suddenly collapsing during a wedding ceremony at a Bangkok hotel. Preliminary reports suggest a possible heart condition, though the exact cause of death remains under investigation. Local authorities are currently collecting evidence and reviewing surveillance footage.\n#BangkokNews #BreakingNews",
@@ -1146,60 +1146,6 @@ function switchXhsTab(pageId, navElement) {
 }
 
 
-// function renderXhsHomeFeed() {
-//     const feedContainer = document.querySelector('#xhs-home .xhs-feed');
-//     feedContainer.innerHTML = ''; // 清空原本写死的HTML结构
-
-//     // 定义你想在首页展示的帖子 ID 数组（可以随意调整顺序或增减）
-//     const homePosts = [
-//         'luna_post_1', 
-//         'luna_post_unboxing', 
-//         'mock_post_1', 
-//         'mock_post_2', 
-//         'mock_post_3', 
-//         'mock_post_4', 
-//         'mock_post_5'
-//     ];
-
-//     homePosts.forEach(postId => {
-//         const post = xhsPostData[postId];
-//         if (post) {
-//             feedContainer.innerHTML += `
-//                 <div class="xhs-post" onclick="openXhsDetail('${postId}')">
-//                     <img src="${post.img}" alt="post">
-//                     <div class="xhs-post-title">${post.text.substring(0, 35)}...</div>
-//                 </div>
-//             `;
-//         }
-//     });
-// }
-
-// function renderXhsHomeFeed() {
-//     const feedContainer = document.querySelector('#xhs-home .xhs-feed');
-//     if (!feedContainer) return;
-//     feedContainer.innerHTML = ''; 
-
-//     const homePosts = [
-//         'post_work_1', 'post_work_3', 'post_heart_1', 'post_heart_3',
-//         'post_photo_1', 'post_game_1', 'post_psych_1', 'post_psych_2',
-//         'post_thai_2', 'post_thai_3', 'post_thai_4', 'post_thai_5'
-//     ];
-
-//     homePosts.forEach(postId => {
-//         const post = xhsPostData[postId];
-//         if (post) {
-//             // 获取正文第一行作为标题
-//             const titleText = post.text.split('\n')[0]; 
-            
-//             feedContainer.innerHTML += `
-//                 <div class="xhs-post" onclick="openXhsDetail('${postId}')">
-//                     <img src="${post.img}" alt="post">
-//                     <div class="xhs-post-title">${titleText}</div>
-//                 </div>
-//             `;
-//         }
-//     });
-// }
 // 辅助函数：统一生成帖子 HTML 结构
 function createXhsPostHTML(postId) {
     const post = xhsPostData[postId];
@@ -1763,7 +1709,7 @@ const browserData = {
             { 
                 url: "www.aurora-love-forever.com", 
                 title: "Our Eternal Aurora - H&L", 
-                snippet: "Est. 2024.02.14. Welcome to our digital diary. A place where Hope and Lucas keep their most precious memories, from Bangkok to Iceland...",
+                snippet: "Welcome to our digital diary. A place where Hope and Lucas keep their most precious memories, from Bangkok to Iceland...",
                 clickAction: "navBrowser('couple-login')" 
             },
             // 伪装的干扰项：让搜索结果看起来像一个真实的页面合集
@@ -2234,7 +2180,7 @@ const handsPassword = "42637"; // 对应 H-A-N-D-S
 // --- [更新] Data_Recovered 文件夹内容，增加了开场 Motto ---
 const handsFolderData = {
     files: [
-        { type: "img", name: "RECOVERY_01.JPG", url: "https://images.unsplash.com/photo-1542553458-79a13aebfda6?q=80&w=200" }, 
+        { type: "img", name: "RECOVERY_01.JPG", url: "assets/immigration_record.png" }, 
         { type: "img", name: "RECOVERY_02.JPG", url: "https://images.unsplash.com/photo-1516195851888-6f1a981a8a2a?q=80&w=200" },
         { type: "img", name: "RECOVERY_03.JPG", url: "https://images.unsplash.com/photo-1583005825000-85f750739906?q=80&w=200" },
         { 
