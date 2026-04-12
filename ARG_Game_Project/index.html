@@ -163,6 +163,28 @@
             </div>
             <p id="ryan-pwd-error" style="color:red; font-size:11px; margin-top:10px; height:12px;"></p>
         </div>
+
+        <div id="diary-password-screen"
+            style="display:none; position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; flex-direction:column; justify-content:center; align-items:center;">
+            <div
+                style="background:#1a1a1a; border:1px solid #444; padding:30px; border-radius:4px; text-align:center; color:white; width: 320px; box-shadow: 0 10px 30px rgba(0,0,0,0.8);">
+                <h3 style="margin-top:0; font-family:serif; color:#f0d799; letter-spacing: 1px;">Encrypted Document</h3>
+                <p style="font-size:12px; color:#aaa; margin-bottom:20px; line-height:1.5;">This text file is protected by a
+                    custom passphrase. Please enter the decryption key.</p>
+        
+                <input type="text" id="diary-pwd-input" placeholder="Enter passphrase..." autocomplete="off"
+                    style="width:85%; padding:10px; margin-bottom:10px; background:#000; color:#fff; border:1px solid #555; border-radius:2px; text-align:center; font-family: monospace;">
+        
+                <div id="diary-pwd-error" style="color:#ff4444; font-size:11px; height:15px; margin-bottom:15px;"></div>
+        
+                <div>
+                    <button onclick="document.getElementById('diary-password-screen').style.display='none'"
+                        style="padding:6px 16px; cursor:pointer; background:transparent; border:1px solid #555; color:#aaa; border-radius:2px; margin-right:10px; transition: 0.2s;">Cancel</button>
+                    <button onclick="checkDiaryPassword()"
+                        style="padding:6px 16px; cursor:pointer; background:#f0d799; border:none; color:#000; border-radius:2px; font-weight:bold; transition: 0.2s;">Decrypt</button>
+                </div>
+            </div>
+        </div>
     
         <div id="ryan-content-view" class="file-grid" style="display:none; background:#fff; flex:1; overflow-y:auto;">
             </div>
@@ -297,7 +319,7 @@
         </div>
         <div style="flex:1; background:#f0f0f0;" class="file-grid">
             <div style="width:100%; color:#888; font-size:12px;">Items deleted recently:</div>
-            <div class="icon-item" onclick="openWindow('win-preview')">
+            <div class="icon-item" onclick="openReceiptPreview()">
                 <span class="file-visual">📄</span>
                 <div class="icon-name">Receipt_8823.pdf</div>
             </div>
@@ -698,6 +720,19 @@
                         <div class="diary-post">
                             <span class="diary-date">Feb 14, 2024</span>
                             <p>Today, we finally made it official. It's a new beginning for both of us. Looking back at the path we've walked—filled with so much sweetness and some pain—it all feels worth it. Here's to us. ❤️</p>
+                            <div style="position: relative; margin-top: 15px;">
+                                <img src="assets/Hope.png" alt="Hope"
+                                    style="width: 100%; border-radius: 8px; border: 3px solid #fff; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
+                            
+                                <button class="minimal-download-btn" onclick="triggerDownload('hope_now')" title="Download Photo">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="7 10 12 15 17 10"></polyline>
+                                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
             
                         <div class="diary-post">
@@ -1266,10 +1301,20 @@
                         </p>
                     </div>
             
-                    <img src="assets/Lucas_interview.png"
-                        alt="Lucas Cheng"
-                        style="width: 100%; height: 600px; object-fit: cover; border-radius: 4px; margin-bottom: 30px;">
-            
+                    <div style="position: relative; margin-bottom: 30px;">
+                        <img src="assets/Lucas_interview.png" alt="Lucas Cheng"
+                            style="width: 100%; height: 600px; object-fit: cover; border-radius: 4px;">
+                    
+                        <button class="minimal-download-btn" onclick="triggerDownload('lucas_now')" title="Download Archive Photo">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                        </button>
+                    </div>
+
                     <div class="interview-text" style="font-size: 17px; line-height: 1.8; color: #333;">
                         <p style="font-weight: bold; font-size: 18px; color: #000;">MUST: Lucas, it is a pleasure to connect. Your
                             journey from a MUST Operations Management graduate to managing core operations in Bangkok is fascinating.
@@ -1299,7 +1344,7 @@
     // Secret message window (initially hidden)
 
     <div id="win-secret-msg" class="window"
-    style="width: 500px; height: 280px; top: 150px; left: 300px; display: none; background: #000; border: 1px solid #333;">
+    style="width: 500px; height: 280px; top: 150px; left: 300px; display: none; border: 1px solid #333;">
 
     <div class="title-bar" style="background: #1a1a1a; border-bottom: 1px solid #333;">
         <div class="traffic-lights">

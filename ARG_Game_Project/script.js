@@ -7,6 +7,12 @@ let gameState = {
     notesContent: "",          // 记录记事本里玩家写的字
     xhsMsgUnlocked: false,      // 记录小红书私信是否已解锁
     foundFaceMatch: false,       // 记录是否已经找到人脸匹配的线索
+    unlockedRyanFolder: false,   // 记录 Ryan 文件夹是否已解锁
+    unlockedHandsFolder: false,   // 记录 Data_Recovered(Hands) 文件夹是否已解锁
+    unlockedCoupleSite: false,  // ✨ 新增：情侣网站是否已解锁
+    unlockedDownloads: ['adam_now', 'adam_school'],    // 假设默认可见的两个文件的 ID 分别是 'ryan_school' 和 'adam_school'
+    unlockedDiary: false   // ✨ 新增：记录最终日记是否已解锁
+
     // 以后可以在这里随意添加剧情节点，比如：
     // unlockedHiddenFolder: false,
 
@@ -1781,6 +1787,11 @@ function navBrowser(viewId, isBack = false) {
     }
 
     else if (viewId === 'couple-login') {
+        // ✨ 如果已经解锁，直接重定向到主页，不再显示登录框
+        if (gameState.unlockedCoupleSite) {
+            navBrowser('couple-main', true); 
+            return;
+        }
         urlBar.value = "www.aurora-love-forever.com/login";
         currentTitle = "Our Eternal Aurora";
     }
@@ -2033,15 +2044,21 @@ const ryanFolderData = {
 };
 
 // --- 2. 新增功能函数 ---
-
-// 显示密码输入框
+// 显示密码输入框 (如果已解锁则直接进入)
 function showRyanPasswordPrompt(element) {
-    document.getElementById('files-main-view').style.display = 'none';
-    document.getElementById('ryan-password-screen').style.display = 'flex';
-
-    // 新增：更新路径显示
+    // 更新路径显示
     const folderName = element.querySelector('.icon-name').innerText;
     document.getElementById('current-folder-path').innerText = "My Documents > " + folderName;
+
+    document.getElementById('files-main-view').style.display = 'none';
+
+    // 判断存档：如果已解锁，直接渲染并显示内容
+    if (gameState.unlockedRyanFolder) {
+        renderRyanContent();
+    } else {
+        // 未解锁，显示密码输入界面
+        document.getElementById('ryan-password-screen').style.display = 'flex';
+    }
 }
 
 // 返回主文件夹视图
@@ -2057,6 +2074,10 @@ function backToFilesMain() {
 function checkRyanPassword() {
     const input = document.getElementById('ryan-pwd-input').value;
     if (input === ryanFolderData.password) {
+        // 密码正确：更新存档状态
+        gameState.unlockedRyanFolder = true;
+        saveGame();
+        
         renderRyanContent();
     } else {
         const error = document.getElementById('ryan-pwd-error');
@@ -2093,62 +2114,90 @@ function renderRyanContent() {
     });
 }
 
-// // 借用现有的 Preview 窗口展示大图 (简单的覆盖逻辑)
-// function openImagePreview(url) {
-//     const previewWin = document.getElementById('win-preview');
-//     // 修改 Preview 窗口的内容为图片
-//     const contentArea = previewWin.querySelector('.receipt-paper').parentElement;
-//     contentArea.innerHTML = `<img src="${url}" style="max-width:90%; border:5px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">`;
-//     openWindow('win-preview');
-// }
-
-// // 借用现有的 Preview 窗口展示日记内容
-// function openDiaryPreview(title, content) {
-//     const previewWin = document.getElementById('win-preview');
-//     const contentArea = previewWin.querySelector('.receipt-paper').parentElement;
-//     contentArea.innerHTML = `
-//         <div style="background:#fff; padding:30px; width:80%; min-height:80%; font-family:serif; line-height:1.6; color:#222; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-//             <h4 style="border-bottom:1px solid #eee; padding-bottom:10px;">${title}</h4>
-//             <p style="white-space: pre-wrap; font-size:14px;">${content}</p>
-//         </div>`;
-//     openWindow('win-preview');
-// }
-
-
-// 修改 script.js 中的 openImagePreview 函数
-function openImagePreview(url) {
+// --- 专门用于打开并渲染回收站小票的函数 ---
+function openReceiptPreview() {
     const previewWin = document.getElementById('win-preview');
-    // 获取存放内容的容器（.title-bar 下方的那个 div）
+    
+    // 小票恢复原本的窄屏 340px
+    previewWin.style.width = '340px';
+    previewWin.style.height = '480px';
+
+    // 获取存放内容的容器
     const contentArea = previewWin.querySelector('.title-bar').nextElementSibling;
     
-    // 彻底清空内容，防止旧的 receipt 或 image 干扰
+    // 彻底清空内容，并恢复小票专属的背景样式
     contentArea.innerHTML = '';
-    contentArea.style = "background:#1a1a1a; flex:1; display:flex; align-items:center; justify-content:center; overflow:hidden;";
-
-    // 创建新的图片元素
-    const img = document.createElement('img');
-    img.src = url;
-    img.style = "max-width:90%; max-height:90%; border:5px solid white; box-shadow: 0 10px 30px rgba(0,0,0,0.5); object-fit: contain;";
+    contentArea.style = "background:#333; flex:1; overflow:auto; display:flex; justify-content:center; padding-top:20px;";
     
-    contentArea.appendChild(img);
+    // 重新注入小票的完整 HTML 结构
+    contentArea.innerHTML = `
+        <div class="receipt-paper">
+            <div style="text-align:center; border-bottom:2px dashed #333; padding-bottom:10px; margin-bottom:10px;">
+                <h3>RECEIPT</h3>
+                <p style="font-size:10px">Guangzhou Logistics Center</p>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:5px;">
+                <span>Date: 2023-10-01</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:5px; background: yellow; color:black; font-weight:bold;">
+                <span>TRACKING NO:</span><span>SF-8823</span>
+            </div>
+            
+            <div style="text-align: center; font-size: 9px; color: #666; margin-top: 5px; margin-bottom: 10px;">
+                (Search 'SF Express' to check the tracking status)
+            </div>
+            <hr style="border-top:1px dashed #ccc; margin:10px 0;">
+            <div style="font-weight:bold; font-size:12px; margin-bottom:5px;">ITEM DESCRIPTION</div>
+            <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:10px;">
+                <span style="width:70%">Fashion Handbag<br><span style="color:#666; font-size:10px;">(Luxury Style / Orange)</span></span>
+                <span>¥800,000.00</span>
+            </div>
+            <div style="border-top:2px dashed #333; margin-top:20px; padding-top:10px; font-weight:bold; display:flex; justify-content:space-between; font-size:14px;">
+                <span>TOTAL:</span><span>¥800,000.00</span>
+            </div>
+            <div class="stamp">PAID</div>
+        </div>
+    `;
     
     // 打开窗口并置顶
     previewWin.style.display = 'flex';
     previewWin.style.zIndex = ++zIndex;
 }
 
-// 同时也建议修复一下 openDiaryPreview 确保它也不会破坏结构
-function openDiaryPreview(title, content) {
+function openImagePreview(url) {
     const previewWin = document.getElementById('win-preview');
-
-    // 原来是 340px，我们把它改成 600px 或者你喜欢的宽度
-    previewWin.style.width = '600px';
+    
+    // ✨ 核心修改：将窗口宽度扩大至 800px，高度自适应
+    previewWin.style.width = '800px'; 
+    previewWin.style.height = '600px'; // 给一个固定高度，方便大图滚动
 
     const contentArea = previewWin.querySelector('.title-bar').nextElementSibling;
     
+    contentArea.innerHTML = '';
+    // 修改 style：增加 overflow: auto 允许滚动查看超出的图片部分
+    contentArea.style = "background:#1a1a1a; flex:1; display:flex; align-items:flex-start; justify-content:center; overflow:auto; padding: 20px;";
 
+    const img = document.createElement('img');
+    img.src = url;
+    // 让图片宽度撑满容器，高度自动，保证文字清晰度
+    img.style = "width:100%; height:auto; border:5px solid white; box-shadow: 0 10px 30px rgba(0,0,0,0.5);";
+    
+    contentArea.appendChild(img);
+    
+    previewWin.style.display = 'flex';
+    previewWin.style.zIndex = ++zIndex;
+}
 
+// 修改日记预览尺寸
+function openDiaryPreview(title, content) {
+    const previewWin = document.getElementById('win-preview');
 
+    // 日记建议宽度 600px
+    previewWin.style.width = '600px';
+    previewWin.style.height = '500px';
+
+    const contentArea = previewWin.querySelector('.title-bar').nextElementSibling;
+    
     contentArea.innerHTML = '';
     contentArea.style = "background:#333; flex:1; overflow:auto; display:flex; justify-content:center; padding:20px;";
     
@@ -2170,15 +2219,18 @@ const handsPassword = "42637"; // 对应 H-A-N-D-S
 // --- [更新] Data_Recovered 文件夹内容，增加了开场 Motto ---
 const handsFolderData = {
     files: [
-        { type: "img", name: "xin💗.JPG", url: "assets/xin.png" }, 
-        { type: "img", name: "Xin💗💗.JPG", url: "assets/xin2.png" },
-        { type: "img", name: "Xin💗💗💗.JPG", url: "assets/xin3.png" },
-        { type: "img", name: "Xin💗💗💗💗.JPG", url: "assets/xin4.png" },
-        { type: "img", name: "Xin💗💗💗💗💗.JPG", url: "assets/xin5.png" },
+        { type: "img", name: "xin💗.JPG", url: "assets/xin.png", charId: "xin", forFaceMatch: true }, 
+        { type: "img", name: "Xin💗💗.JPG", url: "assets/xin2.png", charId: "xin", forFaceMatch: true },
+        { type: "img", name: "Xin💗💗💗.JPG", url: "assets/xin3.png", charId: "xin", forFaceMatch: true },
+        { type: "img", name: "Xin💗💗💗💗.JPG", url: "assets/xin4.png", charId: "xin", forFaceMatch: true },
+        { type: "img", name: "Xin💗💗💗💗💗.JPG", url: "assets/xin5.png", charId: "xin", forFaceMatch: true },
+        { type: "img", name: "immigration_record.png", url: "assets/immigration_record.png", charId: "nothing", forFaceMatch: false },
       
         { 
             type: "txt", 
             name: "My Diary.txt", 
+            // ✨ 新增自定义图标路径
+            customIcon: "assets/npd-logo1.png",
             content: `The misunderstood carry the vision of the future.
 The misunderstood define the truth of the world.
 
@@ -2260,38 +2312,14 @@ I am going to destroy this wedding.`
     ]
 };
 
-// --- [新增] 动态渲染函数：让图标变小并复用样式 ---
-// --- [修改版] 动态渲染函数：使用索引确保点击有效 ---
-// function renderHandsContent() {
-//     const container = document.getElementById('hands-content-view');
-//     if (!container) return;
-//     container.innerHTML = ''; 
+// 修改 script.js 中的 renderHandsContent 函数
 
-//     handsFolderData.files.forEach((file, index) => {
-//         let html = '';
-//         if (file.type === 'img') {
-//             html = `
-//                 <div class="ryan-item" onclick="openImagePreview('${file.url}')">
-//                     <img src="${file.url}" class="ryan-photo-thumb">
-//                     <div class="icon-name" style="font-size:10px;">${file.name}</div>
-//                 </div>`;
-//         } else {
-//             // ✨ 关键修改：不再传递 file.content，而是传递 index
-//             html = `
-//                 <div class="ryan-item" onclick="handleHandsFileClick(${index})">
-//                     <span class="ryan-file-icon">📄</span>
-//                     <div class="icon-name" style="font-size:10px;">${file.name}</div>
-//                 </div>`;
-//         }
-//         container.innerHTML += html;
-//     });
-// }
 function renderHandsContent() {
     const container = document.getElementById('hands-content-view');
     if (!container) return;
     container.innerHTML = ''; 
 
-    handsFolderData.files.forEach((file, index) => { // 注意这里加了 index
+    handsFolderData.files.forEach((file, index) => {
         let html = '';
         if (file.type === 'img') {
             html = `
@@ -2300,11 +2328,24 @@ function renderHandsContent() {
                     <div class="icon-name" style="font-size:10px;">${file.name}</div>
                 </div>`;
         } else {
-            // ✨ 重点修改：onclick 只传数字 index，彻底避开文字冲突
+            // ✨ 核心修改：在日记图标右下角叠加一个锁 🔒
+
+            // 1. 创建图标的 HTML（保持之前的放大填充逻辑）
+            let iconHTML = file.customIcon 
+                ? `<img src="${file.customIcon}" style="width:100%; height:100%; object-fit:cover; border-radius:3px;">`
+                : `<span class="ryan-file-icon">📄</span>`;
+
+            // 2. 如果是名为 "My Diary.txt" 的加密日记，则准备锁的 HTML
+            let lockHTML = (file.name === "My Diary.txt")
+                ? `<span style="position: absolute; bottom: 2px; right: 2px; font-size: 16px; background: rgba(0,0,0,0.6); border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.4); z-index: 10;">🔒</span>`
+                : '';
+
+            // 3. 构建完整的 HTML，使用 position: relative 包裹容器，并溢出隐藏
             html = `
-                <div class="ryan-item" onclick="openHandsDiaryByIndex(${index})">
-                    <div class="ryan-photo-thumb">
-                        <span class="ryan-file-icon">📄</span>
+                <div class="ryan-item" onclick="openHandsDiaryByIndex(${index})" style="position: relative;">
+                    <div class="ryan-photo-thumb" style="overflow:hidden; position: relative;">
+                        ${iconHTML}
+                        ${lockHTML} 
                     </div>
                     <div class="icon-name" style="font-size:10px;">${file.name}</div>
                 </div>`;
@@ -2312,12 +2353,57 @@ function renderHandsContent() {
         container.innerHTML += html;
     });
 }
+
+// 全局变量，用来记住玩家刚才点的是哪一个文件
+let currentDiaryIndex = -1;
+
 // 这个函数专门负责根据索引打开 Data_Recovered 里的日记
+// 打开文本类文件时的逻辑判定
 function openHandsDiaryByIndex(index) {
     const file = handsFolderData.files[index];
-    if (file) {
-        // 调用你之前写好的、宽 600px 的预览函数
+    
+    // ✨ 核心判定：如果点的是日记，且尚未解锁
+    if (file.name === "My Diary.txt" && !gameState.unlockedDiary) {
+        currentDiaryIndex = index; // 记录当前索引
+        
+        // 初始化弹窗并显示
+        document.getElementById('diary-pwd-input').value = "";
+        document.getElementById('diary-pwd-error').innerText = "";
+        document.getElementById('diary-password-screen').style.display = 'flex';
+        document.getElementById('diary-pwd-input').focus();
+        return; // 终止执行，不直接打开
+    }
+    
+    // 如果是其他普通文本，或者日记已经解锁，则正常打开
+    openDiaryPreview(file.name, file.content);
+}
+
+// 校验日记密码
+function checkDiaryPassword() {
+    // 获取输入，转小写并去除两端空格，方便判定
+    const input = document.getElementById('diary-pwd-input').value.trim().toLowerCase();
+    const errorMsg = document.getElementById('diary-pwd-error');
+    
+    // 目标密码判定 (将 "The misunderstood" 转为小写进行对比)
+    if (input === "the misunderstood") {
+        // 解锁成功：更新存档
+        gameState.unlockedDiary = true;
+        saveGame();
+        
+        // 隐藏密码框
+        document.getElementById('diary-password-screen').style.display = 'none';
+        
+        // 提取日记内容并直接打开
+        const file = handsFolderData.files[currentDiaryIndex];
         openDiaryPreview(file.name, file.content);
+        
+    } else {
+        // 解锁失败：显示错误提示并触发震动动画
+        errorMsg.innerText = "Decryption failed. Incorrect passphrase.";
+        const inputField = document.getElementById('diary-pwd-input');
+        
+        inputField.style.animation = "shake 0.3s";
+        setTimeout(() => inputField.style.animation = "", 300);
     }
 }
 
@@ -2331,17 +2417,23 @@ function handleHandsFileClick(index) {
 }
 
 
-
-
-// 打开键盘界面
+// 打开键盘界面 (如果已解锁则直接进入)
 function showHandsPasswordPrompt(element) {
-    document.getElementById('files-main-view').style.display = 'none';
-    document.getElementById('hands-password-screen').style.display = 'flex';
-    t9Clear(); // 每次打开都清空输入
-
-    // 新增：更新路径显示
+    // 更新路径显示
     const folderName = element.querySelector('.icon-name').innerText;
     document.getElementById('current-folder-path').innerText = "My Documents > " + folderName;
+
+    document.getElementById('files-main-view').style.display = 'none';
+
+    // 判断存档：如果已解锁，直接渲染并显示内容
+    if (gameState.unlockedHandsFolder) {
+        document.getElementById('hands-content-view').style.display = 'flex';
+        renderHandsContent();
+    } else {
+        // 未解锁，显示密码键盘
+        document.getElementById('hands-password-screen').style.display = 'flex';
+        t9Clear(); // 每次打开都清空输入
+    }
 }
 
 // 返回主文件夹
@@ -2375,12 +2467,15 @@ function updateT9Display() {
 // 提交验证 (OK)
 function t9Submit() {
     if (currentT9Input === handsPassword) {
-        // 密码正确
+        // 密码正确：更新存档状态
+        gameState.unlockedHandsFolder = true;
+        saveGame();
+
         document.getElementById('hands-password-screen').style.display = 'none';
         const contentView = document.getElementById('hands-content-view');
         contentView.style.display = 'flex';
 
-        // ✨ 在这里添加这一行，触发渲染
+        // 触发渲染
         renderHandsContent();
 
     } else {
@@ -2613,35 +2708,6 @@ function startProgress() {
 }
 
 
-// function checkCouplePassword() {
-//     const pwd = document.getElementById('couple-pwd-input').value;
-//     const errorMsg = document.getElementById('couple-login-error');
-    
-//     // if (pwd === "LC20220808") {
-//     //     navBrowser('couple-main'); // 密码正确，调用导航函数去主页
-//     // } 
-    
-
-//     if (pwd === "LC20220808") {
-//         // [新增] 成功登录后，向历史记录最前面添加一条“主页”记录
-//         browserData.history.unshift({ 
-//             time: "Just now", 
-//             title: "Our Eternal Aurora - C&L", 
-//             url: "www.aurora-love-forever.com/home",
-//             clickAction: "navBrowser('couple-main')" 
-//         });
-//         navBrowser('couple-main'); // 进入主页
-//     }
-
-    
-//     else {
-//         // 密码错误逻辑
-//         errorMsg.innerText = "Only for those who remember the beginning.";
-//         const inputField = document.getElementById('couple-pwd-input');
-//         inputField.style.animation = "shake 0.3s";
-//         setTimeout(() => inputField.style.animation = "", 300);
-//     }
-// }
 
 function checkCouplePassword() {
     // 获取两个输入框的值
@@ -2651,6 +2717,10 @@ function checkCouplePassword() {
     
     // 校验逻辑：歌词（忽略大小写）和日期
     if (lyricsInput === "only fools" && dateInput === "2024.02.14") {
+        // ✨ 核心修改：设置解锁状态并存档
+        gameState.unlockedCoupleSite = true;
+        saveGame();
+
         // 成功登录
         browserData.history.unshift({ 
             time: "Just now", 
@@ -2833,14 +2903,15 @@ function renderFaceMatchHistory() {
     });
 }
 
-// --- 桌面测试资源数据 (1920-2027 符合逻辑) ---
+// --- 桌面测试资源数据 (加入了隐藏的 charId) ---
+// --- 更新下载文件夹数据 (增加 id 属性) ---
 const downloadsFiles = [
-    { name: "ryan_school.jpg", url: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?q=80&w=200%22%20" },
-    { name: "adam_school.jpg", url: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200" },
-    { name: "chris_school.jpg", url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200" },
-    { name: "luna_now.png", url: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200" },
-    { name: "adam_now.jpg", url: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=200" },
-    { name: "chris_now.jpg", url: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200" }
+    { id: "adam_school", name: "adam_school.jpg", url: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200", charId: "adam", forFaceMatch: true },
+    { id: "lucas_school", name: "lucas_school.jpg", url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200", charId: "lucas", forFaceMatch: true },
+    { id: "hope_now", name: "oureternalaurora0214.png", url: "assets/Hope.png", charId: "hope", forFaceMatch: true },
+    { id: "adam_now", name: "adam_now.jpg", url: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=200", charId: "adam", forFaceMatch: true },
+    { id: "lucas_now", name: "lucas_now.jpg", url: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200", charId: "lucas", forFaceMatch: true },
+    { id: "luna_now", name: "luna_now.png", url: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200", charId: "luna", forFaceMatch: true }
 ];
 
 // 渲染 Downloads 文件夹内容函数
@@ -2850,7 +2921,13 @@ function renderDownloads() {
     if (!container) return;
     
     container.innerHTML = '';
-    downloadsFiles.forEach(file => {
+
+    // ✨ 核心修改：增加过滤逻辑
+    const visibleFiles = downloadsFiles.filter(file => 
+        gameState.unlockedDownloads.includes(file.id)
+    );
+
+    visibleFiles.forEach(file => {
         // ✨ 修改这里：复用 ryan-item 和 ryan-photo-thumb 样式限制图片大小 ✨
         container.innerHTML += `
             <div class="ryan-item" onclick="openImagePreview('${file.url}')">
@@ -2858,6 +2935,35 @@ function renderDownloads() {
                 <div class="icon-name" style="font-size:10px; word-break: break-all; margin-top: 5px;">${file.name}</div>
             </div>`;
     });
+}
+
+/**
+ * 触发“下载”动作
+ * @param {string} fileId - 要解锁的文件 ID
+ */
+function triggerDownload(fileId) {
+    // 如果已经下载过了，直接跳过
+    if (gameState.unlockedDownloads.includes(fileId)) {
+        showNotification("System", "File already exists in Downloads.");
+        return;
+    }
+
+    // 将文件 ID 加入已解锁列表并存档
+    gameState.unlockedDownloads.push(fileId);
+    saveGame();
+
+    // 重新渲染下载文件夹（如果窗口开着，玩家能看到即时变化）
+    renderDownloads();
+
+    // 发送一个系统通知增加真实感
+    const file = downloadsFiles.find(f => f.id === fileId);
+    const fileName = file ? file.name : "New File";
+    
+    showNotification(
+        "Download Complete", 
+        `${fileName} has been saved to Downloads.`, 
+        "⬇️"
+    );
 }
 
 // 人脸识别预览处理
@@ -2878,10 +2984,13 @@ function runFaceRecognition() {
     const faceResultBox = document.getElementById('face-result');
 
     if (!imgA || !imgB) { 
-        alert("Please select photos from the desktop first."); 
+        alert("Please select photos from the database first."); 
         return; 
     }
 
+    // ✨ 核心修改：读取隐藏的身份 ID 进行比对
+    const charA = imgA.getAttribute('data-char-id');
+    const charB = imgB.getAttribute('data-char-id');
     const nameA = imgA.getAttribute('data-name');
     const nameB = imgB.getAttribute('data-name');
 
@@ -2894,46 +3003,40 @@ function runFaceRecognition() {
         let sim = 0;
         let verdict = "";
 
-        const isRyan = (n) => n.toLowerCase().includes('ryan');
-        const isLuna = (n) => n.toLowerCase().includes('luna');
-        const isAdam = (n) => n.toLowerCase().includes('adam');
-        const isChris = (n) => n.toLowerCase().includes('chris');
-
-        // --- 核心判定逻辑 ---
+        // --- 核心判定逻辑 (完全基于隐藏的 charId) ---
         
-        // 1. 完全同一张照片
+        // 1. 完全是同一张照片文件
         if (nameA === nameB) {
             sim = 99; 
             verdict = "Identical Biological Signature";
         }
-        // 2. 同一个人，不同时期的照片 (Adam vs Adam / Chris vs Chris)
-        else if ((isAdam(nameA) && isAdam(nameB)) || (isChris(nameA) && isChris(nameB))) {
+        // 2. 同一个人，不同时期的照片 (比如 Adam vs Adam)
+        else if (charA === charB) {
             sim = Math.floor(Math.random() * 11) + 80; // 80%-90%
             verdict = "Identity Match Confirmed";
         }
-        // 3. Ryan 和 Luna (兄妹线索)
-        else if ((isRyan(nameA) && isLuna(nameB)) || (isLuna(nameA) && isRyan(nameB))) {
+        // 3. Ryan 和 Luna (兄妹线索爆发)
+        else if ((charA === 'xin' && charB === 'hope') || (charA === 'hope' && charB === 'xin')) {
             sim = Math.floor(Math.random() * 11) + 55; // 55%-65%
             verdict = "Significant Genetic Correlation";
 
-                if (!gameState.foundFaceMatch) {
+            if (!gameState.foundFaceMatch) {
                 gameState.foundFaceMatch = true;
                 saveGame(); 
                 
                 setTimeout(() => {
                     showNotification(
-                        "System Alert", // 标题变得冰冷
-                        "Encrypted protocol triggered. New message received.", // 提示语显得很神秘
-                        "👁️", // 用眼睛的 emoji 增加教派监视的诡异感
+                        "System Alert", 
+                        "Encrypted protocol triggered. New message received.", 
+                        "👁️", 
                         () => {
-                            // 玩家点击通知时，不再打开微信，而是打开那个黑色终端
                             openWindow('win-secret-msg');
                         }
                     );
                 }, 1000);
             }
         }
-        // 4. 跨人配对 (完全无血缘)
+        // 4. 跨人配对 (完全无关联)
         else {
             sim = Math.floor(Math.random() * 6) + 5; // 5%-10%
             verdict = "Low Correlation";
@@ -2982,9 +3085,23 @@ function selectGamePhoto(slot) {
     
     const listContainer = document.getElementById('file-picker-list');
     listContainer.innerHTML = '';
-    
+
+    // ✨ 核心修复：基础图库只提取玩家已经“下载（解锁）”的照片
+    let allAvailablePhotos = downloadsFiles.filter(file => 
+        gameState.unlockedDownloads.includes(file.id)
+    );
+
+    // ✨ 判定：如果玩家已经解开了 Data_Recovered 文件夹，就把隐藏图片加进去
+    if (gameState.unlockedHandsFolder) {
+        // 增加 .forFaceMatch === true 的过滤条件
+        const handsImages = handsFolderData.files.filter(f => 
+            f.type === 'img' && f.forFaceMatch === true
+        );
+        allAvailablePhotos = [...allAvailablePhotos, ...handsImages];
+    }
+
     // 渲染桌面上的图片作为选项
-    downloadsFiles.forEach(file => {
+    allAvailablePhotos.forEach(file => {
         const item = document.createElement('div');
         item.style = "cursor:pointer; text-align:center; border:1px solid #eee; padding:5px;";
         item.innerHTML = `
@@ -3003,8 +3120,8 @@ function confirmPhotoSelection(file) {
     const previewId = currentTargetSlot === 'A' ? 'preview-a' : 'preview-b';
     const previewBox = document.getElementById(previewId);
     
-    // 关键：在这里给图片加上 data-name，以便 runFaceRecognition 识别
-    previewBox.innerHTML = `<img src="${file.url}" data-name="${file.name}">`;
+    // ✨ 核心修改：将 charId 作为 data-char-id 写入 DOM，供识别逻辑读取
+    previewBox.innerHTML = `<img src="${file.url}" data-char-id="${file.charId}" data-name="${file.name}">`;
     
     closeFilePicker();
 }

@@ -2443,3 +2443,89 @@ body {
         opacity: 0;
     }
 }
+
+/* 大学官网风格的下载按钮 */
+.uni-download-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(23, 59, 102, 0.9);
+    /* 使用访谈页那种深蓝色，带一点透明度 */
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s;
+    backdrop-filter: blur(5px);
+}
+
+.uni-download-btn:hover {
+    background: #c91459;
+    /* 悬停时变成 MUST 的主题红 */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.uni-download-btn:active {
+    transform: translateY(0);
+}
+
+/* 极简风半透明方形下载按钮 */
+.minimal-download-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 44px;
+    /* 固定宽高，形成正方形 */
+    height: 44px;
+    background: rgba(255, 255, 255, 0.25);
+    /* 白色半透明背景 */
+    backdrop-filter: blur(6px);
+    /* 配合背景模糊，毛玻璃质感更好 */
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    /* 淡淡的白色边框 */
+    border-radius: 8px;
+    /* 如果想要绝对的直角方形，把这里改成 0 */
+    color: #fff;
+    /* 箭头颜色设为白色 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 悬停时的交互效果 */
+.minimal-download-btn:hover {
+    background: rgba(255, 255, 255, 0.45);
+    /* 悬停时稍微变亮 */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.minimal-download-btn:active {
+    transform: translateY(0);
+}
+
+/* 加密信息窗口背景：Logo 移至右侧且更隐蔽 */
+#win-secret-msg {
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.89), rgba(0, 0, 0, 0.89)),
+        /* 调暗遮罩，让Logo更模糊 */
+        url('assets/npd-logo.png') no-repeat 95% center / 45%,
+        #000 !important;
+    border: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 确保内部容器背景透明，显示出底层的水印 */
+#win-secret-msg>div:last-child {
+    background: transparent !important;
+}
