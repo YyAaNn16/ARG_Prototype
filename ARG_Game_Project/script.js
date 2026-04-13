@@ -1,3 +1,47 @@
+// ==========================================
+// --- 研究数据打点系统 (System Log System) ---
+// ==========================================
+let gameLogs = JSON.parse(localStorage.getItem('maya_research_logs')) || [];
+let sessionStartTime = Date.now();
+
+/**
+ * 核心打点函数
+ * 每次记录都会附带距离游戏开始的秒数，便于分析停滞时长(Stagnation)
+ */
+function recordAction(eventType, details = {}) {
+    const logEntry = {
+        timestamp: new Date().toLocaleString(),
+        elapsedTime: Math.floor((Date.now() - sessionStartTime) / 1000), // 单位：秒
+        event: eventType,
+        ...details
+    };
+    gameLogs.push(logEntry);
+    
+    // 实时保存，防止玩家刷新页面丢失数据
+    localStorage.setItem('maya_research_logs', JSON.stringify(gameLogs));
+    console.log(`[LOG] ${eventType}:`, details); // 调试用
+}
+
+// 导出 JSON 文件的函数
+function exportLogs() {
+    if (gameLogs.length === 0) {
+        showNotification("System", "No logs to export.");
+        return;
+    }
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(gameLogs, null, 2));
+    const downloadNode = document.createElement('a');
+    downloadNode.setAttribute("href", dataStr);
+    downloadNode.setAttribute("download", "maya_player_log_" + Date.now() + ".json");
+    document.body.appendChild(downloadNode);
+    downloadNode.click();
+    downloadNode.remove();
+    showNotification("System", "Research logs exported.", "⬇️");
+}
+
+// 记录游戏启动
+recordAction('GAME_START', { loaded: true });
+// ==========================================
+
 // --- 小红书历史记录堆栈 ---
 let xhsHistoryStack = [];
 
@@ -844,6 +888,9 @@ function renderChatList() {
 function openChat(userId) {
     const data = chatData[userId];
 
+    // 👇 插入打点：记录玩家点开了谁的对话框 👇
+    recordAction('WECHAT_OPEN_CHAT', { targetUser: userId });
+
     // 👉 新增：如果当前对话是未读状态，标记为已读并刷新左侧列表
     if (data.unread) {
         data.unread = false;
@@ -918,6 +965,8 @@ function showChatList() {
 
 // --- 微信侧边栏切换逻辑 ---
 function switchWechatTab(tabId, element) {
+    // 👇 插入打点：记录玩家在微信里切换了哪个底部 Tab 👇
+    recordAction('WECHAT_TAB_SWITCH', { targetTab: tabId });
     // 隐藏所有分页
     document.querySelectorAll('.wechat-page').forEach(p => p.classList.remove('active'));
     // 激活对应分页
@@ -958,6 +1007,9 @@ function renderContactsList() {
 // 在右侧展示联系人详情
 function showContactProfile(userId) {
     const data = contactsData[userId];
+    // 👇 插入打点：记录玩家查看了谁的名片 👇
+    recordAction('WECHAT_VIEW_PROFILE', { targetUser: userId });
+
     const detailContainer = document.getElementById('contacts-detail-view');
     
     // 如果没有配置签名，显示默认占位符
@@ -1049,6 +1101,7 @@ function trackPackage() {
 // --- 4. Window System ---
 let zIndex = 100;
 function openWindow(id) {
+    recordAction('OPEN_APP', { appId: id });
     const win = document.getElementById(id);
     
     // 1. 判断是否需要“再次点击关闭”
@@ -1289,6 +1342,9 @@ const xhsDMs = {
 function openXhsDetail(postId, isBack = false) {
     const data = xhsPostData[postId];
     if (!data) return;
+
+    // 👇 插入这行 👇
+    recordAction('XHS_VIEW_POST', { postId: postId, isBack: isBack });
 
     // 推入历史栈
     if (!isBack) {
@@ -1768,6 +1824,8 @@ const browserData = {
 
 // --- 更新后的导航函数，支持后退栈、动态标题和真实 URL ---
 function navBrowser(viewId, isBack = false) {
+
+    recordAction('BROWSER_NAV', { viewId: viewId, isBack: isBack });
     // 1. 记录历史栈
     if (!isBack && currentBrowserPage !== viewId) {
         browserHistoryStack.push(currentBrowserPage);
@@ -1979,6 +2037,12 @@ function executeSearch(fromResultsPage = false) {
     const query = document.getElementById(inputId).value.toLowerCase().trim();
     if (!query) return;
 
+    // 👇 插入这段：记录搜索词，便于后续分析信噪比和语义偏离 👇
+    recordAction('SEARCH', { 
+        query: query, 
+        isFromResultsPage: fromResultsPage
+    });
+
     // 同步输入框和地址栏
     document.getElementById('main-search-input').value = query;
     document.getElementById('result-search-input').value = query;
@@ -2110,6 +2174,10 @@ function backToFilesMain() {
 // 检查密码
 function checkRyanPassword() {
     const input = document.getElementById('ryan-pwd-input').value;
+    const isCorrect = (input === ryanFolderData.password);
+    
+    // 👇 插入打点 👇
+    recordAction('PWD_ATTEMPT_RYAN', { input: input, success: isCorrect });
     if (input === ryanFolderData.password) {
         // 密码正确：更新存档状态
         gameState.unlockedRyanFolder = true;
@@ -2420,9 +2488,13 @@ function checkDiaryPassword() {
     // 获取输入，转小写并去除两端空格，方便判定
     const input = document.getElementById('diary-pwd-input').value.trim().toLowerCase();
     const errorMsg = document.getElementById('diary-pwd-error');
+    const isCorrect = (input === "the misunderstood");
+
+    // 👇 插入打点 👇
+    recordAction('PWD_ATTEMPT_DIARY', { input: input, success: isCorrect });
     
     // 目标密码判定 (将 "The misunderstood" 转为小写进行对比)
-    if (input === "the misunderstood") {
+    if (isCorrect) {
         // 解锁成功：更新存档
         gameState.unlockedDiary = true;
         saveGame();
@@ -2503,7 +2575,12 @@ function updateT9Display() {
 
 // 提交验证 (OK)
 function t9Submit() {
-    if (currentT9Input === handsPassword) {
+    const isCorrect = (currentT9Input === handsPassword);
+    
+    // 👇 插入打点 👇
+    recordAction('PWD_ATTEMPT_HANDS', { input: currentT9Input, success: isCorrect });
+
+    if (isCorrect) {
         // 密码正确：更新存档状态
         gameState.unlockedHandsFolder = true;
         saveGame();
@@ -2752,8 +2829,16 @@ function checkCouplePassword() {
     const dateInput = document.getElementById('couple-pwd-date').value.trim();
     const errorMsg = document.getElementById('couple-login-error');
     
+    const isCorrect = (lyricsInput === "only fools" && dateInput === "2024.02.14");
+    // 👇 插入打点 👇
+    recordAction('PWD_ATTEMPT_COUPLE', { 
+        lyrics: lyricsInput, 
+        date: dateInput, 
+        success: isCorrect 
+    });
+
     // 校验逻辑：歌词（忽略大小写）和日期
-    if (lyricsInput === "only fools" && dateInput === "2024.02.14") {
+    if (isCorrect) {
         // ✨ 核心修改：设置解锁状态并存档
         gameState.unlockedCoupleSite = true;
         saveGame();
