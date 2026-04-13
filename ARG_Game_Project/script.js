@@ -2854,12 +2854,6 @@ audioEntity.ontimeupdate = function() {
     }
 };
 
-// 歌曲播放结束后的处理
-audioEntity.onended = function() {
-    document.getElementById('play-btn').innerText = "▶️";
-    isPlaying = false;
-};
-
 
 
 // 模拟进度条
@@ -3204,20 +3198,34 @@ function runFaceRecognition() {
             sim = Math.floor(Math.random() * 11) + 55; // 55%-65%
             verdict = "Significant Genetic Correlation";
 
+            // --- 修改后的核心逻辑：增加自动弹出“保险” ---
             if (!gameState.foundFaceMatch) {
                 gameState.foundFaceMatch = true;
-                saveGame(); 
+                saveGame(); //
                 
+                // 1. 发送右下角系统通知
                 setTimeout(() => {
                     showNotification(
                         "System Alert", 
                         "Encrypted protocol triggered. New message received.", 
                         "👁️", 
                         () => {
-                            openWindow('win-secret-msg');
+                            // 如果玩家点击了通知，立即打开窗口
+                            openWindow('win-secret-msg'); //
                         }
                     );
-                }, 1000);
+                }, 1000); // 1秒后发出通知
+
+                // 2. ✨ 新增：自动弹出保险逻辑 ✨
+                // 如果玩家在 8 秒内没有点击通知，系统将强行弹出窗口，防止玩家卡死
+                setTimeout(() => {
+                    const secretWin = document.getElementById('win-secret-msg');
+                    // 检查窗口是否已经由于点击通知而打开
+                    if (secretWin && secretWin.style.display !== 'flex') {
+                        console.log("[System] Auto-triggering encrypted protocol window...");
+                        openWindow('win-secret-msg');
+                    }
+                }, 8000); // 设置 8 秒延迟，给玩家一定的反应时间
             }
         }
         // 4. 跨人配对 (完全无关联)
