@@ -775,7 +775,7 @@ const chatData = {
             { type: "left", text: "[Sticker: Love]" },
 
             { type: "sys", text: "Mar 05, 2026" },
-            { type: "right", isImg: true, src: "https://images.unsplash.com/photo-1544592732-83bbd75bbec4?q=80&w=200" },
+            { type: "right", isImg: true, src: "assets/wedding.png" },
             { type: "right", text: "Babe, a good friend of mine from college is getting married in Thailand next month." },
             { type: "right", text: "Do you want to go together?" },
             { type: "right", text: "We could turn it into a vacation in Thailand~" },
@@ -829,7 +829,7 @@ const contactsData = {
         signature: "Family first." 
     },
     "user_luna": { 
-        name: "月 🌙", avatarColor: "#e91e63", avatarText: "🌙", wechatId: "LunaCarter1007", 
+        name: "月 🌙", avatarColor: "#e91e63", avatarText: "🌙", wechatId: "LunaCarter1221", 
         signature: "Living my best life" 
     },
     "user_lucas": { 
@@ -857,7 +857,7 @@ const contactsData = {
         signature: "Smooth as silk." 
     },
     "user_adam": { 
-        name: "陆原", avatarColor: "#333", avatarText: "Adam", wechatId: "Adam_99", 
+        name: "陆原", avatarColor: "#333", avatarText: "Adam", wechatId: "Adam_1999", 
         signature: "The misunderstood carry the vision of the future" 
     }
 };
@@ -1694,7 +1694,7 @@ const browserData = {
         ],
 
         // 大学搜索结果
-        "mingzhou university of science and technology, mingzhou university": [
+        "mingzhou university of science and technology, mingzhou university, MUST": [
             { 
                 url: "en.mingzhou.edu.cn", 
                 title: "Mingzhou University of Science and Technology (MUST)", 
@@ -1859,7 +1859,7 @@ function navBrowser(viewId, isBack = false) {
     }
     else if (viewId === 'results') {
         // 地址栏已在 executeSearch 中更新，这里只改标题
-        currentTitle = document.getElementById('main-search-input').value + " - Google Search";
+        currentTitle = document.getElementById('main-search-input').value + " - Coogle Search";
     }
     else if (viewId === 'tracking') {
         urlBar.value = "www.global-express.com/track";
@@ -2839,7 +2839,7 @@ function checkCouplePassword() {
     const dateInput = document.getElementById('couple-pwd-date').value.trim();
     const errorMsg = document.getElementById('couple-login-error');
     
-    const isCorrect = (lyricsInput === "only fools" && dateInput === "2024.02.14");
+    const isCorrect = (lyricsInput === "only fools" && dateInput ==="20240214");
     // 👇 插入打点 👇
     recordAction('PWD_ATTEMPT_COUPLE', { 
         lyrics: lyricsInput, 
@@ -3303,13 +3303,38 @@ function jumpToUserFromComment(userName) {
 
 
 // --- 新增：动态渲染小红书私信列表 ---
+// function renderXhsMsgList() {
+//     const container = document.getElementById('xhs-msg-list-container');
+//     if (!container) return;
+    
+//     container.innerHTML = ''; // 清空旧列表
+
+//     // 遍历 xhsDMs 数据生成 HTML
+//     for (const [userId, data] of Object.entries(xhsDMs)) {
+//         const lastMsg = data.messages[data.messages.length - 1];
+//         const previewText = lastMsg ? lastMsg.text : "No messages";
+//         const avatarStyle = data.avatar ? `background: url('${data.avatar}') center/cover` : `background: #ccc`;
+        
+//         container.innerHTML += `
+//             <div class="xhs-msg-item" onclick="openXhsDm('${userId}')">
+//                 <div class="xhs-msg-avatar" style="${avatarStyle}"></div>
+//                 <div class="xhs-msg-info">
+//                     <div class="xhs-msg-top">
+//                         <span class="xhs-msg-name" style="${userId === 'ryan' ? 'color:#999' : ''}">${data.name}</span>
+//                         <span class="xhs-msg-time">${lastMsg ? (lastMsg.time || 'Today') : ''}</span>
+//                     </div>
+//                     <div class="xhs-msg-text">${previewText}</div>
+//                 </div>
+//             </div>`;
+//     }
+// }
+
 function renderXhsMsgList() {
     const container = document.getElementById('xhs-msg-list-container');
     if (!container) return;
     
-    container.innerHTML = ''; // 清空旧列表
+    container.innerHTML = ''; 
 
-    // 遍历 xhsDMs 数据生成 HTML
     for (const [userId, data] of Object.entries(xhsDMs)) {
         const lastMsg = data.messages[data.messages.length - 1];
         const previewText = lastMsg ? lastMsg.text : "No messages";
@@ -3321,13 +3346,13 @@ function renderXhsMsgList() {
                 <div class="xhs-msg-info">
                     <div class="xhs-msg-top">
                         <span class="xhs-msg-name" style="${userId === 'ryan' ? 'color:#999' : ''}">${data.name}</span>
-                        <span class="xhs-msg-time">${lastMsg ? (lastMsg.time || 'Today') : ''}</span>
                     </div>
                     <div class="xhs-msg-text">${previewText}</div>
                 </div>
             </div>`;
     }
 }
+
 
 // --- 游戏初始化与恢复状态 ---
 function initGame() {

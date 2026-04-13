@@ -307,7 +307,7 @@ body {
 /* --- 5. 自由笔记 (Notes) --- */
 #win-notes .window-content {
     background: #fff9c4;
-    /* 便签黄 */
+ 
     font-family: 'Comic Neue', cursive, sans-serif;
     padding: 0;
     height: 100%;
@@ -1322,7 +1322,7 @@ body {
 }
 
 .intro-content {
-    max-width: 600px;
+    max-width: 90%;
     padding: 40px;
     font-size: 16px;
     line-height: 2;
