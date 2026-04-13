@@ -112,7 +112,7 @@ const xhsUsers = {
     },
     "hl_forever": {
         name: "HL_FOREVER", id: "5201314",
-        avatar: "assets/Hope2.png",
+        avatar: "assets/HL-beiying.png",
         bio: "Happily preparing for the next chapter of life. ✨",
         stats: { posts: 3, followers: 890, following: 156 },
         // 按时间倒序排列：2026 -> 2024
@@ -244,15 +244,21 @@ const xhsPostData = {
             { user: "BasketballBoy", avatar: "assets/Lucas.png", text: "Get up and play a round of hoops with me! 💪", time: "2019-11-21" }
         ]
     },
-    "ryan_post_5": {
-        img: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?q=80&w=500",
-        author: "Deactivated Account", avatar: "",
-        text: "Quick Room Tour of the Dorm Culture Fest winner! Honestly, it's just way too cozy for sleeping. 😴",
-        date: "2020-02-18", comments: "1 Comments",
-        commentsList: [
-            { user: "BasketballBoy", avatar: "assets/Lucas.png", text: "Damn, Augenster's desk is way too tidy! 🐱", time: "2020-02-18" }
-        ]
-    },
+// --- script.js ---
+
+"ryan_post_5": {
+    isVideo: true,                // 👈 标记为视频
+    videoSrc: "assets/1.mp4",     // 👈 视频文件路径
+    img: "assets/1.png", // 保留封面图，用于在列表页显示
+    author: "Deactivated Account", 
+    avatar: "",
+    text: "Quick Room Tour of the Dorm Culture Fest winner! Honestly, it's just way too cozy for sleeping. 😴",
+    date: "2020-02-18", 
+    comments: "1 Comments",
+    commentsList: [
+        { user: "BasketballBoy", avatar: "assets/Lucas.png", text: "Damn, Augenster's desk is way too tidy! 🐱", time: "2020-02-18" }
+    ]
+},
 
     // === Adam 大号帖子 (按时间倒序) ===
     // === Adam (Augenster) 的主页帖子 (地道英文版) ===
@@ -328,7 +334,7 @@ const xhsPostData = {
         text: "Officially together! 🎉 Celebrating our first Valentine's Day. 🥩🍷🍷\n#ValentinesDay #Couple",
         date: "2024.02.14", comments: "5 Comments",
         commentsList: [
-            { user: "HL_FOREVER", avatar: "assets/Hope2.png", text: "🌹", time: "2024.02.14" }
+            { user: "HL_FOREVER", avatar: "assets/HL-beiying.png", text: "🌹", time: "2024.02.14" }
         ]
     },
     "l_post_couple": {
@@ -337,7 +343,7 @@ const xhsPostData = {
         text: "Gotta do the challenge with my girl too 👫\n#CoupleChallenge",
         date: "2024.6.16", comments: "28 Comments",
         commentsList: [
-            { user: "HL_FOREVER", avatar: "assets/Hope2.png", text: "💗", time: "2024.6.16" }
+            { user: "HL_FOREVER", avatar: "assets/HL-beiying.png", text: "💗", time: "2024.6.16" }
         ]
     },
     "l_post_proposal": {
@@ -345,7 +351,7 @@ const xhsPostData = {
         author: "BasketballBoy", avatar: "assets/Lucas.png",
         text: "SHE SAID YESSSSS!! 💍❤️💍",
         date: "2025.12.25", comments: "8 Comments",
-        commentsList: [{ user: "HL_FOREVER", avatar: "assets/Hope2.png", text: "The aurora tonight is our witness❤️", time: "2025.12.25" }
+        commentsList: [{ user: "HL_FOREVER", avatar: "assets/HL-beiying.png", text: "The aurora tonight is our witness❤️", time: "2025.12.25" }
 
         ]
     },
@@ -353,14 +359,14 @@ const xhsPostData = {
     // === HL_FOREVER (Hope) 的主页帖子 (地道英文版) ===
     "hl_post_dress": {
         img: "assets/yellowdress-beiying.png",
-        author: "HL_FOREVER", avatar: "assets/Hope2.png",
+        author: "HL_FOREVER", avatar: "assets/HL-beiying.png",
         text: "This yellow dress from Brand C is so perfect for this season! 🌼✨\n#OOTD",
         date: "2024.03.23", comments: "0 Comments",
         commentsList: []
     },
     "hl_post_bday": {
         img: "assets/HL-beiying.png",
-        author: "HL_FOREVER", avatar: "assets/Hope2.png",
+        author: "HL_FOREVER", avatar: "assets/HL-beiying.png",
         text: "Happy birthday babe 💖 @BasketballBoy",
         date: "2024.07.22", comments: "1 Comments",
         commentsList: [
@@ -376,7 +382,7 @@ const xhsPostData = {
     },
     "hl_post_wedding": {
         img: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=500",
-        author: "HL_FOREVER", avatar: "assets/Hope2.png",
+        author: "HL_FOREVER", avatar: "assets/HL-beiying.png",
         text: "Wedding planning is seriously so exhausting ⛪️~\n#WeddingPrep #Happiness",
         date: "2026.02.19", comments: "1 Comments",
         commentsList: [
@@ -399,7 +405,7 @@ const xhsPostData = {
             },
             { 
                 user: "HL_FOREVER", 
-                avatar: "assets/Hope2.png", 
+                avatar: "assets/HL-beiying.png", 
                 text: "CHECK YOUR DMs NOW!!!", 
                 time: "2026.04.03" 
             }
@@ -728,7 +734,7 @@ const chatData = {
     },
 
     "user_lucas": {
-        name: "程光", avatarColor: "#ff9800", avatarText: "Lu",
+        name: "程光", avatarColor: "#ff9800", avatarText: "Lucas",
         inChatList: false, // 👉 默认隐藏
         messages: [
             { type: "sys", text: "Apr 27, 2022" },
@@ -753,7 +759,7 @@ const chatData = {
     },
 
     "user_ryan": {
-        name: "木心（💗）", avatarColor: "#607d8b", avatarText: "Ry",
+        name: "木心（💗）", avatarColor: "#607d8b", avatarText: "Xin",
         inChatList: false, // 👉 默认隐藏
         messages: [
             { type: "sys", text: "Jun 05, 2021" },
@@ -766,7 +772,7 @@ const chatData = {
 // --- 2. DATA: Contacts Directory (通讯录数据) ---
 const contactsData = {
     "user_cousin": { 
-        name: "陆白", avatarColor: "#4285f4", avatarText: "白", wechatId: "wxid_cousin88", 
+        name: "陆白", avatarColor: "#4285f4", avatarText: "白", wechatId: "wxid_hfjs88", 
         signature: "Family first." 
     },
     "user_luna": { 
@@ -774,11 +780,11 @@ const contactsData = {
         signature: "Living my best life" 
     },
     "user_lucas": { 
-        name: "程光", avatarColor: "#ff9800", avatarText: "Ch", wechatId: "LUCAS_THE_TALL", 
+        name: "程光", avatarColor: "#ff9800", avatarText: "Lucas", wechatId: "LUCAS_THE_TALL", 
         signature: "Work hard, play hard." 
     },
     "user_ryan": { 
-        name: "木心（💗）", avatarColor: "#607d8b", avatarText: "Ry", wechatId: "XinWoodenHeart", 
+        name: "木心（💗）", avatarColor: "#607d8b", avatarText: "Xin", wechatId: "XinWoodenHeart", 
         signature: "Dragon in da house. 🐉" 
     },
     "user_mom": { 
@@ -786,19 +792,19 @@ const contactsData = {
         signature: "Blessed and grateful." 
     },
     "user_boss": { 
-        name: "Mr. Henderson (Ex-Boss)", avatarColor: "#795548", avatarText: "He", wechatId: "henderson_logistics", 
+        name: "Mr. Henderson (Ex-Boss)", avatarColor: "#795548", avatarText: "Joe", wechatId: "henderson_logistics", 
         signature: "Logistics & Supply Chain Management." 
     },
     "user_landlord": { 
-        name: "BKK Landlord", avatarColor: "#8d6e63", avatarText: "La", wechatId: "bkk_rent_01", 
+        name: "BKK Landlord", avatarColor: "#8d6e63", avatarText: "Tay", wechatId: "bkk_rent_01", 
         signature: "Rooms for rent. DM for inquiries." 
     },
     "user_airline": { 
-        name: "Thai Airways HR", avatarColor: "#5c6bc0", avatarText: "HR", wechatId: "tg_hr_recruit", 
+        name: "Thai Airways HR", avatarColor: "#5c6bc0", avatarText: "Lily", wechatId: "tg_hr_recruit", 
         signature: "Smooth as silk." 
     },
     "user_adam": { 
-        name: "陆原", avatarColor: "#333", avatarText: "Ad", wechatId: "Adam_99", 
+        name: "陆原", avatarColor: "#333", avatarText: "Adam", wechatId: "Adam_99", 
         signature: "The misunderstood carry the vision of the future" 
     }
 };
@@ -1562,20 +1568,20 @@ const browserData = {
                 snippet: "Adam is an optimization algorithm that can be used instead of the classical stochastic gradient descent procedure to update network weights iterative based in training data...",
                 clickAction: "navBrowser('algo-adam')"
             },
-            // 3. 曼谷死亡新闻报道 (核心剧情线索！)
-            { 
-                url: "www.bkk-daily.com/news/tourist-incident", 
-                title: "Tragic Incident: Foreign Guest Found Dead at Wedding Venue", 
-                snippet: "Local authorities are investigating the sudden death of 32-year-old Adam at a wedding venue. Preliminary reports suggest a suspected overdose... traveled with his girlfriend, Luna...",
-                clickAction: "navBrowser('news-adam')"
-            },
+            // // 3. 曼谷死亡新闻报道 (核心剧情线索！)
+            // { 
+            //     url: "www.bkk-daily.com/news/tourist-incident", 
+            //     title: "Tragic Incident: Foreign Guest Found Dead at Wedding Venue", 
+            //     snippet: "Local authorities are investigating the sudden death of 32-year-old Adam at a wedding venue. Preliminary reports suggest a suspected overdose... traveled with his girlfriend, Luna...",
+            //     clickAction: "navBrowser('news-adam')"
+            // },
             // 4. LinkedIn 档案 (职业线索)
-            { 
-                url: "www.linkedin.com/in/adam-operations", 
-                title: "Adam - Airport Operations Supervisor - LinkedIn", 
-                snippet: "Experienced Operations Supervisor with a demonstrated history of working in the aviation and airport industry. Skilled in logistics and passenger safety.",
-                clickAction: "navBrowser('linkedin-adam')"
-            },
+            // { 
+            //     url: "www.linkedin.com/in/adam-operations", 
+            //     title: "Adam - Airport Operations Supervisor - LinkedIn", 
+            //     snippet: "Experienced Operations Supervisor with a demonstrated history of working in the aviation and airport industry. Skilled in logistics and passenger safety.",
+            //     clickAction: "navBrowser('linkedin-adam')"
+            // },
             // 5. 乱七八糟的干扰项 - 同名电影
             { 
                 url: "www.imdb.com/title/tt1184698", 
