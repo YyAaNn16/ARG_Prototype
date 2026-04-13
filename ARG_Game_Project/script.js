@@ -1812,8 +1812,8 @@ const browserData = {
             },
             // 干扰项：同名学术教授
             { 
-                url: "scholar.google.com/citations?user=lucascheng", 
-                title: "Lucas Cheng - Google Scholar Citations", 
+                url: "scholar.coogle.com/citations?user=lucascheng", 
+                title: "Lucas Cheng - Coogle Scholar Citations", 
                 snippet: "Professor of Materials Science. Carbon Nanotubes, Graphene, Nanomaterials. Cited by 12,405. 'Synthesis of high-quality graphene...', Nature, 2018.",
                 clickAction: "" 
             }
@@ -1862,8 +1862,8 @@ function navBrowser(viewId, isBack = false) {
     let currentTitle = "New Tab";
 
     if (viewId === 'home') {
-        urlBar.value = "www.google.com"; // 修改 1：始终显示真实网址
-        currentTitle = "Google";
+        urlBar.value = "www.coogle.com"; // 修改 1：始终显示真实网址
+        currentTitle = "Coogle";
     }
     else if (viewId === 'history') {
         urlBar.value = "chrome://history";
@@ -1898,7 +1898,7 @@ function navBrowser(viewId, isBack = false) {
     }
 
     else if (viewId === 'zodiac-monkey') {
-        urlBar.value = "www.google.com/search?q=Year+of+the+Monkey";
+        urlBar.value = "www.coogle.com/search?q=Year+of+the+Monkey";
         currentTitle = "Year of the Monkey - Search";
     }
 
@@ -2067,10 +2067,10 @@ function executeSearch(fromResultsPage = false) {
     // 同步输入框和地址栏
     document.getElementById('main-search-input').value = query;
     document.getElementById('result-search-input').value = query;
-    document.getElementById('browser-url').value = `www.google.com/search?q=${encodeURIComponent(query)}`;
+    document.getElementById('browser-url').value = `www.coogle.com/search?q=${encodeURIComponent(query)}`;
 
     // 记录历史
-    // browserData.history.unshift({ time: "Just now", title: `${query} - Google Search`, url: document.getElementById('browser-url').value });
+    // browserData.history.unshift({ time: "Just now", title: `${query} - Coogle Search`, url: document.getElementById('browser-url').value });
 
     const container = document.getElementById('search-results-list');
     container.innerHTML = '';
@@ -2112,7 +2112,7 @@ function executeSearch(fromResultsPage = false) {
                 <p style="margin-top:10px;">Suggestions:</p>
                 <ul style="color:#555; font-size:14px; margin-top:5px; line-height:1.6;">
                     <li>Make sure all words are spelled correctly.</li>
-                    <li>Try different keywords. (e.g., 'adam death', 'year of the monkey')</li>
+                    <li>Try different keywords. (e.g., 'year of the monkey')</li>
                     <li>Try more general keywords.</li>
                 </ul>
             </div>`;
