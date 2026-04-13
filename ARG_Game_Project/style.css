@@ -6,7 +6,7 @@ body {
     height: 100vh;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     /* 更加沉浸的暗色壁纸 */
-    background: url('https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2574&auto=format&fit=crop') no-repeat center center fixed;
+    background: url('assets/desktop.png') no-repeat center center fixed;
     background-size: cover;
     /* user-select: none; */
 }
@@ -2082,6 +2082,16 @@ body {
     height: 36px;
     border-radius: 4px;
     margin-bottom: 25px;
+
+    /* --- 新增以下样式以支持文字显示 --- */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 13px; /* 根据文字长度，建议 10px-12px */
+
+
 }
 
 .wechat-sidebar .nav-icon {

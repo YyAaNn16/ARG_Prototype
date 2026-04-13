@@ -730,7 +730,7 @@ const chatData = {
 
             { type: "sys", text: "Nov 28, 2025" },
             { type: "left", text: "Babe! I tried making Mapo Tofu today following your Chinese recipe! Look! 🌶️" },
-            { type: "left", isImg: true, src: "https://images.unsplash.com/photo-1543826173-70651703c5a4?q=80&w=200" },
+            { type: "left", isImg: true, src: "assets/mapo2.jpg" },
             { type: "right", text: "Looks amazing 😋 My baby is a culinary genius." },
             { type: "left", text: "Hehe" },
             { type: "left", text: "But I still can't handle the spice 😭" },
@@ -904,7 +904,7 @@ function openChat(userId) {
     document.querySelectorAll('.contact-item').forEach(item => item.classList.remove('active'));
     document.getElementById(`contact-${userId}`).classList.add('active');
 
-    const adamAvatarHTML = `<div class="msg-avatar" style="background:#333;">Ad</div>`;
+    const adamAvatarHTML = `<div class="msg-avatar" style="background:#333;">Adam</div>`;
     const contactAvatarHTML = `<div class="msg-avatar" style="background:${data.avatarColor}; cursor:pointer;" onclick="jumpToContactFromChat('${userId}')">${data.avatarText}</div>`;
 
     data.messages.forEach(msg => {
@@ -2412,7 +2412,9 @@ I have prepared the Novacard white pills.
 This time, there is no need for hesitation.
 If the world misunderstands me again—
 Then I will define its truth with my own hands.
-I am going to destroy this wedding.` 
+I am going to destroy this wedding.
+Whether I succeed or fail, 
+I will die with a smile` 
         }
     ]
 };
