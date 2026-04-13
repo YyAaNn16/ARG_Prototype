@@ -10,7 +10,7 @@ let gameState = {
     unlockedRyanFolder: false,   // 记录 Ryan 文件夹是否已解锁
     unlockedHandsFolder: false,   // 记录 Data_Recovered(Hands) 文件夹是否已解锁
     unlockedCoupleSite: false,  // ✨ 新增：情侣网站是否已解锁
-    unlockedDownloads: ['adam_now', 'adam_school'],    // 假设默认可见的两个文件的 ID 分别是 'ryan_school' 和 'adam_school'
+    unlockedDownloads: ['adam_now', 'adam_school', 'luna_now'],    // 假设默认可见的两个文件的 ID 分别是 'ryan_school' 和 'adam_school'
     unlockedDiary: false   // ✨ 新增：记录最终日记是否已解锁
 
     // 以后可以在这里随意添加剧情节点，比如：
@@ -299,7 +299,8 @@ const xhsPostData = {
 // === BasketballBoy (Lucas) 的主页帖子 (地道英文版) ===
 
     "l_post_basketball_win": {
-        img: "https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=500",
+        img: "assets/Lucas.png",
+        downloadId: "lucas_basketball",
         author: "BasketballBoy", avatar: "assets/Lucas.png",
         text: "First place in the MingZhou University Basketball League! 🏅 Good work, brothers!!! 💗💗💗",
         date: "2019.12.15", comments: "20 Comments",
@@ -1292,6 +1293,12 @@ function openXhsDetail(postId, isBack = false) {
     const imgEl = document.getElementById('xhs-detail-img');
     const vidEl = document.getElementById('xhs-detail-video');
 
+    // ✨ 核心逻辑 1：先清理上一次打开帖子时可能遗留的下载按钮
+    const existingBtn = document.getElementById('dynamic-xhs-download-btn');
+    if (existingBtn) {
+        existingBtn.remove();
+    }
+
     if (data.isVideo) {
         imgEl.style.display = 'none';
         vidEl.style.display = 'block';
@@ -1301,9 +1308,33 @@ function openXhsDetail(postId, isBack = false) {
         vidEl.pause(); 
         imgEl.style.display = 'block';
         imgEl.src = data.img; 
+
+        // ✨ 核心逻辑 2：如果该帖子数据中有 downloadId，动态创建并插入下载按钮
+        if (data.downloadId) {
+            // 确保图片的父容器有相对定位，这样绝对定位的按钮才能附着在图片上
+            imgEl.parentElement.style.position = 'relative';
+
+            const btn = document.createElement('button');
+            btn.id = 'dynamic-xhs-download-btn';
+            btn.className = 'minimal-download-btn'; // 使用你之前定义的极简透明样式
+            btn.title = 'Download Photo';
+            btn.onclick = () => triggerDownload(data.downloadId);
+            
+            // 插入 SVG 图标
+            btn.innerHTML = `
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+            `;
+            
+            // 将按钮添加到图片旁边
+            imgEl.parentElement.appendChild(btn);
+        }
     }
 
-    document.getElementById('xhs-detail-img').src = data.img;
+    // 填充文本信息
     document.getElementById('xhs-detail-author').innerText = data.author;
     document.getElementById('xhs-detail-avatar').style.background = data.avatar ? `url('${data.avatar}') center/cover` : '#ccc';
     document.getElementById('xhs-detail-text').innerText = data.text;
@@ -2906,12 +2937,12 @@ function renderFaceMatchHistory() {
 // --- 桌面测试资源数据 (加入了隐藏的 charId) ---
 // --- 更新下载文件夹数据 (增加 id 属性) ---
 const downloadsFiles = [
-    { id: "adam_school", name: "adam_school.jpg", url: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200", charId: "adam", forFaceMatch: true },
-    { id: "lucas_school", name: "lucas_school.jpg", url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200", charId: "lucas", forFaceMatch: true },
+    { id: "adam_school", name: "201705075748967948.jpg", url: "assets/Adam_school.png", charId: "adam", forFaceMatch: true },
+    { id: "lucas_basketball", name: "Basketball001.jpg", url: "assets/Lucas.png", charId: "lucas", forFaceMatch: true },
     { id: "hope_now", name: "oureternalaurora0214.png", url: "assets/Hope.png", charId: "hope", forFaceMatch: true },
-    { id: "adam_now", name: "adam_now.jpg", url: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=200", charId: "adam", forFaceMatch: true },
-    { id: "lucas_now", name: "lucas_now.jpg", url: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200", charId: "lucas", forFaceMatch: true },
-    { id: "luna_now", name: "luna_now.png", url: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200", charId: "luna", forFaceMatch: true }
+    { id: "adam_now", name: "2024101847238473298.jpg", url: "assets/Adam.png", charId: "adam", forFaceMatch: true },
+    { id: "lucas_now", name: "lucas_now.jpg", url: "assets/Lucas_interview.png", charId: "lucas", forFaceMatch: true },
+    { id: "luna_now", name: "2026021158345739857.png", url: "assets/Luna1.png", charId: "luna", forFaceMatch: true }
 ];
 
 // 渲染 Downloads 文件夹内容函数
