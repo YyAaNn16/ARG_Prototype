@@ -753,7 +753,7 @@ const chatData = {
             { type: "left", text: "Babe! I tried making Mapo Tofu today following your Chinese recipe! Look! 🌶️" },
             { type: "left", isImg: true, src: "assets/mapo2.jpg" },
             { type: "right", text: "Looks amazing 😋 My baby is a culinary genius." },
-            { type: "left", text: "Hehe" },
+            { type: "left", text: "Hahaha" },
             { type: "left", text: "But I still can't handle the spice 😭" },
             { type: "right", text: "You're doing great just by trying it babe 💗" },
 
@@ -785,7 +785,7 @@ const chatData = {
             { type: "left", text: "Yay so happy ~~" },
             { type: "right", text: "You're still a college student, you really don't need to buy me gifts." },
             { type: "right", text: "Just being with you makes me happy enough!" },
-            { type: "left", text: "[Sticker: Love]" },
+            { type: "left", text: "😘😘" },
 
             { type: "sys", text: "Mar 05, 2026" },
             { type: "right", isImg: true, src: "assets/wedding.png" },
@@ -813,7 +813,7 @@ const chatData = {
             { type: "left", text: "Yeah bro. Found a new job in Thailand." },
             { type: "left", text: "Are you still in Mingzhou?" },
             { type: "right", text: "Yes, working at customs now." },
-            { type: "left", text: "Nice, let's hit the courts at MUST next time you're back!" },
+            { type: "left", text: "Nice, let's hit the courts at MUST next time I'm back!" },
 
             { type: "sys", text: "Mar 04, 2026" },
             { type: "left", isImg: true, src: "assets/wedding.png" },
