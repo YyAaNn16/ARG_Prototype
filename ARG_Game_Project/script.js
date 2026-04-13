@@ -1025,7 +1025,7 @@ function showContactProfile(userId) {
     
     detailContainer.innerHTML = `
         <div style="text-align:center; background:#fff; padding: 40px; border-radius:8px; box-shadow:0 2px 10px rgba(0,0,0,0.05); width: 320px;">
-            <div style="width:80px; height:80px; background:${data.avatarColor}; color:white; font-size:32px; font-weight:bold; display:flex; align-items:center; justify-content:center; border-radius:8px; margin: 0 auto 15px auto;">${data.avatarText}</div>
+            <div style="width:80px; height:80px; background:${data.avatarColor}; color:white; font-size:25px; font-weight:bold; display:flex; align-items:center; justify-content:center; border-radius:8px; margin: 0 auto 15px auto;">${data.avatarText}</div>
             <h2 style="margin:0 0 5px 0; color:#333;">${data.name}</h2>
             <p style="color:#999; font-size:13px; margin-bottom: 10px;">CallMe ID: ${data.wechatId}</p>
             <p style="color:#666; font-size:14px; margin-bottom: 30px; font-style: italic;">${signatureText}</p>
