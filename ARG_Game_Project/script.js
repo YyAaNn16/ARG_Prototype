@@ -22,12 +22,24 @@ function recordAction(eventType, details = {}) {
     console.log(`[LOG] ${eventType}:`, details); // 调试用
 }
 
-// 导出 JSON 文件的函数
+// 修改后的导出函数
 function exportLogs() {
+    // 1. 在导出前，立即获取记事本当前的全文并记录一条快照
+    const currentNotes = document.querySelector('.notes-textarea').value;
+    
+    // 强制插入一笔包含全文的打点记录
+    recordAction('FINAL_NOTES_SNAPSHOT', { 
+        charCount: currentNotes.length,
+        fullContent: currentNotes 
+    });
+
+    // 2. 原有的导出逻辑
     if (gameLogs.length === 0) {
         showNotification("System", "No logs to export.");
         return;
     }
+    
+    // 此时 JSON.stringify 会包含刚刚插入的那条记录
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(gameLogs, null, 2));
     const downloadNode = document.createElement('a');
     downloadNode.setAttribute("href", dataStr);
@@ -35,7 +47,8 @@ function exportLogs() {
     document.body.appendChild(downloadNode);
     downloadNode.click();
     downloadNode.remove();
-    showNotification("System", "Research logs exported.", "⬇️");
+    
+    showNotification("System", "Research logs exported with final notes snapshot.", "⬇️");
 }
 
 // 记录游戏启动
@@ -2123,33 +2136,129 @@ function startGame() {
 // ==========================================
 // --- 记事本打点与存档 (加入防抖防卡顿机制) ---
 // ==========================================
-let notesLogTimeout = null;
+// let notesLogTimeout = null;
 
-document.querySelector('.notes-textarea').addEventListener('input', function(e) {
-    const currentText = e.target.value;
+// document.querySelector('.notes-textarea').addEventListener('input', function(e) {
+//     const currentText = e.target.value;
     
-    // 1. 实时更新游戏状态，但不立刻存入硬盘（提升性能）
-    gameState.notesContent = currentText;
+//     // 1. 实时更新游戏状态，但不立刻存入硬盘（提升性能）
+//     gameState.notesContent = currentText;
 
-    // 2. 防抖机制：清除上一次的定时器
-    if (notesLogTimeout) {
-        clearTimeout(notesLogTimeout);
+//     // 2. 防抖机制：清除上一次的定时器
+//     if (notesLogTimeout) {
+//         clearTimeout(notesLogTimeout);
+//     }
+
+//     // 3. 设定新的定时器：如果玩家停下打字超过 2.5 秒，则执行打点并存档
+//     notesLogTimeout = setTimeout(() => {
+//         // 执行物理存档
+//         saveGame();
+        
+//         // 执行研究打点
+//         // 为了防止 JSON 过大，我们可以截取预览，并记录总字数
+//         recordAction('NOTES_UPDATED', { 
+//             charCount: currentText.length,
+//             content: currentText // 记录玩家此时写下的完整内容
+//         });
+        
+//     }, 2500); // 2500毫秒 = 2.5秒
+// });
+
+// ==========================================
+// --- 记事本打点优化版 (增量 Delta 分析) ---
+// ==========================================
+let notesLogTimeout = null;
+// 初始化时获取当前文本（读档时防止误判）
+let lastLoggedNotes = ""; 
+
+// 监听记事本窗口打开，初始化上一次的文本
+document.querySelector('.icon-notes').addEventListener('click', () => {
+    lastLoggedNotes = document.querySelector('.notes-textarea').value;
+});
+
+const notesTextarea = document.querySelector('.notes-textarea');
+
+// 1. 输入防抖监听 (时间放宽到 4 秒)
+notesTextarea.addEventListener('input', function(e) {
+    const currentText = e.target.value;
+    gameState.notesContent = currentText; // 实时更新存档状态
+
+    if (notesLogTimeout) clearTimeout(notesLogTimeout);
+
+    // 停顿 4 秒后记录
+    notesLogTimeout = setTimeout(() => {
+        logNotesDelta(currentText);
+    }, 4000); 
+});
+
+// 2. ✨ 新增：失去焦点监听 (玩家点击去别的App找线索时立刻记录)
+notesTextarea.addEventListener('blur', function(e) {
+    if (notesLogTimeout) clearTimeout(notesLogTimeout); // 取消定时器
+    logNotesDelta(e.target.value); // 立刻打点
+});
+
+// 3. 核心智能分析函数 (Diff 对比版)
+function logNotesDelta(currentText) {
+    if (currentText === lastLoggedNotes) return;
+
+    // --- 双指针寻找差异 ---
+    let start = 0;
+    // 找相同的前缀
+    while (start < lastLoggedNotes.length && start < currentText.length && lastLoggedNotes[start] === currentText[start]) {
+        start++;
     }
 
-    // 3. 设定新的定时器：如果玩家停下打字超过 2.5 秒，则执行打点并存档
-    notesLogTimeout = setTimeout(() => {
-        // 执行物理存档
+    let oldEnd = lastLoggedNotes.length - 1;
+    let newEnd = currentText.length - 1;
+    // 找相同的后缀
+    while (oldEnd >= start && newEnd >= start && lastLoggedNotes[oldEnd] === currentText[newEnd]) {
+        oldEnd--;
+        newEnd--;
+    }
+
+    // 提取差异部分
+    const addedText = currentText.substring(start, newEnd + 1).trim();
+    const removedText = lastLoggedNotes.substring(start, oldEnd + 1).trim();
+
+    // 如果只是敲了几个空格或回车，不记录打点，但保存物理存档
+    if (!addedText && !removedText) {
+        lastLoggedNotes = currentText;
         saveGame();
-        
-        // 执行研究打点
-        // 为了防止 JSON 过大，我们可以截取预览，并记录总字数
-        recordAction('NOTES_UPDATED', { 
-            charCount: currentText.length,
-            content: currentText // 记录玩家此时写下的完整内容
-        });
-        
-    }, 2500); // 2500毫秒 = 2.5秒
-});
+        return;
+    }
+
+    let actionType = "NOTES_UPDATED";
+    let detailText = "";
+
+    // 逻辑分流
+    if (addedText && !removedText) {
+        // 情况 A：纯粹增加了文字
+        if (newEnd === currentText.length - 1) {
+            actionType = "NOTES_APPENDED"; // 在最末尾追加
+        } else {
+            actionType = "NOTES_INSERTED"; // 在中间插入
+        }
+        detailText = addedText; // 只记录新增的这几个字！
+
+    } else if (removedText && !addedText) {
+        // 情况 B：纯粹删除了文字
+        actionType = "NOTES_DELETED";
+        // 删除的内容不需要记录全量，保持日志干净
+        detailText = `[Deleted text]`; 
+
+    } else {
+        // 情况 C：既有删除又有增加（比如选中一段文字并替换掉）
+        actionType = "NOTES_MODIFIED";
+        detailText = addedText; // 重点记录替换后的新想法
+    }
+
+    // 提交打点记录
+    recordAction(actionType, { content: detailText });
+
+    // 更新基准并存档
+    lastLoggedNotes = currentText;
+    saveGame();
+}
 
 // --- 打开 Downloads 文件夹 ---
 function openDownloadsFolder(folderName) {
