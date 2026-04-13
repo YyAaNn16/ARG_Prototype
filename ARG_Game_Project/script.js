@@ -437,7 +437,7 @@ const xhsPostData = {
 
 // === Luna 小号 (1_4_1_13_1010) 的帖子 (地道英文版) ===
     "luna_burner_sos": {
-        img: "https://images.unsplash.com/photo-1584308666744-24d5e471956c?q=80&w=500", // 药瓶图片
+        img: "assets/help.png", // 药瓶图片
         author: "1_4_1_13_1010", avatar: "",
         text: "Help: Found this in my friend's bag.\nThe label says 'Novacard', which I searched and it's for the heart condition. But the pills inside are plain white and round, completely different from the blue ones on the internet. \n\nDoes anyone have any idea what these are? ❓",
         date: "2026.04.03", comments: "2 Comments",
@@ -2643,39 +2643,46 @@ function universalFileBack() {
 // 修改 likedSongs 数据，增加 url 字段
 const likedSongs = [
     { 
-        title: "Havana", 
-        artist: "Camila Cabello / Young Thug", 
-        cover: "https://images.unsplash.com/photo-1514525253361-bee8718a300a?q=80&w=100", 
-        duration: "03:37",
-        url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" // 替换为你的真实音频链接
+        title: "Inception", 
+        artist: "Suno", 
+        cover: "assets/cover1.png", 
+        duration: "02:49",
+        url: "assets/puzzle1.mp3" // 替换为你的真实音频链接
     },
     { 
-        title: "Every Breath You Take", 
-        artist: "The Police", 
-        cover: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?q=80&w=100", 
-        duration: "04:13",
-        url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" 
+        title: "I'll show you", 
+        artist: "Suno", 
+        cover: "assets/cover2.png",  
+        duration: "03:24",
+        url: "assets/cozy1.mp3" // 替换为你的真实音频链接
     },
     { 
-        title: "Stan", 
-        artist: "Eminem", 
-        cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=100", 
-        duration: "06:44",
-        url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+        title: "Quiet Places", 
+        artist: "Suno", 
+        cover: "assets/cover3.png",  
+        duration: "03:53",
+        url: "assets/sad1.mp3" 
     },
     { 
-        title: "Creep", 
-        artist: "Radiohead", 
-        cover: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=100", 
-        duration: "03:56",
-        url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
+        title: "Why Why Why", 
+        artist: "Suno", 
+        cover: "assets/cover4.png",  
+        duration: "03:30",
+        url: "assets/cozy2.mp3" 
     },
     { 
-        title: "Somebody's Watching Me", 
-        artist: "Rockwell", 
-        cover: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=100", 
-        duration: "03:59",
-        url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"
+        title: "Last Call", 
+        artist: "Suno", 
+        cover: "assets/cover5.png",  
+        duration: "03:54",
+        url: "assets/sad2.mp3" 
+    },
+    { 
+        title: "Dominoes", 
+        artist: "Suno", 
+        cover: "assets/cover6.png", 
+        duration: "02:35",
+        url: "assets/puzzle2.mp3" 
     }
 ];
 
@@ -2725,22 +2732,43 @@ const audioEntity = document.getElementById('real-audio');
 let currentSongIndex = 0; // 记录当前播放的歌曲索引
 
 // 修改原有的 playSong 函数，增加索引同步
+// function playSong(index) {
+//     currentSongIndex = index; // 同步当前索引
+//     const song = likedSongs[index];
+    
+//     // 更新 UI 内容
+//     document.getElementById('player-title').innerText = song.title;
+//     document.getElementById('player-artist').innerText = song.artist;
+//     document.getElementById('player-cover').innerHTML = `<img src="${song.cover}">`;
+//     document.getElementById('play-btn').innerText = "⏸️";
+    
+//     // 加载并播放真实音频
+//     audioEntity.src = song.url;
+//     audioEntity.play().catch(e => console.log("Audio play blocked or error:", e));
+    
+//     isPlaying = true;
+// }
+
 function playSong(index) {
-    currentSongIndex = index; // 同步当前索引
+    currentSongIndex = index;
     const song = likedSongs[index];
     
-    // 更新 UI 内容
     document.getElementById('player-title').innerText = song.title;
     document.getElementById('player-artist').innerText = song.artist;
     document.getElementById('player-cover').innerHTML = `<img src="${song.cover}">`;
+    
+    // ✨ 新增：更新总时长显示
+    document.getElementById('total-time').innerText = song.duration; 
+
     document.getElementById('play-btn').innerText = "⏸️";
     
-    // 加载并播放真实音频
     audioEntity.src = song.url;
-    audioEntity.play().catch(e => console.log("Audio play blocked or error:", e));
+    audioEntity.play().catch(e => console.log("Audio play blocked:", e));
     
     isPlaying = true;
 }
+
+
 
 // 新增：下一首
 function playNextSong() {
