@@ -2120,11 +2120,35 @@ function startGame() {
     saveGame();
 }
 
+// ==========================================
+// --- 记事本打点与存档 (加入防抖防卡顿机制) ---
+// ==========================================
+let notesLogTimeout = null;
 
-// 监听记事本的输入并存档
 document.querySelector('.notes-textarea').addEventListener('input', function(e) {
-    gameState.notesContent = e.target.value;
-    saveGame();
+    const currentText = e.target.value;
+    
+    // 1. 实时更新游戏状态，但不立刻存入硬盘（提升性能）
+    gameState.notesContent = currentText;
+
+    // 2. 防抖机制：清除上一次的定时器
+    if (notesLogTimeout) {
+        clearTimeout(notesLogTimeout);
+    }
+
+    // 3. 设定新的定时器：如果玩家停下打字超过 2.5 秒，则执行打点并存档
+    notesLogTimeout = setTimeout(() => {
+        // 执行物理存档
+        saveGame();
+        
+        // 执行研究打点
+        // 为了防止 JSON 过大，我们可以截取预览，并记录总字数
+        recordAction('NOTES_UPDATED', { 
+            charCount: currentText.length,
+            content: currentText // 记录玩家此时写下的完整内容
+        });
+        
+    }, 2500); // 2500毫秒 = 2.5秒
 });
 
 // --- 打开 Downloads 文件夹 ---
