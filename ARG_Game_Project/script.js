@@ -2465,7 +2465,7 @@ const handsPassword = "42637"; // 对应 H-A-N-D-S
 // --- [更新] Data_Recovered 文件夹内容，增加了开场 Motto ---
 const handsFolderData = {
     files: [
-        { type: "img", name: "xin💗.JPG", url: "assets/xin.png", charId: "xin", forFaceMatch: true }, 
+        { type: "img", name: "Xin💗.JPG", url: "assets/xin.png", charId: "xin", forFaceMatch: true }, 
         { type: "img", name: "Xin💗💗.JPG", url: "assets/xin2.png", charId: "xin", forFaceMatch: true },
         { type: "img", name: "Xin💗💗💗.JPG", url: "assets/xin3.png", charId: "xin", forFaceMatch: true },
         { type: "img", name: "Xin💗💗💗💗.JPG", url: "assets/xin4.png", charId: "xin", forFaceMatch: true },
