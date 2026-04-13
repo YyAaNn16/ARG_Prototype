@@ -301,7 +301,8 @@
                 <div class="progress-container">
                     <span class="time-text" id="curr-time">00:00</span>
                     <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
-                    <span class="time-text">03:37</span>
+                    <!-- <span class="time-text">03:37</span> -->
+                    <span class="time-text" id="total-time">00:00</span>
                 </div>
             </div>
             
@@ -1439,13 +1440,14 @@
 
     <div id="dock">
         <div class="dock-icon icon-chat" data-title="CallMe" onclick="openWindow('win-chat')">💬</div>
+        <div class="dock-icon icon-trash" data-title="Trash" onclick="openWindow('win-trash')">🗑️</div>
         <div class="dock-icon icon-xhs" data-title="RedGram" onclick="openWindow('win-xhs')">📕</div>
-        <div class="dock-icon icon-browser" data-title="Browser" onclick="openWindow('win-browser')">🌐</div>
         <div class="dock-icon icon-files" data-title="Files" onclick="openWindow('win-files')">📂</div>
+        <div class="dock-icon icon-browser" data-title="Browser" onclick="openWindow('win-browser')">🌐</div>
         <!-- <div class="dock-icon icon-track" data-title="Tracking" onclick="openWindow('win-track')">📦</div> -->
         <div class="dock-icon icon-notes" data-title="Notes" onclick="openWindow('win-notes')">📝</div>
         <div class="dock-icon icon-music" data-title="Music" onclick="openWindow('win-music')">🎵</div>
-        <div class="dock-icon icon-trash" data-title="Trash" onclick="openWindow('win-trash')">🗑️</div>
+        
     </div>
 
 
