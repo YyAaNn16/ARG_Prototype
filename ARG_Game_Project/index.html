@@ -17,7 +17,7 @@
             <p>A few days ago, Adam passed away suddenly in Thailand.</p>
             <p>The police ruled his death an accident, but his family isn't convinced.</p>
             <p>His mother has given you this laptop, hoping you can find some clues related to the case.</p>
-            <p class="intro-hint">Hint: Try exploring from Callme's chat history.</p>
+            <p class="intro-hint">Hint: Try exploring from Callme's chat history. Please note the relationships between the characters.</p>
     
             <button class="start-btn" onclick="startGame()">Start Game</button>
         </div>
@@ -138,7 +138,7 @@
         
             <div class="icon-item" onclick="showRyanPasswordPrompt(this)">
                 <span class="file-visual">🔒</span>
-                <div class="icon-name">Ryan</div>
+                <div class="icon-name">Xin</div>
             </div>
         
             <div class="icon-item"><span class="file-visual">📁</span>
@@ -162,8 +162,8 @@
     
         <div id="ryan-password-screen" style="display:none; flex-direction:column; align-items:center; justify-content:center; flex:1; background:#f0f0f0;">
             <div style="font-size: 40px; margin-bottom: 10px;">📂</div>
-            <div style="font-size: 13px; font-weight: bold; margin-bottom: 15px;">Folder "Ryan" is encrypted.</div>
-            <input type="password" id="ryan-pwd-input" placeholder="Enter Password" 
+            <div style="font-size: 13px; font-weight: bold; margin-bottom: 15px;">Folder "Xin" is encrypted.</div>
+            <input type="password" id="ryan-pwd-input" placeholder="YYYYMMDD" 
                    style="padding:8px; border:1px solid #ccc; border-radius:4px; margin-bottom:10px; outline:none; text-align:center;">
             <div style="display:flex; gap:10px;">
                 <button onclick="checkRyanPassword()" style="padding:5px 15px; cursor:pointer; background:#2c3e50; color:white; border:none; border-radius:4px;">Unlock</button>
@@ -177,8 +177,7 @@
             <div
                 style="background:#1a1a1a; border:1px solid #444; padding:30px; border-radius:4px; text-align:center; color:white; width: 320px; box-shadow: 0 10px 30px rgba(0,0,0,0.8);">
                 <h3 style="margin-top:0; font-family:serif; color:#f0d799; letter-spacing: 1px;">Encrypted Document</h3>
-                <p style="font-size:12px; color:#aaa; margin-bottom:20px; line-height:1.5;">This text file is protected by a
-                    custom passphrase. Please enter the decryption key.</p>
+                <p style="font-size:12px; color:#aaa; margin-bottom:20px; line-height:1.5;">I define the truth of the world.</p>
         
                 <input type="text" id="diary-pwd-input" placeholder="Enter passphrase..." autocomplete="off"
                     style="width:85%; padding:10px; margin-bottom:10px; background:#000; color:#fff; border:1px solid #555; border-radius:2px; text-align:center; font-family: monospace;">
@@ -660,7 +659,7 @@
                             onkeypress="handleSearchEnter(event)">
                     </div>
                     <div class="search-buttons">
-                        <button onclick="executeSearch()">Google Search</button>
+                        <button onclick="executeSearch()">Coogle Search</button>
                         <button>I'm Feeling Lucky</button>
                     </div>
                 </div>
@@ -704,7 +703,7 @@
                             
                             <div class="couple-input-field">
                                 <label style="font-size: 11px; color: rgba(255,255,255,0.7); margin-bottom: 5px; display: block;"></label>
-                                <input type="text" id="couple-pwd-date" placeholder="YYYY.MM.DD" style="width: 200px;">
+                                <input type="text" id="couple-pwd-date" placeholder="YYYYMMDD" style="width: 200px;">
                             </div>
             
                             <button class="couple-btn" onclick="checkCouplePassword()" style="margin-top: 20px;">Rush in</button>
