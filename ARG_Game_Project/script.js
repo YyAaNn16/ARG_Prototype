@@ -78,10 +78,18 @@ function loadGame() {
     return false; // 没有存档
 }
 
-// 调试用：清除存档功能 (开发时必备)
+// 调试用：清除存档与日志功能
 function clearSave() {
+    // 1. 清除游戏进度存档
     localStorage.removeItem('maya_save_data');
-    location.reload(); // 刷新页面
+    
+    // 2. 清除研究打点日志
+    localStorage.removeItem('maya_research_logs');
+    
+    console.log("[System] Save data and research logs have been completely reset.");
+    
+    // 3. 刷新页面以重新初始化
+    location.reload(); 
 }
 
 // --- OS 系统通知功能 ---
