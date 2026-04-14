@@ -1644,36 +1644,43 @@ const browserData = {
     // 搜索引擎关键词数据库 (可以配置多个关键词触发同一结果)
     searchDatabase: {
 
-        "year of the monkey, monkey year": [
-            {
-                // 直接在数据里插入卡片的 HTML
-                customHTML: `
-                <div class="featured-snippet-card" style="margin-bottom: 25px;">
-                    <div class="snippet-text-area">
-                        <h2 class="snippet-title">The Year of the Monkey is an important year in the Chinese zodiac...</h2>
-                        <p class="snippet-desc">It symbolizes cleverness, flexibility, and humor, often associated with intelligence and innovation.</p>
-                        <h3 class="snippet-subtitle">Recent Years of the Monkey:</h3>
-                        <ul class="snippet-years">
-                            <li>1968</li>
-                            <li>1980</li>
-                            <li>1992</li>
-                            <li>2004</li>
-                            <li>2016</li>
-                            <li>2028</li>
-                        </ul>
-                    </div>
-                    <div class="snippet-image-area">
-                        [ Image Placeholder: <br> Red Paper-cut Monkey Calendar ]
-                    </div>
-                </div>`
-            },
-            { 
-                url: "www.chinahighlights.com/travelguide/chinese-zodiac/monkey.htm", 
-                title: "Year of the Monkey: 2028, 2016, 2004, 1992...", 
-                snippet: "The Monkey is the ninth of the 12 Chinese zodiac animals. Learn about Monkey personality traits, lucky things, and love compatibility.",
-                clickAction: ""
-            }
-        ],
+        // 在 script.js 的 searchDatabase 中更新以下内容
+        // 在 script.js 的 searchDatabase 中更新
+        // 在 script.js 的 searchDatabase 中更新
+// 在 script.js 的 searchDatabase 中更新
+"year of the rabbit, rabbit year": [
+    {
+        // 布局保持垂直排列，删除了提示文字和不必要的边距
+        customHTML: `
+        <div class="featured-snippet-card" style="margin-bottom: 25px; flex-direction: column; display: flex;">
+            <div class="snippet-text-area" style="margin-bottom: 10px;">
+                <h2 class="snippet-title" style="margin-bottom: 8px;">The Year of the Rabbit is the fourth animal in the Chinese zodiac cycle...</h2>
+                <p class="snippet-desc" style="margin-bottom: 10px;">It symbolizes elegance, peacefulness, and gentleness. It is often associated with kindness, responsibility, and good luck.</p>
+                <h3 class="snippet-subtitle" style="margin-bottom: 5px;">Recent Years of the Rabbit:</h3>
+                <ul class="snippet-years" style="display: flex; gap: 15px; list-style: none; padding: 0; font-weight: bold; margin: 0;">
+                    <li>1963</li><li>1975</li><li>1987</li><li>1999</li><li>2011</li><li>2023</li>
+                </ul>
+            </div>
+            
+            <div class="snippet-image-wrapper" style="width: 100%;">
+                <div class="snippet-image-area" 
+                     style="width: 100%; height: auto; border: 1px solid #eee; background: #fff; cursor: pointer; overflow: hidden;"
+                     ">
+                    
+                    <img src="assets/rabbit.jpg" 
+                         alt="Year of the Rabbit" 
+                         style="width: 100%; height: auto; display: block; border-radius: 4px;">
+                </div>
+            </div>
+        </div>`
+    },
+    { 
+        url: "www.chinahighlights.com/travelguide/chinese-zodiac/rabbit.htm", 
+        title: "Year of the Rabbit: 2023, 2011, 1999, 1987...", 
+        snippet: "The Rabbit is the fourth of the 12 Chinese zodiac animals. Learn about Rabbit personality traits and love compatibility.",
+        clickAction: ""
+    }
+],
 
         "adam": [
             // 1. 维基百科 (干扰项)
@@ -1850,6 +1857,42 @@ const browserData = {
                 clickAction: "" 
             }
         ],
+
+        // 在 browserData.searchDatabase 内部添加：
+
+"wise men say": [
+    {
+        customHTML: `
+        <div class="featured-snippet-card" style="margin-bottom: 25px; border-left: 5px solid #1a0dab;">
+            <div class="snippet-text-area">
+                <h2 class="snippet-title">Can't Help Falling in Love - Elvis Presley</h2>
+                <p class="snippet-desc">"Can't Help Falling in Love" is a classic romance song recorded by American singer Elvis Presley for the album Blue Hawaii (1961).</p>
+                <h3 class="snippet-subtitle">Full Lyrics:</h3>
+                <div style="font-family: 'Courier Prime', monospace; font-size: 13px; line-height: 1.6; color: #333; background: #f9f9f9; padding: 15px; border-radius: 8px;">
+                    Wise men say<br>
+                    <strong>Only fools</strong> rush in<br>
+                    But I can't help falling in love with you<br><br>
+                    Shall I stay?<br>
+                    Would it be a sin<br>
+                    If I can't help falling in love with you?<br><br>
+                    Like a river flows<br>
+                    Surely to the sea<br>
+                    Darling, so it goes<br>
+                    Some things are meant to be<br><br>
+                    Take my hand,<br>
+                    Take my whole life, too<br>
+                    For I can't help falling in love with you
+                </div>
+            </div>
+        </div>`
+    },
+    { 
+        url: "www.azlyrics.com/lyrics/elvispresley/canthelpfallinginlove.html", 
+        title: "Elvis Presley - Can't Help Falling In Love Lyrics", 
+        snippet: "Wise men say only fools rush in. But I can't help falling in love with you. Shall I stay? Would it be a sin if I can't help falling in love with you?",
+        clickAction: ""
+    }
+],
 
 
     }
@@ -2126,7 +2169,7 @@ function executeSearch(fromResultsPage = false) {
                 <p style="margin-top:10px;">Suggestions:</p>
                 <ul style="color:#555; font-size:14px; margin-top:5px; line-height:1.6;">
                     <li>Make sure all words are spelled correctly.</li>
-                    <li>Try different keywords. (e.g., 'year of the monkey')</li>
+                    <li>Try different keywords. (e.g., 'year of the rabbit')</li>
                     <li>Try more general keywords.</li>
                 </ul>
             </div>`;
