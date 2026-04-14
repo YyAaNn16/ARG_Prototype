@@ -1335,13 +1335,35 @@ body {
 
 .intro-hint {
     margin-top: 40px !important;
-    color: #888;
+    color: #ccc;
+    /* 字体颜色稍微调亮，原先的 #888 在黑底上太暗 */
     font-style: italic;
-    font-size: 14px;
+    font-size: 15px;
+    /* 字体稍微放大 */
+    line-height: 1.6;
+    background: rgba(255, 255, 255, 0.05);
+    /* 添加极弱的背景色突出版块 */
+    padding: 15px 20px;
+    border-radius: 8px;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    /* 虚线框增加引导感 */
+    display: inline-block;
+    /* 让背景框紧贴文字 */
+}
+
+.intro-hint strong {
+    color: #fdd835;
+    /* 用明黄色高亮 Notes 和 character relationships */
+    font-style: normal;
+    /* 取消关键词的斜体，使其更突出 */
+    font-weight: 600;
 }
 
 .start-btn {
-    margin-top: 50px;
+    display: block;
+    /* 强制换行 */
+    margin: 50px auto 0;
+    /* 居中对齐 (上边距50px，左右自动，下边距0) */
     padding: 12px 40px;
     background-color: transparent;
     color: #fff;
@@ -2485,42 +2507,54 @@ body {
     transform: translateY(0);
 }
 
-/* 极简风半透明方形下载按钮 */
+/* 极简风半透明方形下载按钮 - 初始版放大50% + 白色眩光 */
 .minimal-download-btn {
     position: absolute;
     bottom: 20px;
     right: 20px;
-    width: 44px;
-    /* 固定宽高，形成正方形 */
-    height: 44px;
+    width: 66px;
+    /* 44px 的 1.5倍 */
+    height: 66px;
+    /* 44px 的 1.5倍 */
     background: rgba(255, 255, 255, 0.25);
-    /* 白色半透明背景 */
     backdrop-filter: blur(6px);
-    /* 配合背景模糊，毛玻璃质感更好 */
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    /* 淡淡的白色边框 */
-    border-radius: 8px;
-    /* 如果想要绝对的直角方形，把这里改成 0 */
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 12px;
+    /* 圆角跟随比例调大 */
     color: #fff;
-    /* 箭头颜色设为白色 */
+    font-size: 32px;
+    /* 内部图标等比放大 */
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+    /* 白色眩光效果 */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
 }
 
 /* 悬停时的交互效果 */
 .minimal-download-btn:hover {
     background: rgba(255, 255, 255, 0.45);
-    /* 悬停时稍微变亮 */
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+    /* 按钮变大了，悬浮高度也稍微增加一点 */
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.95);
+    /* 悬停时眩光更强 */
 }
 
 .minimal-download-btn:active {
     transform: translateY(0);
+}
+
+/* 强制放大下载按钮里的 SVG 矢量箭头 */
+.minimal-download-btn svg {
+    width: 36px !important;
+    /* 把原来的 20px 放大 */
+    height: 36px !important;
+    /* 同步放大 */
+    stroke-width: 2.5;
+    /* 可选：让线条变粗一点点，看起来更实心 */
 }
 
 /* 加密信息窗口背景：Logo 移至右侧且更隐蔽 */

@@ -459,7 +459,7 @@ const xhsPostData = {
 // === Luna 小号 (1_4_1_13_1010) 的帖子 (地道英文版) ===
     "luna_burner_sos": {
         img: "assets/help.png", // 药瓶图片
-        author: "1_4_1_13_1010", avatar: "",
+        author: "Earths_Satellite", avatar: "",
         text: "Help: Found this in my friend's bag.\nThe label says 'Novacard', which I searched and it's for the heart condition. But the pills inside are plain white and round, completely different from the blue ones on the internet. \n\nDoes anyone have any idea what these are? ❓",
         date: "2026.04.03", comments: "2 Comments",
         commentsList: [
@@ -670,7 +670,7 @@ function generateXhsLinkMsg(postId, senderType = "left") {
 // --- 1. DATA: Chat History ---
 const chatData = {
     "user_cousin": {
-        name: "陆白", avatarColor: "#4285f4", avatarText: "白",
+        name: "陆白", avatarColor: "#4285f4", avatarText: "Bai",
         inChatList: true,
         unread: true,
         messages: [
@@ -737,7 +737,7 @@ const chatData = {
     },
 
     "user_luna": {
-        name: "月 🌙", avatarColor: "#e91e63", avatarText: "🌙",
+        name: "月 🌙", avatarColor: "#e91e63", avatarText: "Luna",
         inChatList: false, // 👉 默认隐藏
         messages: [
             { type: "sys", text: "Oct 30, 2025" },
@@ -838,11 +838,11 @@ const chatData = {
 // --- 2. DATA: Contacts Directory (通讯录数据) ---
 const contactsData = {
     "user_cousin": { 
-        name: "陆白", avatarColor: "#4285f4", avatarText: "白", wechatId: "wxid_hfjs88", 
+        name: "陆白", avatarColor: "#4285f4", avatarText: "Bai", wechatId: "wxid_hfjs88", 
         signature: "Family first." 
     },
     "user_luna": { 
-        name: "月 🌙", avatarColor: "#e91e63", avatarText: "🌙", wechatId: "LunaCarter1221", 
+        name: "月 🌙", avatarColor: "#e91e63", avatarText: "Luna", wechatId: "LunaCarter1221", 
         signature: "Living my best life" 
     },
     "user_lucas": { 
@@ -1007,8 +1007,13 @@ function renderContactsList() {
     const listContainer = document.getElementById('contacts-list-view');
     listContainer.innerHTML = ''; 
     
-    // 改为遍历 contactsData 而不是 chatData
-    for (const [id, data] of Object.entries(contactsData)) {
+    // 1. 将对象转换为数组，并使用 localeCompare 进行中英文字母/拼音混合排序
+    const sortedContacts = Object.entries(contactsData).sort((a, b) => {
+        return a[1].name.localeCompare(b[1].name, 'zh-CN');
+    });
+
+    // 2. 遍历排序后的数组进行渲染
+    for (const [id, data] of sortedContacts) {
         listContainer.innerHTML += `
             <div class="contact-item" onclick="showContactProfile('${id}')">
                 <div class="avatar" style="background:${data.avatarColor}">${data.avatarText}</div>
@@ -1017,6 +1022,7 @@ function renderContactsList() {
                 </div>
             </div>`;
     }
+    
     // 在联系人列表最下方添加总数显示
     listContainer.innerHTML += `
         <div style="text-align: center; color: #999; font-size: 13px; padding: 20px 0; margin-top: 10px; border-top: 1px solid #eee;">
@@ -1036,11 +1042,17 @@ function showContactProfile(userId) {
     // 如果没有配置签名，显示默认占位符
     const signatureText = data.signature ? `"${data.signature}"` : "No signature.";
     
+    // 👇 新增逻辑：针对 Adam 这一条，把 1999 稍微加粗一点点 👇
+    let displayWechatId = data.wechatId;
+    if (data.wechatId === 'Adam_1999') {
+        displayWechatId = `Adam_<span style="font-weight: 550; color: #777;">1999</span>`;
+    }
+
     detailContainer.innerHTML = `
         <div style="text-align:center; background:#fff; padding: 40px; border-radius:8px; box-shadow:0 2px 10px rgba(0,0,0,0.05); width: 320px;">
             <div style="width:80px; height:80px; background:${data.avatarColor}; color:white; font-size:25px; font-weight:bold; display:flex; align-items:center; justify-content:center; border-radius:8px; margin: 0 auto 15px auto;">${data.avatarText}</div>
             <h2 style="margin:0 0 5px 0; color:#333;">${data.name}</h2>
-            <p style="color:#999; font-size:13px; margin-bottom: 10px;">CallMe ID: ${data.wechatId}</p>
+            <p style="color:#999; font-size:13px; margin-bottom: 10px;">CallMe ID: ${displayWechatId}</p>
             <p style="color:#666; font-size:14px; margin-bottom: 30px; font-style: italic;">${signatureText}</p>
             <button onclick="jumpToChatFromContact('${userId}')" style="background:#07c160; color:white; border:none; padding:10px 40px; border-radius:4px; font-size:15px; font-weight:600; cursor:pointer; width: 100%;">Call Me</button>
         </div>
@@ -1193,6 +1205,8 @@ function goXhsBack() {
             openXhsUser(prevState.id, true);
         } else if (prevState.type === 'dm') {
             openXhsDm(prevState.id, true);
+        } else if (prevState.type === 'private_user') { // <--- 加上这个新分支
+            openPrivateXhsUser(prevState.id, true);
         }
     }
 }
@@ -1667,14 +1681,14 @@ const browserData = {
                 url: "en.wikipedia.org/wiki/Adam", 
                 title: "Adam - Wikipedia", 
                 snippet: "Adam is a figure in the Book of Genesis in the Hebrew Bible, and in the Quran and Christian belief. According to the creation myth of the Abrahamic religions, he was the first human...",
-                clickAction: "navBrowser('wiki-adam')"
+                clickAction: ""
             },
             // 2. 深度学习优化算法 (干扰项)
             { 
                 url: "machinelearningmastery.com/adam-optimization-algorithm", 
                 title: "A Gentle Introduction to the Adam Optimization Algorithm", 
                 snippet: "Adam is an optimization algorithm that can be used instead of the classical stochastic gradient descent procedure to update network weights iterative based in training data...",
-                clickAction: "navBrowser('algo-adam')"
+                clickAction: ""
             },
             // // 3. 曼谷死亡新闻报道 (核心剧情线索！)
             // { 
@@ -2697,7 +2711,7 @@ function backToFilesMainFromHands() {
 
 // 点击数字键
 function t9Input(num) {
-    if (currentT9Input.length < 8) { // 限制输入长度
+if (currentT9Input.length < 5) { // 限制输入长度
         currentT9Input += num;
         updateT9Display();
     }
@@ -3439,64 +3453,53 @@ function closeFilePicker() {
  */
 
 
-// function jumpToUserFromComment(userName) {
-//     const userKey = Object.keys(xhsUsers).find(key => xhsUsers[key].name === userName);
-    
-//     if (userKey) {
-//         // ✨ 不要在这里调用 closeXhsDetail()，让它留在后台
-//         openXhsUser(userKey);
-//     } else {
-//         console.warn("User data not found for name:", userName);
-//     }
-// }
-
-
-// function jumpToUserFromComment(userName) {
-//     const userKey = Object.keys(xhsUsers).find(key => xhsUsers[key].name === userName);
-    
-//     if (userKey) {
-//         // ✨ 不要在这里调用 closeXhsDetail()，让它留在后台
-//         openXhsUser(userKey);
-//     } else {
-//         console.warn("User data not found for name:", userName);
-//     }
-// }
 
 function jumpToUserFromComment(userName) {
     const userKey = Object.keys(xhsUsers).find(key => xhsUsers[key].name === userName);
     if (userKey) {
-        // 直接打开，它会因为 zIndex 增加而盖在帖子上面
+        // 直接打开主线剧情人物的主页
         openXhsUser(userKey); 
+    } else {
+        // 如果在数据库里找不到，说明是干扰账号，打开私密主页
+        openPrivateXhsUser(userName);
     }
 }
 
+function openPrivateXhsUser(userName, isBack = false) {
+    // 压入历史栈，支持原生的左上角后退按钮
+    if (!isBack) {
+        xhsHistoryStack.push({ type: 'private_user', id: userName });
+    }
 
-// --- 新增：动态渲染小红书私信列表 ---
-// function renderXhsMsgList() {
-//     const container = document.getElementById('xhs-msg-list-container');
-//     if (!container) return;
+    document.getElementById('xhs-up-name').innerText = userName;
     
-//     container.innerHTML = ''; // 清空旧列表
+    // 细节：根据用户名算一个固定的假ID，这样玩家多次点同一个人，ID不会乱变
+    let hash = 0;
+    for (let i = 0; i < userName.length; i++) { hash = userName.charCodeAt(i) + ((hash << 5) - hash); }
+    let fakeId = Math.abs(hash).toString().substring(0, 7).padEnd(6, '0');
+    
+    document.getElementById('xhs-up-id').innerText = `ID: ${fakeId}`;
+    document.getElementById('xhs-up-avatar').style.background = '#ccc'; // 干扰账号统一给灰色头像
+    document.getElementById('xhs-up-posts').innerText = "-";
+    document.getElementById('xhs-up-followers').innerText = "-";
+    document.getElementById('xhs-up-following').innerText = "-";
+    document.getElementById('xhs-up-bio').innerHTML = ""; // 隐藏简介
 
-//     // 遍历 xhsDMs 数据生成 HTML
-//     for (const [userId, data] of Object.entries(xhsDMs)) {
-//         const lastMsg = data.messages[data.messages.length - 1];
-//         const previewText = lastMsg ? lastMsg.text : "No messages";
-//         const avatarStyle = data.avatar ? `background: url('${data.avatar}') center/cover` : `background: #ccc`;
-        
-//         container.innerHTML += `
-//             <div class="xhs-msg-item" onclick="openXhsDm('${userId}')">
-//                 <div class="xhs-msg-avatar" style="${avatarStyle}"></div>
-//                 <div class="xhs-msg-info">
-//                     <div class="xhs-msg-top">
-//                         <span class="xhs-msg-name" style="${userId === 'ryan' ? 'color:#999' : ''}">${data.name}</span>
-//                         <span class="xhs-msg-time">${lastMsg ? (lastMsg.time || 'Today') : ''}</span>
-//                     </div>
-//                     <div class="xhs-msg-text">${previewText}</div>
-//                 </div>
-//             </div>`;
-//     }
-// }
+    const feedContainer = document.getElementById('xhs-up-feed');
+    // 清空帖子网格，跨列居中显示私密锁和提示语
+    feedContainer.innerHTML = `
+        <div style="grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; color: #999;">
+            <div style="font-size: 48px; margin-bottom: 15px;">🔒</div>
+            <div style="font-size: 16px; font-weight: bold; color: #333; margin-bottom: 8px;">This Account is Private</div>
+            <div style="font-size: 12px; text-align: center;">Follow this account to see their photos and videos.</div>
+        </div>`;
+   
+    const userWin = document.getElementById('xhs-external-user');
+    userWin.style.display = 'flex';
+    userWin.style.zIndex = ++zIndex;
+}
+
+
 
 function renderXhsMsgList() {
     const container = document.getElementById('xhs-msg-list-container');
