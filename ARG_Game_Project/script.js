@@ -1077,7 +1077,7 @@ function renderWallet() {
     // 预设交易记录，完美契合剧情时间线：给Ryan的转账以及给Luna买包的消费
     const records = [
         { title: "Salary Incoming", time: "Aug 10, 2025 18:00", amount: "+25,000.00", type: "positive", status: "Success" },
-        { title: "Transfer to Mon", time: "Jan 29, 2025 09:15", amount: "-5,000.00", type: "negative", status: "Success" },
+        { title: "Transfer to Mom", time: "Jan 29, 2025 09:15", amount: "-5,000.00", type: "negative", status: "Success" },
         { title: "Salary Incoming", time: "Sep 10, 2023 18:00", amount: "+15,000.00", type: "positive", status: "Success" },
         { title: "Salary Incoming", time: "Oct 10, 2022 18:00", amount: "+7,500.00", type: "positive", status: "Success" },
         { title: "Refund from Xin", time: "Jun 06, 2021 09:15", amount: "+100,000.00", type: "positive", status: "Success" },
