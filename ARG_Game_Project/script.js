@@ -2440,7 +2440,7 @@ function openReceiptPreview() {
                 <p style="font-size:10px">Guangzhou Logistics Center</p>
             </div>
             <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:5px;">
-                <span>Date: 2023-10-01</span>
+                <span>Date: 2025-12-01</span>
             </div>
             <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:5px; background: yellow; color:black; font-weight:bold;">
                 <span>TRACKING NO:</span><span>SF-8823</span>
@@ -2452,7 +2452,7 @@ function openReceiptPreview() {
             <hr style="border-top:1px dashed #ccc; margin:10px 0;">
             <div style="font-weight:bold; font-size:12px; margin-bottom:5px;">ITEM DESCRIPTION</div>
             <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:10px;">
-                <span style="width:70%">Fashion Handbag<br><span style="color:#666; font-size:10px;">(Luxury Style / Orange)</span></span>
+                <span style="width:70%">Fashion Handbag<br><span style="color:#666; font-size:10px;">(Luxury Style / Green)</span></span>
                 <span>¥800,000.00</span>
             </div>
             <div style="border-top:2px dashed #333; margin-top:20px; padding-top:10px; font-weight:bold; display:flex; justify-content:space-between; font-size:14px;">
@@ -3051,21 +3051,25 @@ function checkCouplePassword() {
     const dateInput = document.getElementById('couple-pwd-date').value.trim();
     const errorMsg = document.getElementById('couple-login-error');
     
-    const isCorrect = (lyricsInput === "only fools" && dateInput ==="20240214");
+    // 定义正确答案
+    const correctLyrics = "only fools";
+    const correctDate = "20240214";
+
+    const isLyricsCorrect = (lyricsInput === correctLyrics);
+    const isDateCorrect = (dateInput === correctDate);
+
     // 👇 插入打点 👇
     recordAction('PWD_ATTEMPT_COUPLE', { 
         lyrics: lyricsInput, 
         date: dateInput, 
-        success: isCorrect 
+        success: (isLyricsCorrect && isDateCorrect) 
     });
 
-    // 校验逻辑：歌词（忽略大小写）和日期
-    if (isCorrect) {
-        // ✨ 核心修改：设置解锁状态并存档
+    if (isLyricsCorrect && isDateCorrect) {
+        // ✨ 成功登录
         gameState.unlockedCoupleSite = true;
         saveGame();
 
-        // 成功登录
         browserData.history.unshift({ 
             time: "Just now", 
             title: "Our Eternal Aurora - H&L", 
@@ -3073,9 +3077,19 @@ function checkCouplePassword() {
             clickAction: "navBrowser('couple-main')" 
         });
         navBrowser('couple-main'); 
+        
     } else {
-        // 失败逻辑
-        errorMsg.innerText = "Only for those who remember the beginning.";
+        // ❌ 失败逻辑：根据不同情况显示提示语
+        if (isLyricsCorrect && !isDateCorrect) {
+            // 歌词对，日期错
+            errorMsg.innerText = "Only for those who remember the beginning.";
+        } else if (isDateCorrect && !isLyricsCorrect) {
+            // 日期对，歌词错
+            errorMsg.innerText = "Listen closely to our song";
+        } else {
+            // 全错
+            errorMsg.innerText = "Only for those who remember the beginning.";
+        }
         
         // 给两个输入框都加上震动效果
         const fields = [document.getElementById('couple-pwd-lyrics'), document.getElementById('couple-pwd-date')];
