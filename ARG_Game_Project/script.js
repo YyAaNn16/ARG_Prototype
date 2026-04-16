@@ -481,7 +481,7 @@ const xhsPostData = {
          // 主页
     "post_work_1": {
         img: "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?q=80&w=500",
-        author: "Aero_Nav", avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+        author: "Aero_Nav", avatar: "",
         text: "Midnight shift at the terminal. 🌙\nEverything is moving like clockwork. Watching the last flight land safely at 2 AM is the best relief. \n#Aviation #AirportDaily #ATC",
         date: "2026.03.28", comments: "42 Comments",
         commentsList: [{ user: "SkyWalker_99", avatar: "", text: "The tarmac looks beautiful tonight.", time: "1h ago" }]
