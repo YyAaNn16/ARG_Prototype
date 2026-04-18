@@ -1728,7 +1728,7 @@ const browserData = {
         ],
 
         // 大学搜索结果
-        "mingzhou university of science and technology, mingzhou university, MUST": [
+        "mingzhou university of science and technology, mingzhou university, MUST, MUST Class of 2016": [
             { 
                 url: "en.mingzhou.edu.cn", 
                 title: "Mingzhou University of Science and Technology (MUST)", 
